@@ -16,13 +16,13 @@
     <LinearLayout
         style="@style/ll_vertical_match_wrap"
         android:gravity="left|center_vertical"
-        android:paddingLeft="4dp">
+        android:paddingLeft="4dp" >
 
-        <LinearLayout style="@style/ll_horizontal_match_wrap">
+        <LinearLayout style="@style/ll_horizontal_match_wrap" >
 
             <LinearLayout
                 style="@style/ll_horizontal_match_wrap"
-                android:layout_weight="1">
+                android:layout_weight="1" >
 
                 <TextView
                     android:id="@+id/tvUserViewName"
