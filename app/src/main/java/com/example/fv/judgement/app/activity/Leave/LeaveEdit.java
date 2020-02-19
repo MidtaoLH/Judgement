@@ -21,18 +21,5 @@ public class LeaveEdit extends AppCompatActivity {
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_edit);
-        diaoyong();
-    }
-    public  void diaoyong()
-    {
-        String methodName = "CheckUser";
-        SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
-                methodName);
-        soapObject.addProperty("User", "zhaodan");
-        soapObject.addProperty("Password", "111111");
-        soapObject.addProperty("macid", "dddd");
-        HttpRequest http=new HttpRequest();
-        List<LoginUserModel> list=http.httpWebService(methodName,soapObject);
-
     }
 }
