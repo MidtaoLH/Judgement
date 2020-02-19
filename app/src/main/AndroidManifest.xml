@@ -11,9 +11,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".app.activity.MyExamineList.AlreadyExamineList"></activity>
         <activity android:name=".app.activity.MyExamineList.WaitExamineList" />
-        <activity android:name=".app.activity.Leave.LeaveEdit" />
+        <activity android:name=".app.activity.Login.MainLogin" />
         <activity android:name=".app.activity.GoOut.GoOut" />
-        <activity android:name=".app.activity.Login.MainLogin">
+        <activity android:name=".app.activity.Leave.LeaveEdit">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
