@@ -1,4 +1,11 @@
 package com.example.fv.judgement.app.model;
 
-public class LeaveModel {
+import zuo.biao.library.base.BaseModel;
+
+public class LeaveModel extends BaseModel {
+
+    @Override
+    protected boolean isCorrect() {
+        return false;
+    }
 }
