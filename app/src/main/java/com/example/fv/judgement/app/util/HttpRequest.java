@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -28,7 +27,7 @@ public class HttpRequest {
     //参数1方法名 参数2 参数信息 返回值list<t>
     // SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
     // soapObject.addProperty("User", "zhaodan");
-    public <T>  List<T> httpWebService(String methodName,SoapObject soapObject) {
+    public <T>  List<T> httpWebService(String methodName, SoapObject soapObject) {
         // 创建HttpTransportSE传输对象
         HttpTransportSE ht = new HttpTransportSE(GlobalVariableApplication.SERVICE_URL);
         try {
