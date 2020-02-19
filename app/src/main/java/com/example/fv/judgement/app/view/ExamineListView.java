@@ -37,7 +37,7 @@ public class ExamineListView extends BaseView<ExamineModel>
                 ivUserViewHead.setImageBitmap(CommonUtil.toRoundCorner(bitmap, bitmap.getWidth()/2));
             }
         });
- 
+
     }
     public void onClick(View v) {
     }
