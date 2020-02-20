@@ -66,7 +66,7 @@
     <color name="blue_sky">#62c8f9</color>
     <color name="btn_blue_normal">#009ed3</color>
     <color name="btn_blue_pressed">#2c6ed2</color>
-    <color name="btn_gray_normal">#c0c0c0</color>
+    <color name="btn_gray_normal">#C0C0C0</color>
     <color name="btn_gray_pressed">#666667</color>
     <color name="btn_red_normal">#ff3b3b</color>
     <color name="btn_red_pressed">#dd0000</color>
@@ -103,10 +103,10 @@
     <color name="title_bg">#ff54acea</color>
     <color name="topbar_bg">#33cc99</color>
     <color name="topbar_bg_black">#272e2a</color>
-    <color name="topbar_bg_white">#ffffffff</color>
+    <color name="topbar_bg_white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="transparent01">#9000</color>
-    <color name="white">#ffffff</color>
+    <color name="white">#FFFFFF</color>
     <color name="white_alpha">#ddffffff</color>
     <color name="white_alpha_6">#bbdddddd</color>
     <color name="white_selected">#ffffff</color>

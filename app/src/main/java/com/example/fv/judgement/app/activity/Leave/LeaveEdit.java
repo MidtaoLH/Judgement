@@ -21,5 +21,6 @@ public class LeaveEdit extends AppCompatActivity {
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_edit);
+
     }
 }
