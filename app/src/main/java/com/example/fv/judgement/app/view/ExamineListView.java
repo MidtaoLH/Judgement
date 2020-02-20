@@ -3,6 +3,7 @@ package com.example.fv.judgement.app.view;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -38,7 +39,7 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
     public TextView tvEndDate;
     public TextView tvStatus;
     public TextView tvCaseDate;
-
+    public TextView tvYuLan;
     @SuppressLint("InflateParams")
     @Override
      //创建画面控件关联
@@ -51,6 +52,7 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
         tvEndDate = findView(R.id.tvEndDate);
         tvStatus = findView(R.id.tvStatus);
         tvCaseDate = findView(R.id.tvCaseDate);
+        tvYuLan = findView(R.id.tvYuLan);
         return super.createView();
     }
     @Override
@@ -70,13 +72,19 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
         tvBeginDate.setText("开始时间:" + data_.getBeginDate());
         tvEndDate.setText("结束时间:" + data_.getEndDate());
         tvCaseDate.setText(data_.getCaseDate());
-        tvStatus.setText(data_.getCaseDate());
+        tvStatus.setText(data_.getCaseStatusTxt());
 
         //特殊处理
         String strType = data_.getDocumentName();
         if (!strType.equals("请假")) {
             tvCaseType.setVisibility(View.GONE);
         }
+        else
+        {
+            tvCaseType.setVisibility(View.VISIBLE);
+        }
+        tvStatus.setTextColor(Color.rgb(0, 204, 204));
+        tvYuLan.setTextColor(Color.rgb(0, 204, 204));
     }
     @Override
     public void onClick(View v) {

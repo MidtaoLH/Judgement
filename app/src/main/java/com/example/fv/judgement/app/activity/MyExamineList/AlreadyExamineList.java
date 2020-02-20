@@ -114,14 +114,20 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
     @Override
     public void initData() {//必须调用
         super.initData();
-        List<ExamineModel> list=  GetExamineData();
-        setList(list);
     }
-    public  List<ExamineModel>  GetExamineData()
-    {
+
+    @Override
+    public void getListAsync(final int page) {
+        int pageindex = page;
+        if(pageindex == 0)
+        {
+            pageindex++;
+        }
+        String strPageIndex = String.valueOf(pageindex);
+
         String methodName = "GetPendingInfo";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-        soapObject.addProperty("pasgeIndex","1");
+        soapObject.addProperty("pasgeIndex",strPageIndex);
         soapObject.addProperty("pageSize","5");
         soapObject.addProperty("code","40");
         soapObject.addProperty("userID","91");
@@ -134,10 +140,7 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
         Type type = new TypeToken<List<ExamineModel>>(){}.getType();
         listExaData = new Gson().fromJson(jsonData,type);
 
-        return listExaData;
-    }
-    @Override
-    public void getListAsync(final int page) {
+        onHttpResponse(-page, JSON.toJSONString(listExaData), null);
         //实际使用时用这个，需要配置服务器地址		HttpRequest.getUserList(range, page, -page, this);
 
         //仅测试用<<<<<<<<<<<

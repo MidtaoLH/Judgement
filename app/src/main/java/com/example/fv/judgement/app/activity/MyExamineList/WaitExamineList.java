@@ -92,6 +92,7 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         public void initView() {//必须调用
             super.initView();
         }
+
         @Override
       //  public void setList(final List<ExamineModel> list) {
         public void setList(final List<ExamineModel> list) {
@@ -114,8 +115,8 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         @Override
         public void initData() {//必须调用
             super.initData();
-            List<ExamineModel> list=  GetExamineData();
-            setList(list);
+        //    List<ExamineModel> list=  GetExamineData();
+        //    setList(list);
         }
         public  List<ExamineModel>  GetExamineData()
         {
@@ -136,10 +137,34 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
 
             return listExaData;
         }
+
         @Override
         public void getListAsync(final int page) {
-            //实际使用时用这个，需要配置服务器地址		HttpRequest.getUserList(range, page, -page, this);
+            //实际使用时用这个，需要配置服务器地址  HttpRequest.getUserList(range, page, -page, this);
 
+            int pageindex = page;
+            if(pageindex == 0)
+            {
+                pageindex++;
+            }
+            String strPageIndex = String.valueOf(pageindex);
+
+            String methodName = "GetPendingInfo";
+            SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
+            soapObject.addProperty("pasgeIndex",strPageIndex);
+            soapObject.addProperty("pageSize","5");
+            soapObject.addProperty("code","40");
+            soapObject.addProperty("userID","91");
+            soapObject.addProperty("menuID","4");
+            soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+            HttpRequest httpres= new HttpRequest();
+            String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
+            List<ExamineModel> listExaData=new ArrayList<ExamineModel>();
+
+            Type type = new TypeToken<List<ExamineModel>>(){}.getType();
+            listExaData = new Gson().fromJson(jsonData,type);
+
+            onHttpResponse(-page, JSON.toJSONString(listExaData), null);
             //仅测试用<<<<<<<<<<<
 //            new Handler().postDelayed(new Runnable() {
 //
