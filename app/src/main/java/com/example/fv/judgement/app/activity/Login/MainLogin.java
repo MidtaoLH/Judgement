@@ -2,6 +2,8 @@ package com.example.fv.judgement.app.activity.Login;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
@@ -26,19 +30,26 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import zuo.biao.library.base.SpinnerEditText;
 
+import static com.example.fv.judgement.app.application.GlobalVariableApplication.IMAGE_URL;
+
 public class MainLogin extends AppCompatActivity {
 
     private Button loginbtn;
-   // private EditText Username;
+
     private EditText Password;
 
-    private  String adduserlistflag = "true";
+    private ImageView set_image;
 
+    private TextView company;
+
+    private  String adduserlistflag = "true";
 
     private SpinnerEditText<BaseBean> set_diy_att;
 
@@ -57,11 +68,6 @@ public class MainLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_login);
 
-        //实例化控件
-       // Username = findViewById(R.id.username);
-        Password = findViewById(R.id.password);
-        loginbtn  = findViewById(R.id.login);
-
         //从硬盘获取数据
         preferences = getSharedPreferences("MainData",MainLogin.MODE_PRIVATE);
         userid = preferences.getString("username", "");
@@ -73,18 +79,57 @@ public class MainLogin extends AppCompatActivity {
         //获取本机id
         adId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
 
+        //实例化控件
+       // Username = findViewById(R.id.username);
+        Password = findViewById(R.id.password);
+        loginbtn  = findViewById(R.id.login);
+        set_image = findViewById(R.id.set_image);
+        company = findViewById(R.id.buss);
+        company.setTextColor(Color.BLUE);
+        initDIYAttSpinnerEditText();
+
+
+
+
         if(userid.length() > 0)
         {
-          //  Username.setText(userid);
+            URL url = null;
+            try {
+                url = new URL(IMAGE_URL + userid + ".png");
+                set_image.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            set_diy_att.setText(userid);
+            Password.requestFocus();
+
+            set_diy_att.setFocusable(true);
             String LoginFlag = UseWebservice();
             if(LoginFlag.equals("1") )
             {
                 //登录到首页
 
             }
+            else
+            {
+
+                try {
+                    url = new URL(IMAGE_URL + userid + ".png");
+                    set_image.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                 catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
 
-        initDIYAttSpinnerEditText();
+
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,10 +170,14 @@ public class MainLogin extends AppCompatActivity {
 
                                     if(LU.size() > 0)
                                     {
+                                        SharedPreferences.Editor editor = preferences.edit();
                                         String Flag = LU.get(0).getFlag().toString();
                                         if(Flag.equals("1"))
                                         {
                                             //denglu chengg
+
+                                            editor.putString("username", set_diy_att.getValue());
+                                            editor.commit();//写入
 
                                             if(usercount_int > 0)
                                             {
@@ -147,8 +196,6 @@ public class MainLogin extends AppCompatActivity {
                                             }
                                             else
                                             {
-
-                                                SharedPreferences.Editor editor = preferences.edit();
                                                 editor.putString("username1", set_diy_att.getValue());
                                                 editor.commit();//写入
 
@@ -157,7 +204,6 @@ public class MainLogin extends AppCompatActivity {
                                             if(adduserlistflag.equals("true"))
                                             {
                                                 usercount_int = usercount_int + 1;
-                                                SharedPreferences.Editor editor = preferences.edit();
                                                 editor.putString("usercount",  Integer.toString(usercount_int));
 
                                                 editor.putString("username"+usercount_int, set_diy_att.getValue());
@@ -181,18 +227,20 @@ public class MainLogin extends AppCompatActivity {
         set_diy_att= (SpinnerEditText<BaseBean>) findViewById(R.id.set_div_att);
         set_diy_att.setRightCompoundDrawable(R.drawable.vector_drawable_arrowdown);
 
+
+        set_diy_att.setNeedShowSpinner(false);
+
+        set_diy_att.setShowType(1);
+
         set_diy_att.setOnItemClickListener(new SpinnerEditText.OnItemClickListener<BaseBean>() {
             @Override
-            public void onItemClick(BaseBean baseBean, SpinnerEditText<BaseBean> var1, View var2, int position, long var4, String selectContent) {
-                new AlertDialog.Builder(MainLogin.this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("")
-                        .setMessage("test")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
+            public void onItemClick(BaseBean baseBean, SpinnerEditText<BaseBean> var1, View var2, int position, long var4, String selectContent) throws IOException {
 
-                            }
-                        }).create().show();
+
+                URL url = new URL(IMAGE_URL + baseBean.Name + ".png");
+                set_image.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
+
+
             }
         });
 

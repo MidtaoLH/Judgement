@@ -59,6 +59,7 @@
     <color name="alpha_6">#6000</color>
     <color name="alpha_9">#9000</color>
     <color name="alpha_complete">#0000</color>
+    <color name="bar_grey">#393a3e</color>
     <color name="black">#000000</color>
     <color name="black_slight">#666666</color>
     <color name="blue">#009ed3</color>

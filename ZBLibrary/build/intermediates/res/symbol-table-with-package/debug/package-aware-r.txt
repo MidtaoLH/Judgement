@@ -476,6 +476,7 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color bar_grey
 color black
 color black_slight
 color black_to_white
@@ -898,6 +899,7 @@ drawable alpha3
 drawable alpha_to_darker
 drawable avd_hide_password
 drawable avd_show_password
+drawable back
 drawable back2
 drawable back2_light
 drawable black_to_white_alpha

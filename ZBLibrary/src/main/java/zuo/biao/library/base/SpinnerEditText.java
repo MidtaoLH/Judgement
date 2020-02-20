@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,6 +143,7 @@ public class SpinnerEditText<T> extends AppCompatEditText {
         addTextChangedListener(new TextWatchAdapter() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
                 if (popupWindow != null && SpinnerEditText.this.hasFocus()) {
                     handler.removeMessages(2);
                     handler.sendEmptyMessage(2);
@@ -163,13 +165,14 @@ public class SpinnerEditText<T> extends AppCompatEditText {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                if (popupWindow != null && hasFocus) {
-                    betterShow(getText().toString(), 250);
-                }
-
-                for (View.OnFocusChangeListener onFocusChangeListener : onFocusChangeListenerList) {
-                    onFocusChangeListener.onFocusChange(v, hasFocus);
-                }
+                //设置取消模糊查询
+//                if (popupWindow != null && hasFocus) {
+//                    betterShow(getText().toString(), 250);
+//                }
+//
+//                for (View.OnFocusChangeListener onFocusChangeListener : onFocusChangeListenerList) {
+//                    onFocusChangeListener.onFocusChange(v, hasFocus);
+//                }
             }
         });
 
@@ -345,7 +348,7 @@ public class SpinnerEditText<T> extends AppCompatEditText {
     }
 
     public interface OnItemClickListener<T> {
-        void onItemClick(T t, SpinnerEditText<T> var1, View var2, int position, long var4, String selectContent);
+        void onItemClick(T t, SpinnerEditText<T> var1, View var2, int position, long var4, String selectContent) throws IOException;
     }
 
     private OnItemClickListener<T> onItemClickListener;
@@ -399,7 +402,7 @@ public class SpinnerEditText<T> extends AppCompatEditText {
         this.alwaysClearList = alwaysClearList;
     }
 
-    private boolean needShowSpinner = true;//是否需要显示下拉框
+    private boolean needShowSpinner = false;//是否需要显示下拉框
 
     public boolean isNeedShowSpinner() {
         return needShowSpinner;
@@ -586,8 +589,13 @@ public class SpinnerEditText<T> extends AppCompatEditText {
 
                             setSelectedItemPosition(i);
                             SpinnerEditText.this.setSelectedItem(t);
-                            if (onItemClickListener != null)
-                                onItemClickListener.onItemClick(t, SpinnerEditText.this, v, i, i, selectedContent);
+                            if (onItemClickListener != null) {
+                                try {
+                                    onItemClickListener.onItemClick(t, SpinnerEditText.this, v, i, i, selectedContent);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
                             forbidShowPopOnce = true;
                             if (!itemList.isEmpty() && i < itemList.size()) {
