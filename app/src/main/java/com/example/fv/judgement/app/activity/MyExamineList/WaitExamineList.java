@@ -40,8 +40,13 @@ import zuo.biao.library.util.StringUtil;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.ksoap2.serialization.SoapObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView, ExamineListAdapter> implements CacheCallBack<ExamineModel>
@@ -123,7 +128,11 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
             soapObject.addProperty("menuID","4");
             soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
             HttpRequest httpres= new HttpRequest();
-            List<ExamineModel> listExaData = httpres.httpWebService(methodName,soapObject);
+            String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
+            List<ExamineModel> listExaData = new ArrayList<>();
+            Type type = new TypeToken<List<ExamineModel>>(){}.getType();
+            listExaData = new Gson().fromJson(jsonData,type);
+
             return listExaData;
         }
         @Override

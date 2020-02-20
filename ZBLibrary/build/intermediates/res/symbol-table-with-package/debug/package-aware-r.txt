@@ -264,6 +264,10 @@ attr passwordToggleDrawable
 attr passwordToggleEnabled
 attr passwordToggleTint
 attr passwordToggleTintMode
+attr pop_max_height
+attr pop_min_height
+attr pop_textcolor
+attr pop_textsize
 attr popupMenuStyle
 attr popupTheme
 attr popupWindowStyle
@@ -491,6 +495,9 @@ color button_material_dark
 color button_material_light
 color button_selected
 color button_unselected
+color colorAccent
+color colorPrimary
+color colorPrimaryDark
 color design_bottom_navigation_shadow_color
 color design_error
 color design_fab_shadow_end_color
@@ -1406,10 +1413,13 @@ style ActivityRecDialog
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style AlphaWindowNoTrancelation
+style AnimationFromButtom
+style AnimationUpPopup
 style Animation_AppCompat_Dialog
 style Animation_AppCompat_DropDownUp
 style Animation_AppCompat_Tooltip
 style Animation_Design_BottomSheetDialog
+style AppTheme
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog
@@ -1992,6 +2002,7 @@ styleable SmartRefreshLayout srlAccentColor srlDisableContentWhenLoading srlDisa
 styleable SmartRefreshLayout_Layout layout_srlBackgroundColor layout_srlSpinnerStyle
 styleable SnackbarLayout android_maxWidth elevation maxActionInlineWidth
 styleable Spinner android_dropDownWidth android_entries android_popupBackground android_prompt popupTheme
+styleable SpinnerEditText pop_max_height pop_min_height pop_textcolor pop_textsize
 styleable SwitchCompat android_textOff android_textOn android_thumb showText splitTrack switchMinWidth switchPadding switchTextAppearance thumbTextPadding thumbTint thumbTintMode track trackTint trackTintMode
 styleable TabItem android_icon android_layout android_text
 styleable TabLayout tabBackground tabContentStart tabGravity tabIndicatorColor tabIndicatorHeight tabMaxWidth tabMinWidth tabMode tabPadding tabPaddingBottom tabPaddingEnd tabPaddingStart tabPaddingTop tabSelectedTextColor tabTextAppearance tabTextColor

@@ -18,6 +18,10 @@ array constellations
 array distances
 array profesions
 array sexs
+attr? pop_max_height
+attr? pop_min_height
+attr? pop_textcolor
+attr? pop_textsize
 color activity_bg
 color alpha_1
 color alpha_3
@@ -40,6 +44,9 @@ color btn_red_normal
 color btn_red_pressed
 color button_selected
 color button_unselected
+color colorAccent
+color colorPrimary
+color colorPrimaryDark
 color divider
 color gray
 color gray_1
@@ -375,6 +382,9 @@ string update
 style ActivityDialog
 style ActivityRecDialog
 style AlphaWindowNoTrancelation
+style AnimationFromButtom
+style AnimationUpPopup
+style AppTheme
 style MyDialog
 style Window
 style WindowCompleteAlpha
@@ -535,3 +545,4 @@ style translucentAnimation
 style tv_remind
 style wrap_match
 style wrap_wrap
+styleable SpinnerEditText pop_textsize pop_textcolor pop_min_height pop_max_height
