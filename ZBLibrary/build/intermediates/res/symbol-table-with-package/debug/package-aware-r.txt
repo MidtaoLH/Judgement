@@ -19,15 +19,29 @@ anim design_bottom_sheet_slide_in
 anim design_bottom_sheet_slide_out
 anim design_snackbar_in
 anim design_snackbar_out
+<<<<<<< HEAD
 anim fade
+=======
+anim drop_down_to_bottom
+anim fade
+anim grow_fade_in_from_bottom
+>>>>>>> origin/master
 anim hold
 anim left_push_in
 anim left_push_out
 anim null_anim
+<<<<<<< HEAD
+=======
+anim popup_from_bottom
+>>>>>>> origin/master
 anim push_in
 anim push_out
 anim right_push_in
 anim right_push_out
+<<<<<<< HEAD
+=======
+anim shrink_fade_out_from_bottom
+>>>>>>> origin/master
 animator design_appbar_state_list_animator
 array ages
 array constellations
@@ -264,6 +278,13 @@ attr passwordToggleDrawable
 attr passwordToggleEnabled
 attr passwordToggleTint
 attr passwordToggleTintMode
+<<<<<<< HEAD
+=======
+attr pop_max_height
+attr pop_min_height
+attr pop_textcolor
+attr pop_textsize
+>>>>>>> origin/master
 attr popupMenuStyle
 attr popupTheme
 attr popupWindowStyle
@@ -491,6 +512,12 @@ color button_material_dark
 color button_material_light
 color button_selected
 color button_unselected
+<<<<<<< HEAD
+=======
+color colorAccent
+color colorPrimary
+color colorPrimaryDark
+>>>>>>> origin/master
 color design_bottom_navigation_shadow_color
 color design_error
 color design_fab_shadow_end_color
@@ -940,6 +967,10 @@ drawable edit_text_bg
 drawable forward2_light
 drawable forward_light
 drawable gray_to_alpha
+<<<<<<< HEAD
+=======
+drawable graybox
+>>>>>>> origin/master
 drawable green_to_darker
 drawable icon_gray_bg
 drawable icon_white_bg
@@ -981,8 +1012,16 @@ drawable tooltip_frame_light
 drawable triangle_down
 drawable triangle_up
 drawable up_light
+<<<<<<< HEAD
 drawable white_to_alpha
 drawable white_to_gray
+=======
+drawable vector_drawable_arrowdown
+drawable white_to_alpha
+drawable white_to_gray
+drawable whitebox
+drawable whitebox_with_readstroke
+>>>>>>> origin/master
 drawable xlistview_arrow
 id FixedBehind
 id FixedFront
@@ -1174,6 +1213,10 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+<<<<<<< HEAD
+=======
+id tv
+>>>>>>> origin/master
 id tvAlertDialogMessage
 id tvAlertDialogTitle
 id tvBaseTabReturn
@@ -1285,6 +1328,10 @@ layout image_picker_activity
 layout image_picker_item
 layout item_dialog
 layout item_dialog_item
+<<<<<<< HEAD
+=======
+layout item_listpopupwindow
+>>>>>>> origin/master
 layout key_value_divider
 layout key_value_item
 layout key_value_item_2
@@ -1406,10 +1453,19 @@ style ActivityRecDialog
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style AlphaWindowNoTrancelation
+<<<<<<< HEAD
+=======
+style AnimationFromButtom
+style AnimationUpPopup
+>>>>>>> origin/master
 style Animation_AppCompat_Dialog
 style Animation_AppCompat_DropDownUp
 style Animation_AppCompat_Tooltip
 style Animation_Design_BottomSheetDialog
+<<<<<<< HEAD
+=======
+style AppTheme
+>>>>>>> origin/master
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog
@@ -1992,6 +2048,10 @@ styleable SmartRefreshLayout srlAccentColor srlDisableContentWhenLoading srlDisa
 styleable SmartRefreshLayout_Layout layout_srlBackgroundColor layout_srlSpinnerStyle
 styleable SnackbarLayout android_maxWidth elevation maxActionInlineWidth
 styleable Spinner android_dropDownWidth android_entries android_popupBackground android_prompt popupTheme
+<<<<<<< HEAD
+=======
+styleable SpinnerEditText pop_max_height pop_min_height pop_textcolor pop_textsize
+>>>>>>> origin/master
 styleable SwitchCompat android_textOff android_textOn android_thumb showText splitTrack switchMinWidth switchPadding switchTextAppearance thumbTextPadding thumbTint thumbTintMode track trackTint trackTintMode
 styleable TabItem android_icon android_layout android_text
 styleable TabLayout tabBackground tabContentStart tabGravity tabIndicatorColor tabIndicatorHeight tabMaxWidth tabMinWidth tabMode tabPadding tabPaddingBottom tabPaddingEnd tabPaddingStart tabPaddingTop tabSelectedTextColor tabTextAppearance tabTextColor

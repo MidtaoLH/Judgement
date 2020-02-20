@@ -4,20 +4,28 @@ anim bottom_push_in
 anim bottom_push_out
 anim bottom_window_enter
 anim bottom_window_exit
+anim drop_down_to_bottom
 anim fade
+anim grow_fade_in_from_bottom
 anim hold
 anim left_push_in
 anim left_push_out
 anim null_anim
+anim popup_from_bottom
 anim push_in
 anim push_out
 anim right_push_in
 anim right_push_out
+anim shrink_fade_out_from_bottom
 array ages
 array constellations
 array distances
 array profesions
 array sexs
+attr? pop_max_height
+attr? pop_min_height
+attr? pop_textcolor
+attr? pop_textsize
 color activity_bg
 color alpha_1
 color alpha_3
@@ -40,6 +48,9 @@ color btn_red_normal
 color btn_red_pressed
 color button_selected
 color button_unselected
+color colorAccent
+color colorPrimary
+color colorPrimaryDark
 color divider
 color gray
 color gray_1
@@ -185,6 +196,7 @@ drawable edit_text_bg
 drawable forward2_light
 drawable forward_light
 drawable gray_to_alpha
+drawable graybox
 drawable green_to_darker
 drawable icon_gray_bg
 drawable icon_white_bg
@@ -211,8 +223,11 @@ drawable to_white_slight
 drawable triangle_down
 drawable triangle_up
 drawable up_light
+drawable vector_drawable_arrowdown
 drawable white_to_alpha
 drawable white_to_gray
+drawable whitebox
+drawable whitebox_with_readstroke
 drawable xlistview_arrow
 id btnAlertDialogNegative
 id btnAlertDialogPositive
@@ -259,6 +274,7 @@ id rvBaseList
 id rvBaseRecycler
 id srlBaseHttpList
 id srlBaseHttpRecycler
+id tv
 id tvAlertDialogMessage
 id tvAlertDialogTitle
 id tvBaseTabReturn
@@ -314,6 +330,7 @@ layout image_picker_activity
 layout image_picker_item
 layout item_dialog
 layout item_dialog_item
+layout item_listpopupwindow
 layout key_value_divider
 layout key_value_item
 layout key_value_item_2
@@ -375,6 +392,9 @@ string update
 style ActivityDialog
 style ActivityRecDialog
 style AlphaWindowNoTrancelation
+style AnimationFromButtom
+style AnimationUpPopup
+style AppTheme
 style MyDialog
 style Window
 style WindowCompleteAlpha
@@ -535,3 +555,4 @@ style translucentAnimation
 style tv_remind
 style wrap_match
 style wrap_wrap
+styleable SpinnerEditText pop_textsize pop_textcolor pop_min_height pop_max_height
