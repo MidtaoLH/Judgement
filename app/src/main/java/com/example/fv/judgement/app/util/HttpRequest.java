@@ -60,4 +60,36 @@ public class HttpRequest {
         }
         return null;
     }
+
+    public String httpWebService_GetString(String methodName,SoapObject soapObject) {
+        // 创建HttpTransportSE传输对象
+        HttpTransportSE ht = new HttpTransportSE(GlobalVariableApplication.SERVICE_URL);
+        try {
+            ht.debug = true;
+            // 使用SOAP1.1协议创建Envelop对象
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                    SoapEnvelope.VER10);
+            // 实例化SoapObject对象
+            envelope.bodyOut = soapObject;
+            // 设置与.NET提供的webservice保持较好的兼容性
+            envelope.dotNet = true;
+            // 调用webservice
+            ht.call(GlobalVariableApplication.SERVICE_NAMESPACE + methodName, envelope);
+            if (envelope.getResponse() != null) {
+                // 获取服务器响应返回的SOAP消息
+                // SoapObject result = (SoapObject) envelope.bodyIn;
+                Object object = (Object)envelope.getResponse();
+                String jsonString=object.toString();
+                // String jsonString=new Gson().toJson(object);
+                Log.e("test", jsonString);
+
+                return jsonString;
+            }
+        } catch (Exception e) {
+            MyLog.writeLogtoFile("错误","HttpRequest","httpWebService",e.toString(),"0");
+        }
+        return "";
+    }
+
+
 }
