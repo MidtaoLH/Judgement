@@ -86,7 +86,13 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
 
 	@Override
 	protected Fragment getFragment(int position) {
-		return WaitExamineList.createInstance(WaitExamineList.RANGE_ALL);
+		switch (position) {
+			case 1:
+				return AlreadyExamineList.createInstance(AlreadyExamineList.RANGE_ALL);
+
+			default:
+				return WaitExamineList.createInstance(WaitExamineList.RANGE_ALL);
+		}
 	};
 
 //	private static final String[] TAB_NAMES = {"主页", "消息", "发现", "设置"};

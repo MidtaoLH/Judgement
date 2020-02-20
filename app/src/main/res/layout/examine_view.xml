@@ -5,7 +5,6 @@
     style="@style/ll_horizontal_match_wrap"
     android:background="@drawable/white_to_alpha"
     android:padding="4dp" >
-
     <ImageView
         android:id="@+id/ivUserViewHead"
         style="@style/img_fitXY"
@@ -16,42 +15,36 @@
     <LinearLayout
         style="@style/ll_vertical_match_wrap"
         android:gravity="left|center_vertical"
-        android:paddingLeft="4dp" >
-
-        <LinearLayout style="@style/ll_horizontal_match_wrap" >
-
-            <LinearLayout
-                style="@style/ll_horizontal_match_wrap"
-                android:layout_weight="1" >
-
-                <TextView
-                    android:id="@+id/tvUserViewName"
-                    style="@style/text_middle_black"
-                    android:layout_marginRight="6dp"
-                    android:gravity="left"
-                    android:text="Name" />
-
-                <TextView
-                    android:id="@+id/tvUserViewSex"
-                    style="@style/text_micro"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:background="@drawable/circle_blue"
-                    android:text="男"
-                    android:textColor="@color/blue" />
-            </LinearLayout>
-
-        </LinearLayout>
-
+        android:layout_weight="1" ><!--padding-left 属性设置元素左内边距（空白）-->
         <TextView
-            android:id="@+id/tvUserViewId"
+            android:id="@+id/tvCaseName"
             style="@style/text_middle"
-            android:text="ID:" />
-
+            android:text="CaseName:" />
         <TextView
-            android:id="@+id/tvUserViewNumber"
+            android:id="@+id/tvCaseType"
             style="@style/text_middle"
-            android:text="Phone:" />
+            android:text="CaseType:" />
+        <TextView
+            android:id="@+id/tvBeginDate"
+            style="@style/text_middle"
+            android:text="BeginDate:" />
+        <TextView
+            android:id="@+id/tvEndDate"
+            style="@style/text_middle"
+            android:text="EndDate:" />
+        <TextView
+            android:id="@+id/tvStatus"
+            style="@style/text_middle"
+            android:text="Status:" />
     </LinearLayout>
 
+    <LinearLayout
+        style="@style/ll_vertical_match_wrap"
+        android:layout_weight="1" >
+        <TextView
+            android:id="@+id/tvCaseDate"
+            style="@style/text_middle"
+            android:layout_gravity="top"
+            android:text="CaseDate:" />
+    </LinearLayout>
 </LinearLayout>
