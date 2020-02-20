@@ -9,8 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.application.GlobalMethodApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.LeaveModel;
+import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.example.fv.judgement.app.util.MyLog;
 import com.google.gson.Gson;
@@ -109,6 +111,9 @@ public class EditView extends AppCompatActivity implements View.OnClickListener 
             EditText txtcause=(EditText)findViewById(R.id.txtcause);
             str= LU.get(0).getVatcationreason().toString();
             txtcause.setText(str);
+            for (LeaveModel bean : LU) {
+
+            }
 
         }
     }
@@ -134,7 +139,7 @@ public class EditView extends AppCompatActivity implements View.OnClickListener 
             datastring =http.httpWebService_GetString(methodName,soapObject);
             return datastring;
         } catch (Exception e) {
-            MyLog.writeLogtoFile("错误","MainLogin","UseWebservice",e.toString(),"0");
+            MyLog.writeLogtoFile("错误","EditView","GetInfo",e.toString(),"0");
         }
         return "";
     }

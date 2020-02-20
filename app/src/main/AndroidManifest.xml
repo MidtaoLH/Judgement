@@ -3,6 +3,7 @@
     package="com.example.fv.judgement">
 
     <application
+        android:name=".app.application.GlobalInformationApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,13 +16,15 @@
         </activity>
 
         <activity android:name=".app.activity.MyExamineList.MainTabActivity" >
+
+        </activity>
+
+        <activity android:name=".app.activity.GoOut.GoOut" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".app.activity.GoOut.GoOut" />
+       </activity>
         <activity android:name=".app.activity.Leave.LeaveEdit">
 
         </activity>

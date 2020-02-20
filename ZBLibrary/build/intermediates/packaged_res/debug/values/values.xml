@@ -62,8 +62,8 @@
     <color name="bar_grey">#393a3e</color>
     <color name="black">#000000</color>
     <color name="black_slight">#666666</color>
-    <color name="blue">#009ed3</color>
-    <color name="blue_btn">#2c6ed2</color>
+    <color name="blue">#009ED3</color>
+    <color name="blue_btn">#2C6ED2</color>
     <color name="blue_sky">#62c8f9</color>
     <color name="btn_blue_normal">#009ed3</color>
     <color name="btn_blue_pressed">#2c6ed2</color>
@@ -73,12 +73,9 @@
     <color name="btn_red_pressed">#dd0000</color>
     <color name="button_selected">#ff419de4</color>
     <color name="button_unselected">#ff54acea</color>
-<<<<<<< HEAD
-=======
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
->>>>>>> origin/master
     <color name="divider">#dddddd</color>
     <color name="gray">#666666</color>
     <color name="gray_1">#b5b5b5</color>
@@ -104,9 +101,9 @@
     <color name="red_line">#ff3d01</color>
     <color name="red_text">#ff3d01</color>
     <color name="silver">#c0c0c0</color>
-    <color name="title_bg">#ff54acea</color>
+    <color name="title_bg">#54ACEA</color>
     <color name="topbar_bg">#33cc99</color>
-    <color name="topbar_bg_black">#272e2a</color>
+    <color name="topbar_bg_black">#272E2A</color>
     <color name="topbar_bg_white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="transparent01">#9000</color>
@@ -248,8 +245,6 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@color/alpha_complete</item>
     </style>
-<<<<<<< HEAD
-=======
     <style name="AnimationFromButtom">
         <item name="android:windowEnterAnimation">@anim/popup_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/drop_down_to_bottom</item>
@@ -264,7 +259,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
->>>>>>> origin/master
     <style name="MyDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
@@ -502,10 +496,10 @@
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="content_item_rt_img" parent="text_middle">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:paddingLeft">@dimen/padding_micro</item>
-        <item name="android:src">@drawable/forward2_light</item>
-    </style>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:paddingLeft">@dimen/padding_micro</item>
+    <item name="android:src">@drawable/forward2_light</item>
+</style>
     <style name="content_item_rt_tv" parent="text_middle">
         <item name="android:paddingLeft">@dimen/padding_big</item>
         <item name="android:layout_height">match_parent</item>
@@ -1093,13 +1087,10 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-<<<<<<< HEAD
-=======
     <declare-styleable name="SpinnerEditText">
         <attr format="dimension" name="pop_textsize"/>
         <attr format="color" name="pop_textcolor"/>
         <attr format="dimension" name="pop_min_height"/>
         <attr format="dimension" name="pop_max_height"/>
     </declare-styleable>
->>>>>>> origin/master
 </resources>
