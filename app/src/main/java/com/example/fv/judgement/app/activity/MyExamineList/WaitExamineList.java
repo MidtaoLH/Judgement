@@ -121,7 +121,7 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
             soapObject.addProperty("code","40");
             soapObject.addProperty("userID","91");
             soapObject.addProperty("menuID","4");
-            soapObject.addProperty("iosid","412");
+            soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
             HttpRequest httpres= new HttpRequest();
             List<ExamineModel> listExaData = httpres.httpWebService(methodName,soapObject);
             return listExaData;
