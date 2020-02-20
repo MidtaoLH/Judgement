@@ -15,8 +15,9 @@ public class ExamineModel extends BaseModel
     private String DocumentName;
     private String CaseTypeTxt;
     private String ApplyManPhoto;
-
-
+    private String BeignDate;
+    private String EndDate;
+    private String CaseDate;
     /**默认构造方法，JSON等解析时必须要有
      */
     public ExamineModel() {
@@ -93,6 +94,30 @@ public class ExamineModel extends BaseModel
 
     public void setApplyManPhoto(String applyManPhoto) {
         ApplyManPhoto = applyManPhoto;
+    }
+
+    public String getEndDate() {
+        return EndDate;
+    }
+
+    public void setEndDate(String endDate) {
+        EndDate = endDate;
+    }
+
+    public String getBeginDate() {
+        return BeignDate;
+    }
+
+    public void setBeginDate(String beginDate) {
+        BeignDate = beginDate;
+    }
+
+    public String getCaseDate() {
+        return CaseDate;
+    }
+
+    public void setCaseDate(String caseDate) {
+        CaseDate = caseDate;
     }
 }
 

@@ -28,24 +28,29 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
 
     //构造需继承样式继承列表样式R.layout.user_view
     public ExamineListView(Activity context, ViewGroup parent) {
-        super(context, R.layout.examine_view, parent);
+        super(context, R.layout.examine_viewlistnew, parent);
     }
     public ImageView ivUserViewHead; //创建画面所需控件
     public ImageView ivUserViewStar;
-    public TextView tvUserViewSex;
-    public TextView tvUserViewName;
-    public TextView tvUserViewId;
-    public TextView tvUserViewNumber;
+    public TextView tvCaseName;
+    public TextView tvCaseType;
+    public TextView tvBeginDate;
+    public TextView tvEndDate;
+    public TextView tvStatus;
+    public TextView tvCaseDate;
+
     @SuppressLint("InflateParams")
     @Override
      //创建画面控件关联
     public View createView() {
-        ivUserViewHead = findView(R.id.ivUserViewHead, this);
-        tvUserViewSex = findView(R.id.tvUserViewSex, this);
-        tvUserViewName = findView(R.id.tvUserViewName);
-        tvUserViewId = findView(R.id.tvUserViewId);
-        tvUserViewNumber = findView(R.id.tvUserViewNumber);
 
+        ivUserViewHead = findView(R.id.ivUserViewHead, this);
+        tvCaseName = findView(R.id.tvCaseName);
+        tvCaseType = findView(R.id.tvCaseType);
+        tvBeginDate = findView(R.id.tvBeginDate);
+        tvEndDate = findView(R.id.tvEndDate);
+        tvStatus = findView(R.id.tvStatus);
+        tvCaseDate = findView(R.id.tvCaseDate);
         return super.createView();
     }
     @Override
@@ -60,7 +65,18 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
                 ivUserViewHead.setImageBitmap(CommonUtil.toRoundCorner(bitmap, bitmap.getWidth()/2));
             }
         });
+        tvCaseName.setText(data_.getCaseName());
+        tvCaseType.setText(data_.getCaseTypeTxt());
+        tvBeginDate.setText("开始时间:" + data_.getBeginDate());
+        tvEndDate.setText("结束时间:" + data_.getEndDate());
+        tvCaseDate.setText(data_.getCaseDate());
+        tvStatus.setText(data_.getCaseDate());
 
+        //特殊处理
+        String strType = data_.getDocumentName();
+        if (!strType.equals("请假")) {
+            tvCaseType.setVisibility(View.GONE);
+        }
     }
     @Override
     public void onClick(View v) {
