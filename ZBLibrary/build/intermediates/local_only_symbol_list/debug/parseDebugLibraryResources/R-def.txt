@@ -4,15 +4,19 @@ anim bottom_push_in
 anim bottom_push_out
 anim bottom_window_enter
 anim bottom_window_exit
+anim drop_down_to_bottom
 anim fade
+anim grow_fade_in_from_bottom
 anim hold
 anim left_push_in
 anim left_push_out
 anim null_anim
+anim popup_from_bottom
 anim push_in
 anim push_out
 anim right_push_in
 anim right_push_out
+anim shrink_fade_out_from_bottom
 array ages
 array constellations
 array distances
@@ -29,7 +33,6 @@ color alpha_6
 color alpha_9
 color alpha_complete
 color alpha_to_darker
-color bar_grey
 color black
 color black_slight
 color black_to_white
@@ -146,7 +149,6 @@ drawable add_light
 drawable add_small
 drawable alpha3
 drawable alpha_to_darker
-drawable back
 drawable back2
 drawable back2_light
 drawable black_to_white_alpha
@@ -192,6 +194,7 @@ drawable edit_text_bg
 drawable forward2_light
 drawable forward_light
 drawable gray_to_alpha
+drawable graybox
 drawable green_to_darker
 drawable icon_gray_bg
 drawable icon_white_bg
@@ -218,8 +221,11 @@ drawable to_white_slight
 drawable triangle_down
 drawable triangle_up
 drawable up_light
+drawable vector_drawable_arrowdown
 drawable white_to_alpha
 drawable white_to_gray
+drawable whitebox
+drawable whitebox_with_readstroke
 drawable xlistview_arrow
 id btnAlertDialogNegative
 id btnAlertDialogPositive
@@ -266,6 +272,7 @@ id rvBaseList
 id rvBaseRecycler
 id srlBaseHttpList
 id srlBaseHttpRecycler
+id tv
 id tvAlertDialogMessage
 id tvAlertDialogTitle
 id tvBaseTabReturn
@@ -321,6 +328,7 @@ layout image_picker_activity
 layout image_picker_item
 layout item_dialog
 layout item_dialog_item
+layout item_listpopupwindow
 layout key_value_divider
 layout key_value_item
 layout key_value_item_2
