@@ -9,7 +9,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="主页" />
+            android:text="审批记录" />
     </RelativeLayout>
 
     <FrameLayout
@@ -34,11 +34,10 @@
                 android:id="@+id/ivBottomTabTab0"
                 style="@style/bottom_tab_iv"
                 android:src="@drawable/earth_selector" />
-
             <TextView
                 android:id="@+id/tvBottomTabTab0"
                 style="@style/bottom_tab_tv"
-                android:text="主页" />
+                android:text="待审批" />
         </LinearLayout>
 
         <LinearLayout
@@ -54,40 +53,41 @@
             <TextView
                 android:id="@+id/tvBottomTabTab1"
                 style="@style/bottom_tab_tv"
-                android:text="消息" />
+                android:text="已审批" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llBottomTabTab2"
-            style="@style/bottom_tab_ll"
-            android:layout_weight="1" >
+<!--        <LinearLayout-->
+<!--            android:id="@+id/llBottomTabTab2"-->
+<!--            style="@style/bottom_tab_ll"-->
+<!--            android:layout_weight="1" >-->
 
-            <ImageView
-                android:id="@+id/ivBottomTabTab2"
-                style="@style/bottom_tab_iv"
-                android:src="@drawable/search_selector" />
+<!--            <ImageView-->
+<!--                android:id="@+id/ivBottomTabTab2"-->
+<!--                style="@style/bottom_tab_iv"-->
+<!--                android:src="@drawable/search_selector" />-->
 
-            <TextView
-                android:id="@+id/tvBottomTabTab2"
-                style="@style/bottom_tab_tv"
-                android:text="发现" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/tvBottomTabTab2"-->
+<!--                style="@style/bottom_tab_tv"-->
+<!--                android:text="发现" />-->
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/llBottomTabTab3"
-            style="@style/bottom_tab_ll"
-            android:layout_weight="1" >
+<!--        <LinearLayout-->
+<!--            android:id="@+id/llBottomTabTab3"-->
+<!--            style="@style/bottom_tab_ll"-->
+<!--            android:layout_weight="1" >-->
 
-            <ImageView
-                android:id="@+id/ivBottomTabTab3"
-                style="@style/bottom_tab_iv"
-                android:src="@drawable/setting_selector" />
+<!--            <ImageView-->
+<!--                android:id="@+id/ivBottomTabTab3"-->
+<!--                style="@style/bottom_tab_iv"-->
+<!--                android:src="@drawable/setting_selector" />-->
 
-            <TextView
-                android:id="@+id/tvBottomTabTab3"
-                style="@style/bottom_tab_tv"
-                android:text="设置" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/tvBottomTabTab3"-->
+<!--                style="@style/bottom_tab_tv"-->
+<!--                android:text="设置" />-->
+<!--        </LinearLayout>-->
+
     </LinearLayout>
 
 </LinearLayout>

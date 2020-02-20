@@ -73,9 +73,12 @@
     <color name="btn_red_pressed">#dd0000</color>
     <color name="button_selected">#ff419de4</color>
     <color name="button_unselected">#ff54acea</color>
+<<<<<<< HEAD
+=======
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+>>>>>>> origin/master
     <color name="divider">#dddddd</color>
     <color name="gray">#666666</color>
     <color name="gray_1">#b5b5b5</color>
@@ -245,6 +248,8 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@color/alpha_complete</item>
     </style>
+<<<<<<< HEAD
+=======
     <style name="AnimationFromButtom">
         <item name="android:windowEnterAnimation">@anim/popup_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/drop_down_to_bottom</item>
@@ -259,6 +264,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+>>>>>>> origin/master
     <style name="MyDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
@@ -1087,10 +1093,13 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+<<<<<<< HEAD
+=======
     <declare-styleable name="SpinnerEditText">
         <attr format="dimension" name="pop_textsize"/>
         <attr format="color" name="pop_textcolor"/>
         <attr format="dimension" name="pop_min_height"/>
         <attr format="dimension" name="pop_max_height"/>
     </declare-styleable>
+>>>>>>> origin/master
 </resources>

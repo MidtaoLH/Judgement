@@ -39,21 +39,25 @@
                 >
 
                 <TextView
+                    android:id="@+id/lbltype"
                     style="@style/content_item_lf_tv_black"
                     android:text="* 请假类型" />
 
                 <TextView
-                    android:id="@+id/typeTag"
+                    android:id="@+id/typetag"
                     style="@style/content_item_rt_tv"
                     android:layout_weight="1"
                     android:hint="请选择"
                     android:text="" />
 
-                <ImageView style="@style/content_item_rt_img" />
+                <ImageView
+                    android:id="@+id/typeright"
+                    style="@style/content_item_rt_img" />
             </LinearLayout>
 
 
             <TextView
+                android:id="@+id/lblbalance"
                 style="@style/text_big"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -71,11 +75,12 @@
                 android:background="@drawable/white_border">
 
                 <TextView
+                    android:id="@+id/lblstartdate"
                     style="@style/content_item_lf_tv_black"
                     android:text=" * 开始时间" />
 
                 <TextView
-                    android:id="@+id/startDateTag"
+                    android:id="@+id/startdatetag"
                     style="@style/content_item_rt_tv"
                     android:layout_weight="1"
                     android:hint="请选择" />
@@ -90,6 +95,7 @@
                 android:background="@drawable/white_bordernotop">
 
                 <TextView
+                    android:id="@+id/lblenddate"
                     style="@style/content_item_lf_tv_black"
                     android:text=" * 结束时间" />
 
@@ -109,12 +115,13 @@
                 android:background="@drawable/white_bordernotop">
 
                 <TextView
+                    android:id="@+id/lblduration"
                     style="@style/content_item_lf_tv_black"
                     android:layout_width="wrap_content"
                     android:text=" * 请假时长（h）" />
 
                 <TextView
-                    android:id="@+id/applyDateTag"
+                    android:id="@+id/txtduration"
                     style="@style/content_item_rt_tv"
                     android:layout_width="match_parent"
                     android:layout_marginRight="1dp"
@@ -122,6 +129,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/lblCause"
                 style="@style/text_big"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -132,7 +140,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/edit_text"
+                android:id="@+id/txtcause"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginLeft="15dp"
@@ -142,6 +150,7 @@
                 android:maxLines="2" />
 
             <TextView
+                android:id="@+id/lblimg"
                 style="@style/text_big"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -149,7 +158,7 @@
                 android:layout_marginRight="15dp"
                 android:gravity="center_vertical|left"
                 android:text="图片"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"
@@ -173,16 +182,62 @@
                 style="@style/content_item_white"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/white_border">
+                android:background="@drawable/white_border"
+                android:gravity="center|center_horizontal|center_vertical">
 
-                <TextView
-                    style="@style/content_item_lf_tv_black"
-                    android:layout_width="wrap_content"
-                    android:text="查看审批路径" />
 
-                <ImageView style="@style/content_item_rt_img" />
+                <Button
+                    android:id="@+id/btnpath"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/white_border"
+                    android:text="查看审批路径"
+                    android:textColor="@color/title_bg"
+                    android:textSize="18sp" />
+
             </LinearLayout>
-        </LinearLayout>
+
+            <LinearLayout
+                     android:layout_width="fill_parent"
+                     android:layout_height="20dp"
+                     android:layout_weight="1"
+                     android:orientation="vertical">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnsave"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/button_circle_shape"
+                    android:text="保存"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/btnsubmit"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/button_circle_shape"
+                    android:text="提交"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+            </LinearLayout>
     </ScrollView>
     <View style="@style/divider_horizontal_1px" />
 

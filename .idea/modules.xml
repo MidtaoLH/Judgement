@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Judgement0219.iml" filepath="$PROJECT_DIR$/Judgement0219.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZBLibrary/ZBLibrary.iml" filepath="$PROJECT_DIR$/ZBLibrary/ZBLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jcapp5.iml" filepath="$PROJECT_DIR$/jcapp5.iml" />
       <module fileurl="file://$PROJECT_DIR$/picture_library/picture_library.iml" filepath="$PROJECT_DIR$/picture_library/picture_library.iml" />
     </modules>
   </component>
