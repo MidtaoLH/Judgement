@@ -2,72 +2,53 @@
 <!-- ListView中的ItemView里不要用Button等默认hasFocus的控件，以免onItemClick事件无响应 -->
 <!-- 如果一定要用，则必须在根布局加上 android:descendantFocusability="blocksDescendants" -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/ll_horizontal_match_wrap"
     android:background="@drawable/white_to_alpha"
-
     android:padding="4dp" >
+
     <ImageView
         android:id="@+id/ivUserViewHead"
         style="@style/img_fitXY"
-        android:layout_gravity="center"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/oval_alpha" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:orientation="vertical" ><!--padding-left 属性设置元素左内边距（空白）-->
+        style="@style/ll_vertical_match_wrap"
+        android:paddingLeft="4dp"
+        android:layout_weight="1">
 
         <TextView
-            android:id="@+id/tvCaseName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CaseName:" />
-        <TextView
             android:id="@+id/tvCaseType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CaseType:" />
-        <TextView
-            android:id="@+id/tvBeginDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BeginDate:" />
+            style="@style/text_middle"
+            android:layout_marginRight="6dp"
+            android:gravity="left"
+            android:text="Name" />
+
         <TextView
             android:id="@+id/tvEndDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EndDate:" />
+            style="@style/text_middle"
+            android:text="Phone:" />
+
         <TextView
             android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status:" />
+            style="@style/text_middle"
+            android:text="Phone:" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ll_vertical_match_wrap"
         android:layout_weight="1"
-        android:orientation="vertical" >
+        android:paddingLeft="4dp" >
 
         <TextView
-            android:id="@+id/tvCaseDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="CaseDate:" />
+            android:id="@+id/tvCaseType2"
+            style="@style/text_middle"
+            android:layout_marginRight="6dp"
+            android:gravity="left"
+            android:text="Name" />
 
-        <Button
-            android:id="@+id/btnYuLan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="预览" />
 
     </LinearLayout>
 </LinearLayout>
