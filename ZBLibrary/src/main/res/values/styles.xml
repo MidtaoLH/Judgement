@@ -523,10 +523,10 @@
     </style>
 
     <style name="content_item_rt_img" parent="text_middle">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:paddingLeft">@dimen/padding_micro</item>
-        <item name="android:src">@drawable/forward2_light</item>
-    </style>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:paddingLeft">@dimen/padding_micro</item>
+    <item name="android:src">@drawable/forward2_light</item>
+</style>
 
     <!-- content item >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
 
