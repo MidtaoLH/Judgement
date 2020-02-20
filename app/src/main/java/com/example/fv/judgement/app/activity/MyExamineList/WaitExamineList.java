@@ -129,7 +129,8 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
             soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
             HttpRequest httpres= new HttpRequest();
             String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-            List<ExamineModel> listExaData = new ArrayList<>();
+            List<ExamineModel> listExaData=new ArrayList<ExamineModel>();
+
             Type type = new TypeToken<List<ExamineModel>>(){}.getType();
             listExaData = new Gson().fromJson(jsonData,type);
 

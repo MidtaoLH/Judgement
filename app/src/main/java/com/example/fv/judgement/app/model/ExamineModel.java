@@ -10,10 +10,12 @@ public class ExamineModel extends BaseModel
     public static final int SEX_FEMALE = 1;
     public static final int SEX_UNKNOWN = 2;
 
-    private String caseApplyMan; //头像
-    private String caseName; //名字
-    private String documentName; //电话号码
-    private String caseTypeTxt; //标签
+    private String CaseApplyMan;
+    private String CaseName;
+    private String DocumentName;
+    private String CaseTypeTxt;
+    private String ApplyManPhoto;
+
 
     /**默认构造方法，JSON等解析时必须要有
      */
@@ -26,7 +28,7 @@ public class ExamineModel extends BaseModel
     }
     public ExamineModel(long id, String name) {
         this(id);
-        this.caseApplyMan = name;
+        this.CaseApplyMan = name;
     }
 
     /**
@@ -52,29 +54,45 @@ public class ExamineModel extends BaseModel
     protected boolean isCorrect() {//根据自己的需求决定，也可以直接 return true
         return id > 0;// && StringUtil.isNotEmpty(phone, true);
     }
-    public String getCaseTypeTxt() {
-        return caseTypeTxt;
-    }
-    public void setCaseTypeTxt(String caseTypeTxt) {
-        this.caseTypeTxt = caseTypeTxt;
-    }
-    public String getDocumentName() {
-        return documentName;
-    }
-    public void setDocumentName(String documentName) {
-        this.documentName = documentName;
-    }
-    public String getCaseName() {
-        return caseName;
-    }
-    public void setCaseName(String caseName) {
-        this.caseName = caseName;
-    }
+
     public String getCaseApplyMan() {
-        return caseApplyMan;
+        return CaseApplyMan;
     }
+
     public void setCaseApplyMan(String caseApplyMan) {
-        this.caseApplyMan = caseApplyMan;
+        CaseApplyMan = caseApplyMan;
+    }
+
+    public String getCaseName() {
+        return CaseName;
+    }
+
+    public void setCaseName(String caseName) {
+        CaseName = caseName;
+    }
+
+    public String getDocumentName() {
+        return DocumentName;
+    }
+
+    public void setDocumentName(String documentName) {
+        DocumentName = documentName;
+    }
+
+    public String getCaseTypeTxt() {
+        return CaseTypeTxt;
+    }
+
+    public void setCaseTypeTxt(String caseTypeTxt) {
+        CaseTypeTxt = caseTypeTxt;
+    }
+
+    public String getApplyManPhoto() {
+        return ApplyManPhoto;
+    }
+
+    public void setApplyManPhoto(String applyManPhoto) {
+        ApplyManPhoto = applyManPhoto;
     }
 }
 

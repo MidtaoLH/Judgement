@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.ExamineModel;
 import android.view.View.OnClickListener;
 
@@ -51,16 +52,15 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
     public void bindView(ExamineModel data_){
         super.bindView(data_ != null ? data_ : new ExamineModel());
 
-        Glide.with(context).asBitmap().load(data.getDocumentName()).into(new SimpleTarget<Bitmap>() {
+        //格式化头像地址
+        String strPhoto = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL,data_.getApplyManPhoto());
+        Glide.with(context).asBitmap().load(strPhoto).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
                 ivUserViewHead.setImageBitmap(CommonUtil.toRoundCorner(bitmap, bitmap.getWidth()/2));
             }
         });
 
-        tvUserViewName.setText(StringUtil.getTrimedString(data.getDocumentName()));
-        tvUserViewId.setText("ID:" + data.getId());
-        tvUserViewNumber.setText("Phone:" + StringUtil.getNoBlankString(data.getDocumentName()));
     }
     @Override
     public void onClick(View v) {

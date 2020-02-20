@@ -33,6 +33,7 @@ color alpha_6
 color alpha_9
 color alpha_complete
 color alpha_to_darker
+color bar_grey
 color black
 color black_slight
 color black_to_white
@@ -149,6 +150,7 @@ drawable add_light
 drawable add_small
 drawable alpha3
 drawable alpha_to_darker
+drawable back
 drawable back2
 drawable back2_light
 drawable black_to_white_alpha
