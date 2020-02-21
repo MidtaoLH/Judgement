@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ll_horizontal_match_wrap"
+    android:background="@drawable/white_to_alpha"
+    android:padding="4dp" >
+
+    <ImageView
+        android:id="@+id/ivUserViewHead"
+        style="@style/img_fitXY"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/oval_alpha" />
+
+    <LinearLayout
+        style="@style/ll_vertical_match_wrap"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="4dp" >
+
+
+        <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/tvname"
+                    style="@style/text_middle_black"
+                    android:layout_width="100dp"
+                    android:gravity="left"
+                    android:text="叶明" />
+
+                <TextView
+                    android:id="@+id/tvlevelname"
+                    style="@style/text_middle_black"
+                    android:layout_marginRight="6dp"
+                    android:gravity="left"
+                    android:text="一级审批人" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnadd"
+            style="@style/wrap_wrap"
+            android:text="+"
+            android:layout_marginLeft="100dp"
+            />
+
+        <TextView
+            android:id="@+id/tvgroupname"
+            style="@style/text_middle"
+            android:text="中道益通"
+            android:gravity="left"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.activity.MyExamineList.WaitExamineList;
+import com.example.fv.judgement.app.application.GlobalMethodApplication;
 
 public class GoOut extends AppCompatActivity {
 
@@ -15,6 +16,10 @@ public class GoOut extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_out);
+
+        GlobalMethodApplication gml =new GlobalMethodApplication();
+        String aa = gml.getCurrentUserId();
+
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

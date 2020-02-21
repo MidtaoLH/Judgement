@@ -23,6 +23,8 @@ public class LoginUserModel {
 
     private String IsNotice;
 
+    private String adId;
+
     public String getFlag() {
         return flag;
     }
@@ -101,5 +103,13 @@ public class LoginUserModel {
 
     public void setIsNotice(String isNotice) {
         IsNotice = isNotice;
+    }
+
+    public String getAdId() {
+        return adId;
+    }
+
+    public void setAdId(String adId) {
+        this.adId = adId;
     }
 }

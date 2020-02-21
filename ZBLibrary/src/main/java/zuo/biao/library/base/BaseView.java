@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import zuo.biao.library.model.Entry;
 import zuo.biao.library.util.CommonUtil;
 import zuo.biao.library.util.Log;
 

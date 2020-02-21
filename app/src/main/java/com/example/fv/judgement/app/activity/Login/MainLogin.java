@@ -1,6 +1,7 @@
 package com.example.fv.judgement.app.activity.Login;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -17,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.GoOut.GoOut;
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
+import com.example.fv.judgement.app.application.GlobalMethodApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.BaseBean;
 import com.example.fv.judgement.app.model.LoginUserModel;
@@ -75,7 +79,6 @@ public class MainLogin extends AppCompatActivity {
         //作为下拉框的计数器
         usercount_int = Integer.parseInt(usercount);
 
-
         //获取本机id
         adId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
 
@@ -87,9 +90,6 @@ public class MainLogin extends AppCompatActivity {
         company = findViewById(R.id.buss);
         company.setTextColor(Color.BLUE);
         initDIYAttSpinnerEditText();
-
-
-
 
         if(userid.length() > 0)
         {
@@ -111,24 +111,47 @@ public class MainLogin extends AppCompatActivity {
             if(LoginFlag.equals("1") )
             {
                 //登录到首页
+                String id_glob =preferences.getString("id", "");
+                String code_glob = preferences.getString("code", "");
+                String name_glob = preferences.getString("name", "");
+                String EmpID_glob = preferences.getString("EmpID", "");
+                String Groupid_glob = preferences.getString("Groupid", "");
+                String GroupName_glob = preferences.getString("GroupName", "");
+                String UserNO_glob = preferences.getString("UserNO", "");
+                String UserHour_glob = preferences.getString("UserHour", "");
+                String IsNotice_glob = preferences.getString("IsNotice", "");
+                String adId_glob = preferences.getString("adId", "");
+
+                LoginUserModel  LUM= new LoginUserModel();
+                LUM.setId(id_glob);
+                LUM.setCode(code_glob);
+                LUM.setName(name_glob);
+                LUM.setEmpID(EmpID_glob);
+                LUM.setGroupid(Groupid_glob);
+                LUM.setGroupName(GroupName_glob);
+                LUM.setUserNO(UserNO_glob);
+                LUM.setUserHour(UserHour_glob);
+                LUM.setIsNotice(IsNotice_glob);
+                LUM.setAdId(adId_glob);
+
+                //GlobalInformationApplication.getInstance().saveCurrentUser(LUM);
 
             }
             else
             {
 
-                try {
-                    url = new URL(IMAGE_URL + userid + ".png");
-                    set_image.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                 catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    url = new URL(IMAGE_URL + userid + ".png");
+//                    set_image.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
+//                } catch (MalformedURLException e) {
+//                    e.printStackTrace();
+//                }
+//                 catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
 
         }
-
 
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -175,15 +198,38 @@ public class MainLogin extends AppCompatActivity {
                                         if(Flag.equals("1"))
                                         {
                                             //denglu chengg
-
                                             editor.putString("username", set_diy_att.getValue());
+
+                                            String id_glob = LU.get(0).getId().toString();
+                                            String code_glob = LU.get(0).getCode().toString();
+                                            String name_glob = LU.get(0).getName().toString();
+                                            String EmpID_glob = LU.get(0).getEmpID().toString();
+                                            String Groupid_glob = LU.get(0).getGroupid().toString();
+                                            String GroupName_glob = LU.get(0).getGroupName().toString();
+                                            String UserNO_glob = LU.get(0).getUserNO().toString();
+                                            String UserHour_glob = LU.get(0).getUserHour().toString();
+                                            String IsNotice_glob = LU.get(0).getIsNotice().toString();
+
+                                            editor.putString("id", id_glob);
+                                            editor.putString("code", code_glob);
+                                            editor.putString("name ", name_glob);
+                                            editor.putString("EmpID", EmpID_glob);
+                                            editor.putString("Groupid", Groupid_glob);
+                                            editor.putString("GroupName", GroupName_glob);
+                                            editor.putString("UserNO", UserNO_glob);
+                                            editor.putString("UserHour", UserHour_glob);
+                                            editor.putString("IsNotice", IsNotice_glob);
+
                                             editor.commit();//写入
+
+                                            LU.get(0).setAdId(adId);
+                                           // GlobalInformationApplication.getInstance().saveCurrentUser(LU.get(0));
+
 
                                             if(usercount_int > 0)
                                             {
                                                 for(int i = 1; i<= usercount_int;i++)
                                                 {
-
 
                                                     String username = preferences.getString("username"+i, "");
 
@@ -199,6 +245,8 @@ public class MainLogin extends AppCompatActivity {
                                                 editor.putString("username1", set_diy_att.getValue());
                                                 editor.commit();//写入
 
+                                                LoginUserModel LU_GLOBL_jump = new LoginUserModel();
+
                                             }
 
                                             if(adduserlistflag.equals("true"))
@@ -209,7 +257,9 @@ public class MainLogin extends AppCompatActivity {
                                                 editor.putString("username"+usercount_int, set_diy_att.getValue());
                                                 editor.commit();//写入
                                             }
-
+                                            Intent intent = new Intent();
+                                            intent.setClass(MainLogin.this, GoOut.class);
+                                            startActivity(intent);
 
                                         }
                                     }
