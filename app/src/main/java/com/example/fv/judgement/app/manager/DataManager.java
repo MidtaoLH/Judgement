@@ -20,7 +20,7 @@ import zuo.biao.library.util.StringUtil;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.fv.judgement.app.application.GlobalMethodApplication;
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.model.LoginUserModel;
 
 /**数据工具类
@@ -39,7 +39,7 @@ public class DataManager {
 		if (instance == null) {
 			synchronized (DataManager.class) {
 				if (instance == null) {
-					instance = new DataManager(GlobalMethodApplication.getInstance());
+					instance = new DataManager(GlobalInformationApplication.getInstance());
 				}
 			}
 		}
@@ -83,7 +83,7 @@ public class DataManager {
 	 */
 	public LoginUserModel getCurrentUser() {
 		SharedPreferences sdf = context.getSharedPreferences(PATH_USER, Context.MODE_PRIVATE);
-		return sdf == null ? null : getUser(sdf.getLong(KEY_CURRENT_USER_ID, 0));
+		return sdf == null ? null : getUser(sdf.getString(KEY_CURRENT_USER_ID, "0"));
 	}
 
 
@@ -92,7 +92,7 @@ public class DataManager {
 	 * @param userId
 	 * @return
 	 */
-	public LoginUserModel getUser(long userId) {
+	public LoginUserModel getUser(String userId) {
 		SharedPreferences sdf = context.getSharedPreferences(PATH_USER, Context.MODE_PRIVATE);
 		if (sdf == null) {
 			Log.e(TAG, "get sdf == null >>  return;");
