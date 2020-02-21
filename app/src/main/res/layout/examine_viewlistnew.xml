@@ -35,7 +35,7 @@
 
             <TextView
                 android:id="@+id/tvCaseDate"
-                style="@style/text_middle_black"
+                style="@style/text_middle"
                 android:layout_marginRight="6dp"
                 android:gravity="left"
                 android:text="Name" />
@@ -44,7 +44,7 @@
 
         <TextView
             android:id="@+id/tvCaseType"
-            style="@style/text_middle_black"
+            style="@style/text_middle"
             android:layout_marginRight="6dp"
             android:gravity="left"
             android:text="Name" />
@@ -57,17 +57,20 @@
 
                 <TextView
                     android:id="@+id/tvBeginDate"
-                    style="@style/text_middle_black"
+                    style="@style/text_middle"
                     android:layout_marginRight="6dp"
                     android:gravity="left"
                     android:text="Name" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnYuLan"
-                style="@style/wrap_wrap"
-                android:text="预览" />
+            <TextView
+                android:id="@+id/tvYuLan"
+                style="@style/text_middle"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/textview_border"
+                android:gravity="left"
+                android:text="   预览   " />
 
         </LinearLayout>
 

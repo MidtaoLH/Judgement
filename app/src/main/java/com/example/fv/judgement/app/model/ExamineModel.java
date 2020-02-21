@@ -18,6 +18,7 @@ public class ExamineModel extends BaseModel
     private String BeignDate;
     private String EndDate;
     private String CaseDate;
+    private String CaseStatusTxt;
     /**默认构造方法，JSON等解析时必须要有
      */
     public ExamineModel() {
@@ -118,6 +119,14 @@ public class ExamineModel extends BaseModel
 
     public void setCaseDate(String caseDate) {
         CaseDate = caseDate;
+    }
+
+    public String getCaseStatusTxt() {
+        return CaseStatusTxt;
+    }
+
+    public void setCaseStatusTxt(String caseStatusTxt) {
+        CaseStatusTxt = caseStatusTxt;
     }
 }
 

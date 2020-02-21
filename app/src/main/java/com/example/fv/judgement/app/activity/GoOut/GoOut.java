@@ -8,7 +8,8 @@ import android.widget.Button;
 
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.activity.MyExamineList.WaitExamineList;
-import com.example.fv.judgement.app.application.GlobalMethodApplication;
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
+import com.example.fv.judgement.app.model.LoginUserModel;
 
 public class GoOut extends AppCompatActivity {
 
@@ -16,19 +17,16 @@ public class GoOut extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_out);
-
-        GlobalMethodApplication gml =new GlobalMethodApplication();
-        String aa = gml.getCurrentUserId();
-
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragment();
+                LoginUserModel model=new LoginUserModel();
+                model.setEmpID("aa");
+                GlobalInformationApplication.getInstance().saveCurrentUser(model);
+
+                String id=GlobalInformationApplication.getInstance().getCurrentUserId();
             }
         });
     }
-    protected Fragment getFragment() {
-        return WaitExamineList.createInstance(0);
-    };
 }
