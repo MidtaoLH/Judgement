@@ -119,15 +119,11 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
     @Override
     public void getListAsync(final int page) {
         int pageindex = page;
-        if(pageindex == 0)
-        {
-            pageindex++;
-        }
-        String strPageIndex = String.valueOf(pageindex);
+        pageindex++;
 
-        String methodName = "GetPendingInfo";
+        String methodName = "GetPendingInfoAndroid";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-        soapObject.addProperty("pasgeIndex",strPageIndex);
+        soapObject.addProperty("pasgeIndex",pageindex);
         soapObject.addProperty("pageSize","5");
         soapObject.addProperty("code","40");
         soapObject.addProperty("userID","91");
