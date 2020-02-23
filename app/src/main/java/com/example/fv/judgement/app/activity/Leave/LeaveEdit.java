@@ -246,7 +246,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                 LocalMedia localMedia = new LocalMedia();
                 String url = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL, bean.getImagepath());
                 localMedia.setPath(url);
-                selectList.add(localMedia);
+                selectList.add(localMedia);//添加图片
             }
         }
     }
