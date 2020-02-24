@@ -13,17 +13,17 @@
         <activity android:name=".app.activity.WayCheck.WayCheckFragment" />
         <activity android:name=".app.activity.WayCheck.WayCheckFragmentActivity" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".app.activity.MyExamineList.AlreadyExamineList" />
         <activity android:name=".app.activity.MyExamineList.WaitExamineList" />
         <activity android:name=".app.activity.Login.MainLogin">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".app.activity.MyExamineList.MainTabActivity" />
         <activity android:name=".app.activity.GoOut.GoOut" />

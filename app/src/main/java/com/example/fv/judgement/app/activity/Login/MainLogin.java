@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.activity.GoOut.GoOut;
+import com.example.fv.judgement.app.activity.Home.PageHome;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalMethodApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
@@ -135,6 +136,10 @@ public class MainLogin extends AppCompatActivity {
                 LUM.setAdId(adId_glob);
 
                 //GlobalInformationApplication.getInstance().saveCurrentUser(LUM);
+
+                Intent intent = new Intent();
+                intent.setClass(MainLogin.this, GoOut.class);
+                startActivity(intent);
 
             }
             else
@@ -258,7 +263,7 @@ public class MainLogin extends AppCompatActivity {
                                                 editor.commit();//写入
                                             }
                                             Intent intent = new Intent();
-                                            intent.setClass(MainLogin.this, GoOut.class);
+                                            intent.setClass(MainLogin.this, PageHome.class);
                                             startActivity(intent);
 
                                         }
