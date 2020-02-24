@@ -16,6 +16,7 @@ import zuo.biao.library.base.BaseActivity;
 import com.alibaba.fastjson.JSONObject;
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.model.ExamineModel;
 import com.example.fv.judgement.app.view.ExamineListView;
 
@@ -68,6 +69,7 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         public static final int RANGE_ALL = 0;//HttpRequest.USER_LIST_RANGE_ALL;
         public static final int RANGE_RECOMMEND = 1;//HttpRequest.USER_LIST_RANGE_RECOMMEND;
         private int range = RANGE_ALL;
+        private int CurentPageCount = 5;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,46 +117,34 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         @Override
         public void initData() {//必须调用
             super.initData();
-        //    List<ExamineModel> list=  GetExamineData();
-        //    setList(list);
-        }
-        public  List<ExamineModel>  GetExamineData()
-        {
-            String methodName = "GetPendingInfo";
-            SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-            soapObject.addProperty("pasgeIndex","1");
-            soapObject.addProperty("pageSize","5");
-            soapObject.addProperty("code","40");
-            soapObject.addProperty("userID","91");
-            soapObject.addProperty("menuID","4");
-            soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
-            HttpRequest httpres= new HttpRequest();
-            String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-            List<ExamineModel> listExaData=new ArrayList<ExamineModel>();
-
-            Type type = new TypeToken<List<ExamineModel>>(){}.getType();
-            listExaData = new Gson().fromJson(jsonData,type);
-
-            return listExaData;
         }
 
         @Override
         public void getListAsync(final int page) {
             //实际使用时用这个，需要配置服务器地址  HttpRequest.getUserList(range, page, -page, this);
+            LoginUserModel userModel = GlobalInformationApplication.getInstance().getCurrentUser();
 
             int pageindex = page;
-            if(pageindex == 0)
-            {
-                pageindex++;
-            }
-            String strPageIndex = String.valueOf(pageindex);
+            pageindex++;
+            CurentPageCount = 5;
 
-            String methodName = "GetPendingInfo";
+//            if(pageindex == 0)
+//            {
+//
+////                CurentPageCount = CurentPageCount*pageindex;pageindex
+//            }
+//            else
+//            {
+//                CurentPageCount = CurentPageCount*pageindex;
+//            }
+//            String strPageIndex = String.valueOf(pageindex);
+
+            String methodName = "GetPendingInfoAndroid";
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-            soapObject.addProperty("pasgeIndex",strPageIndex);
-            soapObject.addProperty("pageSize","5");
-            soapObject.addProperty("code","40");
-            soapObject.addProperty("userID","91");
+            soapObject.addProperty("pasgeIndex",pageindex);
+            soapObject.addProperty("pageSize",CurentPageCount);
+            soapObject.addProperty("code",userModel.getCode());
+            soapObject.addProperty("userID",userModel.getUserNO());
             soapObject.addProperty("menuID","4");
             soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
             HttpRequest httpres= new HttpRequest();
@@ -164,6 +154,7 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
             Type type = new TypeToken<List<ExamineModel>>(){}.getType();
             listExaData = new Gson().fromJson(jsonData,type);
 
+            //框架是 每次取增量数据
             onHttpResponse(-page, JSON.toJSONString(listExaData), null);
             //仅测试用<<<<<<<<<<<
 //            new Handler().postDelayed(new Runnable() {

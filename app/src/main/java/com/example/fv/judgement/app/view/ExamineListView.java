@@ -25,26 +25,24 @@ import zuo.biao.library.util.StringUtil;
 
 public class ExamineListView extends BaseView<ExamineModel> implements OnClickListener
 {
-    private static final String TAG = "UserView";
+    private static final String TAG = "ExamineListView";
 
     //构造需继承样式继承列表样式R.layout.user_view
     public ExamineListView(Activity context, ViewGroup parent) {
         super(context, R.layout.examine_viewlistnew, parent);
     }
     public ImageView ivUserViewHead; //创建画面所需控件
-    public ImageView ivUserViewStar;
     public TextView tvCaseName;
     public TextView tvCaseType;
     public TextView tvBeginDate;
     public TextView tvEndDate;
     public TextView tvStatus;
     public TextView tvCaseDate;
-    public TextView tvYuLan;
+  //  public TextView tvYuLan;
     @SuppressLint("InflateParams")
     @Override
      //创建画面控件关联
     public View createView() {
-
         ivUserViewHead = findView(R.id.ivUserViewHead, this);
         tvCaseName = findView(R.id.tvCaseName);
         tvCaseType = findView(R.id.tvCaseType);
@@ -52,7 +50,6 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
         tvEndDate = findView(R.id.tvEndDate);
         tvStatus = findView(R.id.tvStatus);
         tvCaseDate = findView(R.id.tvCaseDate);
-        tvYuLan = findView(R.id.tvYuLan);
         return super.createView();
     }
     @Override
@@ -84,7 +81,6 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
             tvCaseType.setVisibility(View.VISIBLE);
         }
         tvStatus.setTextColor(Color.rgb(0, 204, 204));
-        tvYuLan.setTextColor(Color.rgb(0, 204, 204));
     }
     @Override
     public void onClick(View v) {
@@ -103,6 +99,4 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
                 break;
         }
     }
-
-
 }
