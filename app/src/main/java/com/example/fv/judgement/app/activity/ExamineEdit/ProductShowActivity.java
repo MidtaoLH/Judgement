@@ -36,8 +36,8 @@ public class ProductShowActivity extends AppCompatActivity {
         Product pro5 = new Product(1005,"多可必搅拌棒",300,"操作方便，随时随地都可以获取新鲜食物。",R.drawable.pro10);
         products.add(pro5);
 
-        ProductListAdapter adapter = new ProductListAdapter(getApplicationContext(), products);
-        this.lvProduct.setAdapter(adapter);
+      //  ProductListAdapter adapter = new ProductListAdapter(getApplicationContext(), products);
+        //   this.lvProduct.setAdapter(adapter);
     }
 
 
