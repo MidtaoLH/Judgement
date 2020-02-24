@@ -143,8 +143,8 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
             soapObject.addProperty("pasgeIndex",pageindex);
             soapObject.addProperty("pageSize",CurentPageCount);
-            soapObject.addProperty("code",userModel.getCode());
-            soapObject.addProperty("userID",userModel.getUserNO());
+            soapObject.addProperty("code",45);
+            soapObject.addProperty("userID",96);
             soapObject.addProperty("menuID","4");
             soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
             HttpRequest httpres= new HttpRequest();
