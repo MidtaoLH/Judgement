@@ -32,20 +32,9 @@ public class PageHome extends AppCompatActivity {
         waitmyApplybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent();
-                                intent.setClass(PageHome.this, MainTabActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-
-                    }
-                }).start();
+                Intent intent = new Intent();
+                intent.setClass(PageHome.this, MainTabActivity.class);
+                startActivity(intent);
             }
         });
 
