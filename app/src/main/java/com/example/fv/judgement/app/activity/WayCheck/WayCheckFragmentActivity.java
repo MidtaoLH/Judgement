@@ -1,14 +1,30 @@
 package com.example.fv.judgement.app.activity.WayCheck;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.GoOut.GoOut;
+import com.example.fv.judgement.app.activity.Login.MainLogin;
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
+import com.example.fv.judgement.app.model.LoginUserModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
+import zuo.biao.library.ui.PlacePickerWindow;
 
 
 ///
@@ -25,6 +41,8 @@ public class WayCheckFragmentActivity extends BaseActivity implements OnBottomDr
 
     //示例代码<<<<<<<<
     public static final String INTENT_USER_ID = "INTENT_USER_ID";
+
+    private Button btnsave;
     //示例代码>>>>>>>>
 
     /**启动这个Activity的Intent
@@ -45,11 +63,36 @@ public class WayCheckFragmentActivity extends BaseActivity implements OnBottomDr
         //TODO demo_fragment_activity改为你所需要的layout文件；传this是为了全局滑动返回
         setContentView(R.layout.activity_way_check_fragment, this);
 
+        btnsave = findViewById(R.id.btnsave);
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
         initData();
         initEvent();
         //功能归类分区方法，必须调用>>>>>>>>>>
+
+
+
+        btnsave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                toActivity(PlacePickerWindow.createIntent(context, context.getPackageName(), 2)
+                                        , 10, false);
+
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
 
     }
     //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

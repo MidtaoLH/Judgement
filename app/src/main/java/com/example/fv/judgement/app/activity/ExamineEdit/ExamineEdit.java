@@ -7,10 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.adapter.ExamineEditListAdapter;
+import com.example.fv.judgement.app.adapter.ProductListAdapter;
+import com.example.fv.judgement.app.model.MdlExamineEditDetail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.base.BaseModel;
@@ -34,23 +41,19 @@ public class ExamineEdit extends BaseActivity  {
          return new Intent(context, ExamineEdit.class).putExtra(INTENT_ID, userId);
      }
 
-    private long userId = 0;
+    private List<MdlExamineEditDetail> products;
+    private ListView lvProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_examine_edit);
+        setContentView(R.layout.activity_examine_edit1);
+       intent = getIntent();
 
-        intent = getIntent();
-        userId = intent.getLongExtra(INTENT_ID, userId);
-        if (userId <= 0) {
-            finishWithError("用户不存在！");
-            return;
-        }
         //功能归类分区方法，必须调用<<<<<<<<<<
-        initView();
-        initData();
-        initEvent();
+//        initView();
+//        initData();
+//        initEvent();
         //功能归类分区方法，必须调用>>>>>>>>>>
     }
 
