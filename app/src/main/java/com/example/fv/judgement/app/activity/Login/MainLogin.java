@@ -138,7 +138,7 @@ public class MainLogin extends AppCompatActivity {
                 //GlobalInformationApplication.getInstance().saveCurrentUser(LUM);
 
                 Intent intent = new Intent();
-                intent.setClass(MainLogin.this, GoOut.class);
+                intent.setClass(MainLogin.this, PageHome.class);
                 startActivity(intent);
 
             }
