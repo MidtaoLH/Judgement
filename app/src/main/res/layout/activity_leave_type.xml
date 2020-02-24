@@ -1,43 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/llDemoRoot"
-        style="@style/activity_page" >
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.activity.Leave.LeaveEdit">
+    <LinearLayout style="@style/activity_page"
+        tools:ignore="MissingConstraints">
 
-        <RelativeLayout style="@style/topbar_bg" >
+        <RelativeLayout
+            style="@style/topbar_bg"
+            android:background="@color/btn_gray_normal">
 
             <ImageButton style="@style/topbar_return_img" />
 
             <TextView
+                android:id="@+id/title"
                 style="@style/topbar_title"
                 android:layout_centerHorizontal="true"
-                android:text="HttpList" />
-
+                android:text="请假类型" />
         </RelativeLayout>
 
+        <ListView
+            android:id="@+id/leave_lv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relativeLayout"
+            android:scrollbars="vertical">
+        </ListView>
+    </LinearLayout>
 
-        <!-- BaseHttpRecyclerXXX的子类布局layout中，SmartRefreshLayout和RecyclerView必须有，且它们的id必须按以下写法 -->
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            style="@style/match_match"
-            android:id="@id/srlBaseHttpList"
-            app:srlEnableLoadmore="true"
-            app:srlEnablePreviewInEditMode="true"
-            >
-
-            <com.scwang.smartrefresh.layout.header.ClassicsHeader
-                style="@style/match_wrap"
-                />
-
-            <ListView
-                android:id="@id/lvBaseList"
-                style="@style/lv"
-                />
-
-            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-                style="@style/match_wrap"
-                />
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

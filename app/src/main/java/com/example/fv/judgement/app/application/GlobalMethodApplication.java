@@ -4,6 +4,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by lh on 2020/2/18.
  */
@@ -50,4 +54,5 @@ public class GlobalMethodApplication  {
             }
         });
     }
+
 }

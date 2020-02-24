@@ -17,4 +17,6 @@ public class GlobalVariableApplication {
     public static final String SERVICE_PHOTO_URL = "http://47.94.85.101:8095/APP/Image/";
 
     public static final int maxImageSelectNum=6;
+
+    public static final int pageSize=5;
 }

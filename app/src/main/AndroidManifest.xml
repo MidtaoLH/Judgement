@@ -10,19 +10,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".app.activity.ExamineEdit.ExamineEdit"></activity>
+        <activity android:name=".app.activity.Leave.LeaveRecordingList"></activity>
+        <activity android:name=".app.activity.Leave.LeavePendingList" />
+        <activity android:name=".app.activity.ExamineEdit.ExamineEdit" />
         <activity android:name=".app.activity.MyExamineList.AlreadyExamineList" />
         <activity android:name=".app.activity.MyExamineList.WaitExamineList" />
-        <activity android:name=".app.activity.Login.MainLogin">
+        <activity android:name=".app.activity.Login.MainLogin" />
+        <activity android:name=".app.activity.MyExamineList.MainTabActivity" />
+        <activity android:name=".app.activity.GoOut.GoOut" />
+        <activity android:name=".app.activity.Leave.LeaveType" />
+        <activity android:name=".app.activity.Leave.LeaveEdit">
+        </activity>
+        <activity android:name=".app.activity.Leave.LeaveTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.activity.MyExamineList.MainTabActivity"></activity>
-        <activity android:name=".app.activity.GoOut.GoOut"></activity>
-        <activity android:name=".app.activity.Leave.LeaveEdit"></activity>
+
     </application>
 
 </manifest>

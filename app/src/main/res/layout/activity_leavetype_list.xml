@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/leavetype"
+        style="@style/content_item_white"
+        android:background="@drawable/white_border"
+        >
+        <TextView
+        android:id="@+id/nametag"
+        style="@style/content_item_lf_tv"
+        android:layout_weight="1"
+        android:text="" />
+        <TextView
+            android:id="@+id/codetag"
+            style="@style/content_item_lf_tv"
+            android:layout_weight="1"
+            android:text=""
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:id="@+id/typeright"
+            style="@style/content_item_rt_img" />
+    </LinearLayout>
+</RelativeLayout>

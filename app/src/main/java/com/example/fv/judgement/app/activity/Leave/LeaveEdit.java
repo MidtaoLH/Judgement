@@ -13,6 +13,7 @@ import android.text.Html;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -44,19 +45,24 @@ import com.luck.picture.lib.tools.PictureFileUtils;
 import org.ksoap2.serialization.SoapObject;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
+import zuo.biao.library.ui.DatePickerWindow;
 import zuo.biao.library.util.CommonUtil;
+import zuo.biao.library.util.TimeUtil;
 
 public class LeaveEdit extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = LeaveEdit.class.getSimpleName();
     private String type, processApplyCode, edittype, userID, groupid, empID, vatcationID, processid, iosid, empname, vatcationid, ApplyCode, proCelReson, userHour;
-    private TextView lblTitle, lblbalance, lblstartdate, lblenddate, lblCause,lblduration;
+    private TextView lblTitle, lblbalance, lblstartdate, lblenddate, lblCause,lblduration,typetag,startdatetag,endDateTag;
     private EditText txtcause,txtduration;
     private Button btnpath, btnsave, btnsubmit;
 
@@ -67,8 +73,14 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
     private int compressMode = PictureConfig.SYSTEM_COMPRESS_MODE;
     private int themeId;
     private int chooseMode = PictureMimeType.ofAll();
+
+    private static final int REQUEST_TO_DATE_PICKER = 33;
+    private static final int REQUEST_TO_DATE_PICKEREND = 34;
+    private int[] selectedDate = new int[]{1971, 0, 1};
+    private int[] selectedStaraDate,selectedEndDate;
     //启动方法>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     private Intent intent;
+    public static final int RANGE_ALL = 0;//HttpRequest.USER_LIST_RANGE_ALL;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
@@ -167,6 +179,12 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         btnsubmit = (Button) findViewById(R.id.btnsubmit);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         lblduration=(TextView) findViewById(R.id.lblduration);
+        typetag = (TextView) findViewById(R.id.typetag);
+        startdatetag = (TextView) findViewById(R.id.startdatetag);
+        endDateTag = (TextView) findViewById(R.id.endDateTag);
+        txtduration = (EditText) findViewById(R.id.txtduration);
+        txtcause = (EditText) findViewById(R.id.txtcause);
+
         String str = " <font color='#FF0000'>*</font> 请假类型";
         lblTitle.setText(Html.fromHtml(str));
         str = "假期余额";
@@ -208,11 +226,11 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         proCelReson = intent.getStringExtra("proCelReson");
 
         LoginUserModel model = GlobalInformationApplication.getInstance().getCurrentUser();
-        userID = model.getUserNO();
+        userID = model.getId();
         empID = model.getEmpID();
         groupid = model.getGroupid();
         empname = model.getGroupName();
-        // iosid = GlobalVariableApplication.adId;
+        iosid =model.getAdId();
         userHour = model.getUserHour();
 
 
@@ -226,19 +244,15 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         //json转为实体
         Type LeaveModelType = new TypeToken<List<LeaveModel>>() {
         }.getType();
-        TextView typetag = (TextView) findViewById(R.id.typetag);
+
         String str = LU.get(0).getVatcationtype().toString();
         typetag.setText(str);
-        TextView startdatetag = (TextView) findViewById(R.id.startdatetag);
         str = LU.get(0).getTimestart().toString();
         startdatetag.setText(str);
-        TextView endDateTag = (TextView) findViewById(R.id.endDateTag);
         str = LU.get(0).getTimesend().toString();
         endDateTag.setText(str);
-        TextView txtduration = (TextView) findViewById(R.id.txtduration);
         str = LU.get(0).getVatcationreason().toString();
         txtduration.setText(str);
-        EditText txtcause = (EditText) findViewById(R.id.txtcause);
         str = LU.get(0).getVatcationreason().toString();
         txtcause.setText(str);
         for (LeaveModel bean : LU) {
@@ -356,7 +370,10 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (requestCode==0x002&&resultCode==0x001){
+            typetag.setText(data.getStringExtra("name"));//当LoginActivity finish后，就会调用这里，data为值
+        }
+        else if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PictureConfig.CHOOSE_REQUEST:
                     // 图片选择
@@ -370,6 +387,39 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                     break;
             }
         }
+        switch (requestCode) {
+            case REQUEST_TO_DATE_PICKER:
+                if (data != null) {
+                    ArrayList<Integer> list = data.getIntegerArrayListExtra(DatePickerWindow.RESULT_DATE_DETAIL_LIST);
+                    if (list != null && list.size() >= 3) {
+                        selectedDate = new int[list.size()];
+                        for (int i = 0; i < list.size(); i++) {
+                            selectedDate[i] = list.get(i);
+                        }
+                        startdatetag.setText(selectedDate[0] + "-" + (selectedDate[1] + 1) + "-" + selectedDate[2]);
+                        selectedDate[1]=selectedDate[1]+1;
+                        selectedStaraDate= selectedDate;
+                    }
+                }
+                break;
+            case REQUEST_TO_DATE_PICKEREND:
+                if (data != null) {
+
+                    ArrayList<Integer> list = data.getIntegerArrayListExtra(DatePickerWindow.RESULT_DATE_DETAIL_LIST);
+                    if (list != null && list.size() >= 3) {
+                        selectedDate = new int[list.size()];
+                        for (int i = 0; i < list.size(); i++) {
+                            selectedDate[i] = list.get(i);
+                        }
+                        endDateTag.setText(selectedDate[0] + "-" + (selectedDate[1] + 1) + "-" + selectedDate[2]);
+                        selectedDate[1]=selectedDate[1]+1;
+                        selectedEndDate= selectedDate;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
     @Override
     public void onClick(View v) {
@@ -377,12 +427,43 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
             case R.id.left_back:
                 finish();
                 break;
+            case R.id.leavetype:
+                Intent intent = new Intent();
+                intent.setClass(LeaveEdit.this,LeaveType.class);
+                startActivityForResult(intent,0x002);
+                break;
             case R.id.llduration:
+                break;
+            case R.id.llStartDateTag:
+                if(startdatetag.getText().toString()=="")
+                {
+                    toActivity(DatePickerWindow.createIntent(context, new int[]{1971, 0, 1}
+                            , TimeUtil.getDateDetail(System.currentTimeMillis())), REQUEST_TO_DATE_PICKER, false);
+                }
+                else
+                {
+                    toActivity(DatePickerWindow.createIntent(context, new int[]{1971, 0, 1}
+                            ,selectedStaraDate), REQUEST_TO_DATE_PICKER, false);
+                }
+                break;
+            case R.id.llEndDateTag:
+                if(endDateTag.getText().toString()=="")
+                {
+                    toActivity(DatePickerWindow.createIntent(context, new int[]{1971, 0, 1}
+                            , TimeUtil.getDateDetail(System.currentTimeMillis())), REQUEST_TO_DATE_PICKEREND, false);
+                }
+                else
+                {
+                    toActivity(DatePickerWindow.createIntent(context, new int[]{1971, 0, 1}
+                            ,selectedEndDate), REQUEST_TO_DATE_PICKEREND, false);
+                }
                 break;
             case R.id.btnpath:
                 break;
         }
     }
+
+
     @Override
     public boolean onLongClick(View v)
     {
