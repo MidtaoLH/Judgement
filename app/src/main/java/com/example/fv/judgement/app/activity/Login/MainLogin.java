@@ -121,7 +121,7 @@ public class MainLogin extends AppCompatActivity {
                 String UserNO_glob = preferences.getString("UserNO", "");
                 String UserHour_glob = preferences.getString("UserHour", "");
                 String IsNotice_glob = preferences.getString("IsNotice", "");
-                String adId_glob = preferences.getString("adId", "");
+                String adId_glob = adId;
 
                 LoginUserModel  LUM= new LoginUserModel();
                 LUM.setId(id_glob);

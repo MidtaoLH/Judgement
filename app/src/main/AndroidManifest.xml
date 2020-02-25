@@ -3,6 +3,7 @@
     package="com.example.fv.judgement">
 
     <application
+        android:name=".Waydata"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,6 +30,8 @@
         <activity android:name=".app.activity.GoOut.GoOut" />
         <activity android:name=".app.activity.Home.PageHome" />
         <activity android:name=".app.activity.Leave.LeaveEdit" />
+
+        <activity android:name=".app.activity.WayCheck.EmpPickerWindow" />
     </application>
 
 </manifest>
