@@ -22,10 +22,12 @@ public class ProductListAdapter extends BaseAdapter {
 
     private Context context;
     private List<Product> products;
+    private String dataType;
 
-    public ProductListAdapter(Context context, List<Product> products) {
+    public ProductListAdapter(Context context, List<Product> products,String DataType) {
         this.context = context;
         this.products = products;
+        this.dataType = DataType;
     }
 
     @Override
