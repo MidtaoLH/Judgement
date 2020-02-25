@@ -1,43 +1,25 @@
 package com.example.fv.judgement.app.activity.WayCheck;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.fv.judgement.R;
-import com.example.fv.judgement.Waydata;
-import com.example.fv.judgement.app.activity.GoOut.GoOut;
-import com.example.fv.judgement.app.activity.Home.PageHome;
-import com.example.fv.judgement.app.activity.Login.MainLogin;
-import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
-import com.example.fv.judgement.app.model.LoginUserModel;
+import com.example.fv.judgement.app.application.Waydata;
 import com.example.fv.judgement.app.model.WayCheckModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.example.fv.judgement.app.util.MyLog;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.ksoap2.serialization.SoapObject;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
-import zuo.biao.library.ui.PlacePickerWindow;
-import zuo.biao.library.util.PlaceUtil;
-import zuo.biao.library.util.StringUtil;
-
 
 
 ///
@@ -187,43 +169,6 @@ public class WayCheckFragmentActivity extends BaseActivity implements OnBottomDr
 
             demoFragment.setList(demoFragment.list);
         }
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-//        if(demoFragment.list.size() > 0 )
-//        {
-//            Waydata AppWaydata = (Waydata)getApplication();
-//
-//            if(AppWaydata.getIndex().equals("0"))
-//            {
-//
-//            }
-//            else
-//            {
-//                WayCheckModel addWCM = new WayCheckModel();
-//                addWCM.setEnglishname(AppWaydata.getEnglishname());
-//                addWCM.setEditflag(AppWaydata.getEditflag());
-//                addWCM.setName(AppWaydata.getName());
-//                addWCM.setGroupname(AppWaydata.getGroupname());
-//                addWCM.setLevelname(AppWaydata.getLevelname());
-//                int index =Integer.parseInt(AppWaydata.getIndex());
-//
-//                demoFragment.list.add(index,addWCM);
-//            }
-//
-//        };
-//
-//        for(int i = 0; i < demoFragment.list.size(); i++)
-//        {
-//            demoFragment.list.get(i).setIndex( String.valueOf(i) );
-//        }
-//
-//
-//        demoFragment.setList(demoFragment.list);
-
     }
 
     //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

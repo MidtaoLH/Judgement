@@ -1,25 +1,19 @@
 package com.example.fv.judgement.app.activity.WayCheck;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
 import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.fv.judgement.R;
-import com.example.fv.judgement.Waydata;
-import com.example.fv.judgement.app.activity.Home.PageHome;
-import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
+import com.example.fv.judgement.app.application.Waydata;
 import com.example.fv.judgement.app.manager.ControlHelper;
 import com.example.fv.judgement.app.model.Emp;
 import com.example.fv.judgement.app.model.Group;
-import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.example.fv.judgement.app.util.MyLog;
 import com.google.gson.Gson;
@@ -30,7 +24,6 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;

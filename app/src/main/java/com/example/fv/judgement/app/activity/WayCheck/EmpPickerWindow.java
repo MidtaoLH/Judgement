@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.example.fv.judgement.Waydata;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
+import com.example.fv.judgement.app.application.Waydata;
 import com.example.fv.judgement.app.model.Emp;
 import com.example.fv.judgement.app.model.Group;
 import com.example.fv.judgement.app.util.HttpRequest;
