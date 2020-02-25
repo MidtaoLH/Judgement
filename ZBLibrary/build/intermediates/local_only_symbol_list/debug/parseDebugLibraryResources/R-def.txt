@@ -432,8 +432,13 @@ style buttom_bottom
 style buttom_bottom_blue
 style buttom_bottom_red
 style content_item
+style content_itemPath
 style content_item_big
 style content_item_big_lf_img
+style content_item_gray
+style content_item_grayPath
+style content_item_grayedit
+style content_item_image
 style content_item_lf
 style content_item_lf_img
 style content_item_lf_tv
@@ -447,6 +452,8 @@ style content_item_rt_img
 style content_item_rt_tv
 style content_item_rt_tv_blue
 style content_item_white
+style content_itemedit
+style content_itemimage
 style divider
 style divider_horizontal_1dp
 style divider_horizontal_1dp_gray
