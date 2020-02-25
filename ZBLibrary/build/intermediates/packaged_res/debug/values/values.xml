@@ -439,6 +439,12 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@drawable/to_alpha</item>
     </style>
+    <style name="content_itemPath">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
     <style name="content_item_big" parent="content_item">
         <item name="android:layout_height">55dp</item>
     </style>
@@ -447,6 +453,18 @@
         <item name="android:layout_height">54dp</item>
         <item name="android:paddingRight">@dimen/padding_big</item>
         <item name="android:textSize">45sp</item>
+    </style>
+    <style name="content_item_gray" parent="content_item">
+
+    </style>
+    <style name="content_item_grayPath" parent="content_itemPath">
+
+    </style>
+    <style name="content_item_grayedit" parent="content_itemedit">
+
+    </style>
+    <style name="content_item_image" parent="content_itemimage">
+
     </style>
     <style name="content_item_lf">
         <item name="android:layout_width">match_parent</item>
@@ -510,6 +528,22 @@
     </style>
     <style name="content_item_white" parent="content_item">
         <item name="android:background">@drawable/white_to_gray</item>
+    </style>
+    <style name="content_itemedit">
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:paddingLeft">1dp</item>
+        <item name="android:paddingRight">1dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="content_itemimage">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
     </style>
     <style name="divider">
         <item name="android:background">@color/alpha_3</item>

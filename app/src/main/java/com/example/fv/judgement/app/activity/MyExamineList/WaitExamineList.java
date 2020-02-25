@@ -76,6 +76,10 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
 
             super.onCreateView(inflater, container, savedInstanceState);
             argument = getArguments();
+
+            GetGroupWebService();
+
+
             if (argument != null) {
      //           range = argument.getInt(ARGUMENT_RANGE, range);
             }
@@ -113,6 +117,37 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
         //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        public String GetGroupWebService()
+        {
+            String datastring = "";
+            try{
+                String methodName = "GetExamineEditData";
+
+                SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
+                        methodName);
+
+                soapObject.addProperty("userID", "96");
+                soapObject.addProperty("taskID", "438");
+                soapObject.addProperty("TaskType", "13");
+                soapObject.addProperty("iosid", "00000000-0000-0000-0000-000000000000");
+
+                //String methodName = "GetGroup";
+
+                //SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
+                //methodName);
+
+                HttpRequest http=new HttpRequest();
+
+                datastring =http.httpWebService_GetString(methodName,soapObject);
+
+                return datastring;
+
+            } catch (Exception e) {
+
+            }
+
+            return datastring;
+        }
 
         @Override
         public void initData() {//必须调用
@@ -143,8 +178,8 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
             soapObject.addProperty("pasgeIndex",pageindex);
             soapObject.addProperty("pageSize",CurentPageCount);
-            soapObject.addProperty("code",userModel.getCode());
-            soapObject.addProperty("userID",userModel.getUserNO());
+            soapObject.addProperty("code",45);
+            soapObject.addProperty("userID",96);
             soapObject.addProperty("menuID","4");
             soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
             HttpRequest httpres= new HttpRequest();
