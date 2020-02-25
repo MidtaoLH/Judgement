@@ -3,24 +3,24 @@
 3    package="zuo.biao.library.test" >
 4
 5    <uses-sdk
-5-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:5:5-74
+5-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:5:5-74
 6        android:minSdkVersion="15"
-6-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:5:15-41
+6-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:5:15-41
 7        android:targetSdkVersion="26" />
-7-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:5:42-71
+7-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:5:42-71
 8
 9    <instrumentation
-9-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:11:5-15:71
+9-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:11:5-15:71
 10        android:name="android.test.InstrumentationTestRunner"
-10-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:11:22-75
+10-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:11:22-75
 11        android:functionalTest="false"
-11-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:14:22-52
+11-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:14:22-52
 12        android:handleProfiling="false"
-12-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:13:22-53
+12-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:13:22-53
 13        android:label="Tests for zuo.biao.library.test"
-13-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:15:22-69
+13-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:15:22-69
 14        android:targetPackage="zuo.biao.library.test" />
-14-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:12:22-67
+14-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:12:22-67
 15    <!-- 复制粘贴到你的工程的AndroidManifest.xml内对应位置 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
 16    <!-- 需要的权限 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
 17    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -52,14 +52,14 @@
 25-->[__tested_artifact__::ZBLibrary] D:\andddddd\jcapp5\ZBLibrary\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:22-64
 26
 27    <application
-27-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:7:5-9:19
+27-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:7:5-9:19
 28        android:debuggable="true"
-28-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:7:18-43
+28-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:7:18-43
 29        android:label="@string/app_name" >
 29-->[__tested_artifact__::ZBLibrary] D:\andddddd\jcapp5\ZBLibrary\build\intermediates\library_manifest\debug\AndroidManifest.xml:27:18-50
 30        <uses-library android:name="android.test.runner" />
-30-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:8:9-60
-30-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4739198696254872194.xml:8:23-57
+30-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:8:9-60
+30-->D:\andddddd\jcapp5\ZBLibrary\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger3885210666622731117.xml:8:23-57
 31        <!-- 更好的适配全面屏 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
 32        <meta-data
 32-->[__tested_artifact__::ZBLibrary] D:\andddddd\jcapp5\ZBLibrary\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:9-32:35

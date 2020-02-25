@@ -126,7 +126,7 @@ public class WayCheckFragment extends BaseFragment {
      * @author author
      * @param list
      */
-    private void setList(List<WayCheckModel> list) {
+    public void setList(List<WayCheckModel> list) {
         if (adapter == null) {
             adapter = new WayCheckAdapter(context);
             lvDemoFragment.setAdapter(adapter);
@@ -148,16 +148,16 @@ public class WayCheckFragment extends BaseFragment {
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     //示例代码<<<<<<<<
-    private List<WayCheckModel> list;
+    public List<WayCheckModel> list;
     //示例代码>>>>>>>>>
     @Override
     public void initData() {//必须在onCreateView方法内调用
 
         //示例代码<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-        showShortToast(TAG + ": userId = " + userId + "; userName = " + userName);
+        //showShortToast(TAG + ": userId = " + userId + "; userName = " + userName);
 
-        showProgressDialog(R.string.loading);
+        //showProgressDialog(R.string.loading);
 
         runThread(TAG + "initData", new Runnable() {
             @Override
@@ -183,7 +183,7 @@ public class WayCheckFragment extends BaseFragment {
      * @param
      * @return
      */
-    protected List<WayCheckModel> getList() {
+    public List<WayCheckModel> getList() {
 //        list = new ArrayList<WayCheckModel>();
 //        WayCheckModel test = new WayCheckModel();
 //        test.setEnglishname("1111");
@@ -194,7 +194,7 @@ public class WayCheckFragment extends BaseFragment {
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
         soapObject.addProperty("id","94");
         soapObject.addProperty("processid","271");
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+        soapObject.addProperty("iosid","d90730e57c3bdb81");
         soapObject.addProperty("userid","94");
 
         HttpRequest httpres= new HttpRequest();
@@ -228,11 +228,20 @@ public class WayCheckFragment extends BaseFragment {
         lvDemoFragment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                switch (view.getId()) {
+                    case R.id.btnadd:
+
+                        toActivity(WayChose.createIntent(context, position));//一般用id，这里position仅用于测试 id));//
+                }
                // toActivity(UserActivity.createIntent(context, position));//一般用id，这里position仅用于测试 id));//
             }
         });
         //示例代码>>>>>>>>>>>>>>>>>>>
     }
+
+
 
 
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
