@@ -1,6 +1,7 @@
 package com.example.fv.judgement.app.activity.Leave;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -56,13 +57,15 @@ import io.reactivex.disposables.Disposable;
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
 import zuo.biao.library.ui.DatePickerWindow;
+import zuo.biao.library.ui.WebViewActivity;
 import zuo.biao.library.util.CommonUtil;
+import zuo.biao.library.util.StringUtil;
 import zuo.biao.library.util.TimeUtil;
 
 public class LeaveEdit extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = LeaveEdit.class.getSimpleName();
-    private String type, processApplyCode, edittype, userID, groupid, empID, vatcationID, processid, iosid, empname, vatcationid, ApplyCode, proCelReson, userHour;
-    private TextView lblTitle, lblbalance, lblstartdate, lblenddate, lblCause,lblduration,typetag,startdatetag,endDateTag;
+    private String processApplyCode, edittype, userID, groupid, empID, processInstanceID,vatcationID, processid, iosid, empname, vatcationid, ApplyCode, proCelReson, userHour;
+    private TextView title,lblTitle, lblbalance, lblstartdate, lblenddate, lblCause,lblduration,typetag,startdatetag,endDateTag;
     private EditText txtcause,txtduration;
     private Button btnpath, btnsave, btnsubmit;
 
@@ -80,7 +83,15 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
     private int[] selectedStaraDate,selectedEndDate;
     //启动方法>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     private Intent intent;
-    public static final int RANGE_ALL = 0;//HttpRequest.USER_LIST_RANGE_ALL;
+    public static Intent createIntent(Context context,  String vatcationid, String processInstanceID
+            , String processApplyCode, String edittype, String urltype) {
+        return new Intent(context, LeaveEdit.class) .
+                putExtra("vatcationid", vatcationid).
+                putExtra("processInstanceID", processInstanceID).
+                putExtra("processApplyCode", processApplyCode).
+                putExtra("edittype", edittype).
+                putExtra("urltype", urltype);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
@@ -95,8 +106,18 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         initImage();
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
-        if(type!="0")
+        edittype = StringUtil.get(getIntent().getStringExtra("edittype"));
+        if(edittype.equals("2"))
+        {
+            vatcationid = StringUtil.get(getIntent().getStringExtra("vatcationid"));
+            processInstanceID = StringUtil.get(getIntent().getStringExtra("processInstanceID"));
+            processApplyCode = StringUtil.get(getIntent().getStringExtra("processApplyCode"));
             initData();
+        }
+        else
+        {
+            edittype="1";
+        }
         initEvent();
         //功能归类分区方法，必须调用>>>>>>>>>>
         GlobalMethodApplication.TxtNumber(txtduration);
@@ -163,6 +184,14 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
     }
     //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public void initView() {
+        LoginUserModel model = GlobalInformationApplication.getInstance().getCurrentUser();
+        userID = model.getId();
+        empID = model.getEmpID();
+        groupid = model.getGroupid();
+        empname = model.getGroupName();
+        iosid =model.getAdId();
+        userHour = model.getUserHour();
+
         intent = getIntent();
         lblTitle = (TextView) findViewById(R.id.lbltype);
         lblTitle.setFocusable(true);
@@ -184,7 +213,8 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         endDateTag = (TextView) findViewById(R.id.endDateTag);
         txtduration = (EditText) findViewById(R.id.txtduration);
         txtcause = (EditText) findViewById(R.id.txtcause);
-
+        title=(TextView) findViewById(R.id.title);
+        title.setText(GlobalVariableApplication.editLeave);
         String str = " <font color='#FF0000'>*</font> 请假类型";
         lblTitle.setText(Html.fromHtml(str));
         str = "假期余额";
@@ -211,28 +241,10 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         adapter.setList(selectList);
         adapter.setSelectMax(maxSelectNum);
         recyclerView.setAdapter(adapter);
-        if(intent.getStringExtra("type")!=null)
-            type= intent.getStringExtra("type");
-        else
-            type="0";
     }
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public void initData() {
         //必须在onCreate方法内调用
-        processApplyCode = intent.getStringExtra("processApplyCode");
-        edittype = intent.getStringExtra("edittype");
-        processid = intent.getStringExtra("processid");
-        vatcationid = intent.getStringExtra("vatcationid");
-        proCelReson = intent.getStringExtra("proCelReson");
-
-        LoginUserModel model = GlobalInformationApplication.getInstance().getCurrentUser();
-        userID = model.getId();
-        empID = model.getEmpID();
-        groupid = model.getGroupid();
-        empname = model.getGroupName();
-        iosid =model.getAdId();
-        userHour = model.getUserHour();
-
 
         String jsonString = GetInfo();
         List<LeaveModel> LU = new ArrayList<LeaveModel>();
@@ -266,7 +278,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
     }
     public String SaveInfo() {
         try {
-            if (type == "0") {
+            if (edittype == "1") {
                 ApplyCode = "";
                 String methodName = "btnsave_new";
                 SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
@@ -276,7 +288,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                 soapObject.addProperty("userid", userID);
                 soapObject.addProperty("groupid", groupid);
                 soapObject.addProperty("empid", empID);
-                soapObject.addProperty("vtype", type);
+                soapObject.addProperty("vtype", edittype);
                 soapObject.addProperty("starttime", lblstartdate.getText());
                 soapObject.addProperty("endtime", lblenddate.getText());
                 soapObject.addProperty("vatcationtime", txtduration.getText());
@@ -290,7 +302,27 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                 HttpRequest http = new HttpRequest();
                 String datastring = http.httpWebService_GetString(methodName, soapObject);
             } else {
-
+                String methodName = "btnsave_new";
+                SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
+                        methodName);
+                soapObject.addProperty("ProcessApplyCode", processApplyCode);
+                soapObject.addProperty("edittype", edittype);
+                soapObject.addProperty("userid", userID);
+                soapObject.addProperty("groupid", groupid);
+                soapObject.addProperty("empid", empID);
+                soapObject.addProperty("vtype", edittype);
+                soapObject.addProperty("starttime", lblstartdate.getText());
+                soapObject.addProperty("endtime", lblenddate.getText());
+                soapObject.addProperty("vatcationtime", txtduration.getText());
+                soapObject.addProperty("name", empname);
+                soapObject.addProperty("leavleid", vatcationid);
+                soapObject.addProperty("processid", processid);
+                soapObject.addProperty("imagecount", recyclerView.getItemDecorationCount());
+                soapObject.addProperty("applycode", ApplyCode);
+                soapObject.addProperty("CelReson", proCelReson);
+                soapObject.addProperty("iosid", iosid);
+                HttpRequest http = new HttpRequest();
+                String datastring = http.httpWebService_GetString(methodName, soapObject);
             }
         } catch (Exception e) {
             MyLog.writeLogtoFile("错误", "LeaveEdit", "GetInfo", e.toString(), "0");

@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
+import com.example.fv.judgement.app.adapter.LeaveListAdapter;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
-import com.example.fv.judgement.app.model.ExamineModel;
+import com.example.fv.judgement.app.model.LeaveListModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,13 +24,14 @@ import org.ksoap2.serialization.SoapObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import zuo.biao.library.base.BaseHttpListFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.interfaces.CacheCallBack;
 import zuo.biao.library.util.JSON;
 
-public class LeavePendingList extends BaseHttpListFragment<ExamineModel, ListView, ExamineListAdapter> implements CacheCallBack<ExamineModel>
+public class LeavePendingList extends BaseHttpListFragment<LeaveListModel, ListView, LeaveListAdapter> implements CacheCallBack<LeaveListModel>
 {
 //	private static final String TAG = "UserListFragment";
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -73,12 +77,12 @@ public class LeavePendingList extends BaseHttpListFragment<ExamineModel, ListVie
     }
     @Override
     //  public void setList(final List<ExamineModel> list) {
-    public void setList(final List<ExamineModel> list) {
-        setList(new AdapterCallBack<ExamineListAdapter>() {
+    public void setList(final List<LeaveListModel> list) {
+        setList(new AdapterCallBack<LeaveListAdapter>() {
 
             @Override
-            public ExamineListAdapter createAdapter() {
-                return new ExamineListAdapter(context);
+            public LeaveListAdapter createAdapter() {
+                return new LeaveListAdapter(context);
             }
             @Override
             public void refreshAdapter() {
@@ -113,9 +117,9 @@ public class LeavePendingList extends BaseHttpListFragment<ExamineModel, ListVie
         soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-        List<ExamineModel> listExaData=new ArrayList<ExamineModel>();
+        List<LeaveListModel> listExaData=new ArrayList<LeaveListModel>();
 
-        Type type = new TypeToken<List<ExamineModel>>(){}.getType();
+        Type type = new TypeToken<List<LeaveListModel>>(){}.getType();
         listExaData = new Gson().fromJson(jsonData,type);
 
         onHttpResponse(-page, JSON.toJSONString(listExaData), null);
@@ -133,12 +137,12 @@ public class LeavePendingList extends BaseHttpListFragment<ExamineModel, ListVie
     }
 
     @Override
-    public List<ExamineModel> parseArray(String json) {
-        return JSON.parseArray(json, ExamineModel.class);
+    public List<LeaveListModel> parseArray(String json) {
+        return JSON.parseArray(json, LeaveListModel.class);
     }
     @Override
-    public Class<ExamineModel> getCacheClass() {
-        return ExamineModel.class;
+    public Class<LeaveListModel> getCacheClass() {
+        return LeaveListModel.class;
     }
 
     @Override
@@ -151,7 +155,7 @@ public class LeavePendingList extends BaseHttpListFragment<ExamineModel, ListVie
 //            return "range=" + range;
 //        }
     @Override
-    public String getCacheId(ExamineModel data) {
+    public String getCacheId(LeaveListModel data) {
         return data == null ? null : "" + data.getId();
     }
     @Override
@@ -165,6 +169,12 @@ public class LeavePendingList extends BaseHttpListFragment<ExamineModel, ListVie
     @Override
     public void initEvent() {//必须调用
         super.initEvent();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        toActivity(LeaveEdit.createIntent(context, adapter.getItem(position).getAwardID_FK(), adapter.getItem(position).getProcessInstanceID(),adapter.getItem(position).getProcessApplyCode()
+              ,"2","getdata"));
     }
 //        @Override
 //        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
