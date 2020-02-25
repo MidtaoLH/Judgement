@@ -13,8 +13,10 @@ import android.widget.ListView;
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
 import com.example.fv.judgement.app.adapter.LeaveListAdapter;
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.LeaveListModel;
+import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,7 +37,7 @@ public class LeavePendingList extends BaseHttpListFragment<LeaveListModel, ListV
 {
 //	private static final String TAG = "UserListFragment";
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+    private String userID, groupid,iosid;
     public static final String ARGUMENT_RANGE = "ARGUMENT_RANGE";
 
     public static LeavePendingList createInstance(int range) {
@@ -96,6 +98,10 @@ public class LeavePendingList extends BaseHttpListFragment<LeaveListModel, ListV
 
     @Override
     public void initData() {//必须调用
+        LoginUserModel model = GlobalInformationApplication.getInstance().getCurrentUser();
+        userID = model.getId();
+        groupid = model.getGroupid();
+        iosid =model.getAdId();
         super.initData();
     }
 
@@ -108,13 +114,13 @@ public class LeavePendingList extends BaseHttpListFragment<LeaveListModel, ListV
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
         soapObject.addProperty("pasgeIndex",pageindex);
         soapObject.addProperty("pageSize",GlobalVariableApplication.pageSize);
-        soapObject.addProperty("userID","91");
-        soapObject.addProperty("GroupID_FK","2");
+        soapObject.addProperty("userID",userID);
+        soapObject.addProperty("GroupID_FK",groupid);
         soapObject.addProperty("CaseName","");
         soapObject.addProperty("ApplyGroupID_FK","2");
         soapObject.addProperty("EmpCName","");
         soapObject.addProperty("ProcessStutas","0");
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+        soapObject.addProperty("iosid",iosid);
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
         List<LeaveListModel> listExaData=new ArrayList<LeaveListModel>();
