@@ -10,8 +10,8 @@
     <ImageView
         android:id="@+id/ivUserViewHead"
         style="@style/img_fitXY"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:src="@drawable/oval_alpha" />
 
     <LinearLayout
@@ -26,7 +26,14 @@
                 android:layout_weight="1" >
 
                 <TextView
-                    android:id="@+id/tvCaseName"
+                    android:id="@+id/tvEmpName"
+                    style="@style/text_middle_black"
+                    android:layout_marginRight="6dp"
+                    android:gravity="left"
+                    android:text="Name" />
+
+                <TextView
+                    android:id="@+id/tvLeave"
                     style="@style/text_middle_black"
                     android:layout_marginRight="6dp"
                     android:gravity="left"
@@ -43,13 +50,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvCaseType"
-            style="@style/text_middle"
-            android:layout_marginRight="6dp"
-            android:gravity="left"
-            android:text="Name" />
-
         <LinearLayout style="@style/ll_horizontal_match_wrap" >
 
             <LinearLayout
@@ -57,33 +57,21 @@
                 android:layout_weight="1" >
 
                 <TextView
-                    android:id="@+id/tvBeginDate"
+                    android:id="@+id/tvGroupName"
                     style="@style/text_middle"
                     android:layout_marginRight="6dp"
                     android:gravity="left"
                     android:text="Name" />
 
+                <TextView
+                    android:id="@+id/tvRemark"
+                    style="@style/text_middle_black"
+                    android:layout_marginRight="6dp"
+                    android:gravity="left"
+                    android:text="Name" />
             </LinearLayout>
 
-<!--            <TextView-->
-<!--                android:id="@+id/tvYuLan"-->
-<!--                style="@style/text_middle"-->
-<!--                android:layout_marginRight="6dp"-->
-<!--                android:background="@drawable/textview_border"-->
-<!--                android:gravity="left"-->
-<!--                android:text="   预览   " />-->
-
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvEndDate"
-            style="@style/text_middle"
-            android:text="Phone:" />
-
-        <TextView
-            android:id="@+id/tvStatus"
-            style="@style/text_middle"
-            android:text="Phone:" />
 
     </LinearLayout>
 

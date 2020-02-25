@@ -42,36 +42,26 @@
                 android:paddingLeft="4dp" >
 
                 <TextView
-                    android:id="@+id/tvCaseName"
+                    android:id="@+id/tvEmpName"
                     style="@style/text_middle_black"
                     android:layout_marginRight="6dp"
                     android:gravity="left"
-                    android:text="Name" />
+                    android:text="姓名" />
 
 
                 <TextView
-                    android:id="@+id/tvCaseType"
+                    android:id="@+id/tvGroupName"
                     style="@style/text_middle"
                     android:layout_marginRight="6dp"
                     android:gravity="left"
-                    android:text="Name" />
+                    android:text="部门" />
 
                 <TextView
-                    android:id="@+id/tvBeginDate"
+                    android:id="@+id/tvApplyDate"
                     style="@style/text_middle"
                     android:layout_marginRight="6dp"
                     android:gravity="left"
-                    android:text="Name" />
-
-                <TextView
-                    android:id="@+id/tvEndDate"
-                    style="@style/text_middle"
-                    android:text="Phone:" />
-
-                <TextView
-                    android:id="@+id/tvStatus"
-                    style="@style/text_middle"
-                    android:text="Phone:" />
+                    android:text="申请时间：" />
 
             </LinearLayout>
 
@@ -91,23 +81,32 @@
             android:paddingLeft="4dp">
 
             <TextView
-                style="@style/content_item_lf_tv"
-                android:text="出差地点" />
+                android:id="@+id/tvPlace"
+                style="@style/text_middle"
+                android:layout_marginRight="6dp"
+                android:gravity="left"
+                android:text="出差地点：" />
 
             <TextView
-                style="@style/content_item_lf_tv"
-                android:paddingTop="4dp"
-                android:text="出差时间" />
+                android:id="@+id/tvDate"
+                style="@style/text_middle"
+                android:layout_marginRight="6dp"
+                android:gravity="left"
+                android:text="出差时间：" />
 
             <TextView
-                style="@style/content_item_lf_tv"
-                android:paddingTop="4dp"
-                android:text="出差天数" />
+                android:id="@+id/tvCount"
+                style="@style/text_middle"
+                android:layout_marginRight="6dp"
+                android:gravity="left"
+                android:text="出差时长：" />
 
             <TextView
-                style="@style/content_item_lf_tv"
-                android:paddingTop="4dp"
-                android:text="出差事由" />
+                android:id="@+id/tvRemark"
+                style="@style/text_middle"
+                android:layout_marginRight="6dp"
+                android:gravity="left"
+                android:text="出差事由：" />
         </LinearLayout>
 
         <LinearLayout
