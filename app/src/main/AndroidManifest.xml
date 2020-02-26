@@ -33,6 +33,10 @@
         <activity android:name=".app.activity.Home.PageHome" />
         <activity android:name=".app.activity.Leave.LeaveEdit" />
         <activity android:name=".app.activity.WayCheck.EmpPickerWindow" />
+        <activity android:name=".app.activity.ExamineEdit.ExamineEdit"></activity>
+        <activity android:name=".app.activity.ExamineEdit.ProductShowActivity"></activity>
+        <activity android:name=".app.activity.Leave.LeaveType"></activity>
+        <activity android:name=".app.activity.Leave.LeaveTabActivity"></activity>
     </application>
 
 </manifest>
