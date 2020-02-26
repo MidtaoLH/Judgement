@@ -1,28 +1,28 @@
-package com.example.fv.judgement.app.model;
+package com.example.fv.judgement.app.application;
 
-import zuo.biao.library.base.BaseModel;
+import android.app.Application;
 
-public class WayCheckModel extends BaseModel {
+public class Waydata extends Application {
 
-    public String Index = "0";
+    public String Index;
 
-    public String levelname = "";
+    public String levelname;
 
-    public String name = "";
+    public String name;
 
-    private String nameid = "";
+    private String nameid;
 
-    private String groupname = "";
+    private String groupname;
 
-    private String groupid = "";
+    private String groupid;
 
-    private String englishname = "";
+    private String englishname;
 
-    private String level = "";
+    private String level;
 
-    private String editflag = "";
+    private String editflag;
 
-   //private String Condition = "";
+    private String Condition;
 
     public String getLevelname() {
         return levelname;
@@ -88,13 +88,13 @@ public class WayCheckModel extends BaseModel {
         this.editflag = editflag;
     }
 
-//    public String getCondition() {
-//        return Condition;
-//    }
+    public String getCondition() {
+        return Condition;
+    }
 
-//    public void setCondition(String condition) {
-//        Condition = condition;
-//    }
+    public void setCondition(String condition) {
+        Condition = condition;
+    }
 
     public String getIndex() {
         return Index;
@@ -105,7 +105,28 @@ public class WayCheckModel extends BaseModel {
     }
 
     @Override
-    protected boolean isCorrect() {
-        return false;
+    public void onCreate(){
+
+        Index = "0";
+
+        levelname = "";
+
+        name = "";
+
+        nameid = "";
+
+        groupname = "";
+
+        groupid = "";
+
+        englishname = "";
+
+        level = "";
+
+        editflag = "";
+
+        Condition = "";
+
+        super.onCreate();
     }
 }

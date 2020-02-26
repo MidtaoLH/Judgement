@@ -121,7 +121,7 @@ public class MainLogin extends AppCompatActivity {
                 String UserNO_glob = preferences.getString("UserNO", "");
                 String UserHour_glob = preferences.getString("UserHour", "");
                 String IsNotice_glob = preferences.getString("IsNotice", "");
-                String adId_glob = preferences.getString("adId", "");
+                String adId_glob = adId;
 
                 LoginUserModel  LUM= new LoginUserModel();
                 LUM.setId(id_glob);
@@ -135,7 +135,7 @@ public class MainLogin extends AppCompatActivity {
                 LUM.setIsNotice(IsNotice_glob);
                 LUM.setAdId(adId_glob);
 
-                //GlobalInformationApplication.getInstance().saveCurrentUser(LUM);
+                GlobalInformationApplication.getInstance().saveCurrentUser(LUM);
 
                 Intent intent = new Intent();
                 intent.setClass(MainLogin.this, PageHome.class);
@@ -181,6 +181,8 @@ public class MainLogin extends AppCompatActivity {
                                                 public void onClick(DialogInterface dialog, int whichButton) {
 
                                                 }
+
+
                                             }).create().show();
 
                                 }
@@ -228,7 +230,7 @@ public class MainLogin extends AppCompatActivity {
                                             editor.commit();//写入
 
                                             LU.get(0).setAdId(adId);
-                                           // GlobalInformationApplication.getInstance().saveCurrentUser(LU.get(0));
+                                            GlobalInformationApplication.getInstance().saveCurrentUser(LU.get(0));
 
 
                                             if(usercount_int > 0)
