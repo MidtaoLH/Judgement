@@ -1,11 +1,13 @@
 package com.example.fv.judgement.app.activity.Notice;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.activity.MyExamineList.WaitExamineList;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
 import com.example.fv.judgement.app.adapter.NoticeListAdapter;
@@ -96,25 +98,25 @@ public class GetNotice extends BaseHttpListFragment<NoticeModel, ListView, Notic
     @Override
     public void getListAsync(final int page) {
         //实际使用时用这个，需要配置服务器地址  HttpRequest.getUserList(range, page, -page, this);
-        LoginUserModel userModel = GlobalInformationApplication.getInstance().getCurrentUser();
+        //LoginUserModel userModel = GlobalInformationApplication.getInstance().getCurrentUser();
 
         int pageindex = page;
         pageindex++;
         CurentPageCount = 5;
 
-        String methodName = "GetPendingInfoAndroid";
+        String methodName = "GetNoticeNews";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
         soapObject.addProperty("pasgeIndex",pageindex);
         soapObject.addProperty("pageSize",CurentPageCount);
-        soapObject.addProperty("code",45);
-        soapObject.addProperty("userID",96);
+        soapObject.addProperty("userID","94");
+        soapObject.addProperty("GroupID_FK","2");
         soapObject.addProperty("menuID","4");
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+        soapObject.addProperty("iosid","d90730e57c3bdb81");
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-        List<ExamineModel> listExaData=new ArrayList<ExamineModel>();
+        List<NoticeModel> listExaData=new ArrayList<NoticeModel>();
 
-        Type type = new TypeToken<List<ExamineModel>>(){}.getType();
+        Type type = new TypeToken<List<NoticeModel>>(){}.getType();
         listExaData = new Gson().fromJson(jsonData,type);
 
         //框架是 每次取增量数据

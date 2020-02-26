@@ -30,15 +30,14 @@ public class NoticeListView extends BaseView<NoticeModel> implements View.OnClic
 
     //构造需继承样式继承列表样式R.layout.user_view
     public NoticeListView(Activity context, ViewGroup parent) {
-        super(context, R.layout.examine_viewlistnew, parent);
+        super(context, R.layout.activity_notice_list_view, parent);
     }
 
     public TextView tvnoticetitle; //公告的头部名称
-    public TextView tvCaseType;
-    public TextView tvBeginDate;
-    public TextView tvEndDate;
-    public TextView tvStatus;
-    public TextView tvCaseDate;
+    public TextView tvCaseDate;  //公告日期
+    public TextView tvNoticecontent; //公告内容
+
+
     //  public TextView tvYuLan;
     @SuppressLint("InflateParams")
     @Override
@@ -46,46 +45,24 @@ public class NoticeListView extends BaseView<NoticeModel> implements View.OnClic
     public View createView() {
         //ivUserViewHead = findView(R.id.ivUserViewHead, this);
         tvnoticetitle = findView(R.id.tvnoticetitle);
-        tvCaseType = findView(R.id.tvCaseType);
-        tvBeginDate = findView(R.id.tvBeginDate);
-        tvEndDate = findView(R.id.tvEndDate);
-        tvStatus = findView(R.id.tvStatus);
+
+
         tvCaseDate = findView(R.id.tvCaseDate);
+        tvNoticecontent= findView(R.id.tvNoticecontent);
+
         return super.createView();
     }
     @Override
     public void bindView(NoticeModel data_){
         super.bindView(data_ != null ? data_ : new NoticeModel());
 
-        //tvnoticetitle
+        String aa =  data_.getNewsTheme().toString();
+        String bb = data_.getNewsDate().toString();
+        String cc = data_.getNewsContent().toString();
 
-
-
-        //格式化头像地址
-//        String strPhoto = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL,data_.getApplyManPhoto());
-//        Glide.with(context).asBitmap().load(strPhoto).into(new SimpleTarget<Bitmap>() {
-//            @Override
-//            public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
-//                ivUserViewHead.setImageBitmap(CommonUtil.toRoundCorner(bitmap, bitmap.getWidth()/2));
-//            }
-//        });
-//        tvCaseName.setText(data_.getCaseName());
-//        tvCaseType.setText(data_.getCaseTypeTxt());
-//        tvBeginDate.setText("开始时间:" + data_.getBeginDate());
-//        tvEndDate.setText("结束时间:" + data_.getEndDate());
-//        tvCaseDate.setText(data_.getCaseDate());
-//        tvStatus.setText(data_.getCaseStatusTxt());
-
-        //特殊处理
-        //String strType = data_.getDocumentName();
-//        if (!strType.equals("请假")) {
-//            tvCaseType.setVisibility(View.GONE);
-//        }
-//        else
-//        {
-//            tvCaseType.setVisibility(View.VISIBLE);
-//        }
-//        tvStatus.setTextColor(Color.rgb(0, 204, 204));
+        tvnoticetitle.setText(aa);
+        tvCaseDate.setText(bb);
+        tvNoticecontent.setText(cc);
     }
     @Override
     public void onClick(View v) {
