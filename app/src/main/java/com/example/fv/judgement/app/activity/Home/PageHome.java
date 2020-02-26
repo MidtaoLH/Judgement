@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.Leave.LeaveTabActivity;
 import com.example.fv.judgement.app.activity.MyExamineList.MainTabActivity;
 
 public class PageHome extends AppCompatActivity {
@@ -37,6 +38,13 @@ public class PageHome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        leavebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(PageHome.this, LeaveTabActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -4,11 +4,11 @@ import android.app.Application;
 
 public class Waydata extends Application {
 
-    private String Index;
+    public String Index;
 
-    private String levelname;
+    public String levelname;
 
-    private String name;
+    public String name;
 
     private String nameid;
 
@@ -23,7 +23,6 @@ public class Waydata extends Application {
     private String editflag;
 
     private String Condition;
-
 
     public String getLevelname() {
         return levelname;
@@ -105,28 +104,29 @@ public class Waydata extends Application {
         Index = index;
     }
 
-
     @Override
     public void onCreate(){
-         Index = "0";
+
+        Index = "0";
 
         levelname = "";
 
-        name= "";
+        name = "";
 
-       nameid= "";
+        nameid = "";
 
-         groupname= "";
+        groupname = "";
 
-         groupid= "";
+        groupid = "";
 
-        englishname= "";
+        englishname = "";
 
-         level= "";
+        level = "";
 
-         editflag= "";
+        editflag = "";
 
-        Condition= "";
+        Condition = "";
+
         super.onCreate();
     }
 }

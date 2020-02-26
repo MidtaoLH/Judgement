@@ -48,6 +48,7 @@ color btn_red_normal
 color btn_red_pressed
 color button_selected
 color button_unselected
+color c_status
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
@@ -175,6 +176,7 @@ drawable btn_orange_bg
 drawable btn_red_round_bg
 drawable btn_red_round_bg_normal
 drawable btn_red_round_bg_pressed
+drawable c_status
 drawable cancel
 drawable cancel_light
 drawable cilcle_gray
@@ -183,7 +185,6 @@ drawable circle_blue
 drawable circle_green
 drawable circle_pink
 drawable circle_white
-drawable circle_yellow
 drawable dialog_bg
 drawable dialog_bg_common
 drawable dialog_bg_rec
