@@ -32,8 +32,8 @@ public class NoticeListView extends BaseView<NoticeModel> implements View.OnClic
     public NoticeListView(Activity context, ViewGroup parent) {
         super(context, R.layout.examine_viewlistnew, parent);
     }
-    public ImageView ivUserViewHead; //创建画面所需控件
-    public TextView tvCaseName;
+
+    public TextView tvnoticetitle; //公告的头部名称
     public TextView tvCaseType;
     public TextView tvBeginDate;
     public TextView tvEndDate;
@@ -44,8 +44,8 @@ public class NoticeListView extends BaseView<NoticeModel> implements View.OnClic
     @Override
     //创建画面控件关联
     public View createView() {
-        ivUserViewHead = findView(R.id.ivUserViewHead, this);
-        tvCaseName = findView(R.id.tvCaseName);
+        //ivUserViewHead = findView(R.id.ivUserViewHead, this);
+        tvnoticetitle = findView(R.id.tvnoticetitle);
         tvCaseType = findView(R.id.tvCaseType);
         tvBeginDate = findView(R.id.tvBeginDate);
         tvEndDate = findView(R.id.tvEndDate);
@@ -56,6 +56,10 @@ public class NoticeListView extends BaseView<NoticeModel> implements View.OnClic
     @Override
     public void bindView(NoticeModel data_){
         super.bindView(data_ != null ? data_ : new NoticeModel());
+
+        //tvnoticetitle
+
+
 
         //格式化头像地址
 //        String strPhoto = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL,data_.getApplyManPhoto());

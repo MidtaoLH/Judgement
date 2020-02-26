@@ -1,9 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".app.view.NoticeListView">
+<!-- ListView中的ItemView里不要用Button等默认hasFocus的控件，以免onItemClick事件无响应 -->
+<!-- 如果一定要用，则必须在根布局加上 android:descendantFocusability="blocksDescendants" -->
 
-</android.support.constraint.ConstraintLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ll_horizontal_match_wrap"
+    android:background="@drawable/white_to_alpha"
+    android:padding="4dp" >
+
+    <LinearLayout
+        style="@style/ll_vertical_match_wrap"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="4dp" >
+
+        <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/tvnoticetitle"
+                    style="@style/text_middle_black"
+                    android:layout_marginRight="6dp"
+                    android:gravity="left"
+                    android:text="Name" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/tvtitledate"
+                    style="@style/text_middle"
+                    android:gravity="left"
+
+                    android:text="发布时间：" />
+
+                <TextView
+                    android:id="@+id/tvCaseDate"
+                    style="@style/text_middle"
+
+                    android:gravity="left"
+                    android:text="2020-01-01" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvNoticecontent"
+            style="@style/text_middle"
+            android:layout_marginRight="6dp"
+            android:gravity="left"
+            android:text="123456789123456789" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
