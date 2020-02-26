@@ -19,6 +19,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
+
 import com.example.fv.judgement.R;
 
 import zuo.biao.library.base.BaseBottomTabActivity;
@@ -87,7 +90,7 @@ public class LeaveTabActivity extends BaseBottomTabActivity implements OnBottomD
     @Override
     protected Fragment getFragment(int position) {
         switch (position) {
-            case 1:
+            case 0:
                 return LeavePendingList.createInstance(LeavePendingList.RANGE_ALL);
             default:
                 return LeaveRecordingList.createInstance(LeaveRecordingList.RANGE_ALL);
