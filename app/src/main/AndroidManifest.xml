@@ -17,6 +17,10 @@
         <activity android:name=".app.activity.MyExamineList.WaitExamineList" />
         <activity android:name=".app.activity.Login.MainLogin">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".app.activity.ExamineEdit.ProductShowActivity">
 
@@ -25,13 +29,12 @@
         <activity android:name=".app.activity.MyExamineList.MainTabActivity"></activity>
         <activity android:name=".app.activity.GoOut.GoOut"></activity>
         <activity android:name=".app.activity.Leave.LeaveEdit">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".app.activity.Leave.LeaveType">
+        </activity>
+        <activity android:name=".app.activity.Home.PageHome">
+        </activity>
+        <activity android:name=".app.activity.Leave.LeaveTabActivity">
         </activity>
     </application>
 

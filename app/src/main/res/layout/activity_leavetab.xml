@@ -9,6 +9,10 @@
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
             android:text="待申请" />
+        <TextView
+            android:id="@+id/tvAddBtn"
+            style="@style/topbar_right_btn"
+            android:text="新增" />
     </RelativeLayout>
 
     <FrameLayout

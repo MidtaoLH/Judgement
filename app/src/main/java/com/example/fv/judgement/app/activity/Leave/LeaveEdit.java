@@ -29,6 +29,7 @@ import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalMethodApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.LeaveModel;
+import com.example.fv.judgement.app.model.LeaveStatusModel;
 import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.example.fv.judgement.app.util.MyLog;
@@ -65,7 +66,7 @@ import zuo.biao.library.util.TimeUtil;
 public class LeaveEdit extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = LeaveEdit.class.getSimpleName();
     private String  edittype, userID, groupid, empID, processid, iosid
-            , empname, vatcationid,ApplyCode,userHour,processApplyCode,proCelReson,vtype;
+            , empname, vatcationid,ApplyCode,userHour,processApplyCode,vtype;
     private TextView title,lblTitle, lblbalance, lblstartdate, lblenddate, lblCause,lblduration,typetag,startdatetag,endDateTag;
     private EditText txtcause,txtduration;
     private Button btnpath, btnsave, btnsubmit;
@@ -82,6 +83,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
     private static final int REQUEST_TO_DATE_PICKEREND = 34;
     private int[] selectedDate = new int[]{1971, 0, 1};
     private int[] selectedStaraDate,selectedEndDate;
+
     //启动方法>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     private Intent intent;
     public static Intent createIntent(Context context,  String vatcationid, String processInstanceID
@@ -92,6 +94,11 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                 putExtra("processApplyCode", processApplyCode).
                 putExtra("edittype", edittype).
                 putExtra("urltype", urltype);
+    }
+
+    public static Intent createIntent(Context context,String edittype) {
+        return new Intent(context, LeaveEdit.class) .
+                putExtra("edittype", edittype);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,6 +119,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         {
             vatcationid = StringUtil.get(getIntent().getStringExtra("vatcationid"));
             processid = StringUtil.get(getIntent().getStringExtra("processInstanceID"));
+            processApplyCode = StringUtil.get(getIntent().getStringExtra("processApplyCode"));
             initData();
         }
         else
@@ -188,10 +196,9 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         userID = model.getId();
         empID = model.getEmpID();
         groupid = model.getGroupid();
-        empname = model.getGroupName();
+        empname = model.getName();
         iosid =model.getAdId();
         userHour = model.getUserHour();
-
         intent = getIntent();
         lblTitle = (TextView) findViewById(R.id.lbltype);
         lblTitle.setFocusable(true);
@@ -269,68 +276,77 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         str = LU.get(0).getVatcationreason();
         txtcause.setText(str);
         vtype= LU.get(0).getVatcationtrpeid();
-        proCelReson= LU.get(0).getVatcationreason();
         for (LeaveModel bean : LU) {
             if (bean.getImagepath() != null) {
                 LocalMedia localMedia = new LocalMedia();
-                String url = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL, bean.getImagepath());
+                String url = String.format(GlobalVariableApplication.Edit_PHOTO_URL, bean.getImagepath());
                 localMedia.setPath(url);
                 selectList.add(localMedia);//添加图片
             }
         }
     }
-    public String SaveInfo() {
+    public String SaveInfo(String type) {
         try {
             if(vtype.trim().equals(""))
             {
                 return "请假类型不能为空";
             }
-            if(lblstartdate.getText().toString().trim().equals(""))
+            if(startdatetag.getText().toString().trim().equals(""))
             {
                 return "开始时间不能为空";
             }
-            if(lblenddate.getText().toString().trim().equals(""))
+            if(endDateTag.getText().toString().trim().equals(""))
             {
                 return "结束时间不能为空";
             }
-            if(txtduration.getText().toString().trim().equals(""))
-            {
-                return "请假时长不能为空";
-            }
-            if(Integer.parseInt(txtduration.getText().toString())<=0)
+            if(GlobalMethodApplication.convertToDouble(txtduration.getText().toString(),0)<=0)
             {
                 return "请假时长必须大于0";
             }
-            if(Integer.parseInt(txtduration.getText().toString())>9999)
+            if(GlobalMethodApplication.convertToDouble(txtduration.getText().toString(),0)>9999)
             {
                 return "请假时长不能大于9999";
             }
-            if(txtduration.getText().toString().trim().equals(""))
+            if(txtcause.getText().toString().trim().equals(""))
             {
                 return "请假事由不能为空";
             }
-            if(!vatcationid.trim().equals(""))
+            if(vatcationid==null)
             {
                 vatcationid = "";
             }
-            if(!processid.trim().equals(""))
+            if(processid==null)
             {
                 processid = "";
             }
-            if(!ApplyCode.trim().equals(""))
+            if(ApplyCode==null)
             {
                 ApplyCode = "";
             }
-            if(edittype.equals("1")){ //新增进入
-                edittype="4";  //申请 原单还没有申请
+            if(type.equals("0"))
+            {
+                if(edittype.equals("4")){ //新增进入
+                    edittype="1";  //申请 原单还没有申请
+                }
+                else if(edittype.equals("5")){ //待申请进入
+                    edittype="2";  //申请 原单还没有申请
+                }
+                else if(edittype.equals("6")){ //修改已申请进入
+                    edittype="3";  //申请 原单还没有申请
+                }
             }
-            else if(edittype.equals("2")){ //待申请进入
-                edittype="5";  //申请 原单还没有申请
+            else
+            {
+                if(edittype.equals("1")){ //新增进入
+                    edittype="4";  //申请 原单还没有申请
+                }
+                else if(edittype.equals("2")){ //待申请进入
+                    edittype="5";  //申请 原单还没有申请
+                }
+                else if(edittype.equals("3")){ //修改已申请进入
+                    edittype="6";  //申请 原单还没有申请
+                }
             }
-            else if(edittype.equals("3")){ //修改已申请进入
-                edittype="6";  //申请 原单还没有申请
-            }
-            ApplyCode = "";
             String methodName = "btnsave_new";
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
                     methodName);
@@ -339,19 +355,44 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
             soapObject.addProperty("userid", userID);
             soapObject.addProperty("groupid", groupid);
             soapObject.addProperty("empid", empID);
-            soapObject.addProperty("vtype", vtype);
-            soapObject.addProperty("starttime", lblstartdate.getText());
-            soapObject.addProperty("endtime", lblenddate.getText());
-            soapObject.addProperty("vatcationtime", txtduration.getText());
+            soapObject.addProperty("vtype", typetag.getText().toString());
+            soapObject.addProperty("starttime", startdatetag.getText().toString());
+            soapObject.addProperty("endtime", endDateTag.getText().toString());
+            soapObject.addProperty("vatcationtime", txtduration.getText().toString());
+            soapObject.addProperty("reason", txtcause.getText().toString());
             soapObject.addProperty("name", empname);
             soapObject.addProperty("leavleid", vatcationid);
             soapObject.addProperty("processid", processid);
             soapObject.addProperty("imagecount", recyclerView.getItemDecorationCount());
             soapObject.addProperty("applycode", ApplyCode);
-            soapObject.addProperty("CelReson", proCelReson);
+            soapObject.addProperty("CelReson", "");
             soapObject.addProperty("iosid", iosid);
             HttpRequest http = new HttpRequest();
             String datastring = http.httpWebService_GetString(methodName, soapObject);
+            if(datastring!="")
+            {
+                List<LeaveStatusModel> LU = new ArrayList<LeaveStatusModel>();
+                //json转为实体
+                Type type1 = new TypeToken<List<LeaveStatusModel>>() {
+                }.getType();
+                LU = new Gson().fromJson(datastring, type1);
+                //json转为实体
+                Type LeaveStatusModel = new TypeToken<List<LeaveStatusModel>>() {
+                }.getType();
+                if(LU.get(0).getStatus().equals("suess"))
+                {
+                    return "1";
+                }
+                else
+                {
+                    return  LU.get(0).getStatus();
+                }
+            }
+            else
+            {
+                return  "0";
+            }
+
         } catch (Exception e) {
             MyLog.writeLogtoFile("错误", "LeaveEdit", "GetInfo", e.toString(), "0");
         }
@@ -484,6 +525,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
     }
     @Override
     public void onClick(View v) {
+        String message="";
         switch (v.getId()) {
             case R.id.left_back:
                 finish();
@@ -517,6 +559,38 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                 {
                     toActivity(DatePickerWindow.createIntent(context, new int[]{1971, 0, 1}
                             ,selectedEndDate), REQUEST_TO_DATE_PICKEREND, false);
+                }
+                break;
+            case R.id.btnsave:
+                message=SaveInfo("0");
+                if(message=="1")
+                {
+                    showShortToast(GlobalVariableApplication.UpdateMessage);
+                    finish();
+                }
+                else if(message=="0")
+                {
+                    showShortToast(GlobalVariableApplication.UpdateMessageN);
+                }
+                else
+                {
+                    showShortToast(message);
+                }
+                break;
+            case R.id.btnsubmit:
+                message=SaveInfo("1");
+                if(message=="1")
+                {
+                    showShortToast(GlobalVariableApplication.UpdateMessage);
+                    finish();
+                }
+                else if(message=="0")
+                {
+                    showShortToast(GlobalVariableApplication.UpdateMessageN);
+                }
+                else
+                {
+                    showShortToast(message);
                 }
                 break;
             case R.id.btnpath:

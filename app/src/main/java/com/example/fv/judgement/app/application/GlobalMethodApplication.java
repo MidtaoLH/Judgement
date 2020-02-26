@@ -1,9 +1,15 @@
 package com.example.fv.judgement.app.application;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.widget.EditText;
 
+import org.ksoap2.serialization.SoapObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,5 +60,43 @@ public class GlobalMethodApplication  {
             }
         });
     }
+    //把String转化为float
+    public static float convertToFloat(String number, float defaultValue) {
+        if (TextUtils.isEmpty(number)) {
+            return defaultValue;
+        }
+        try {
+            return Float.parseFloat(number);
+        } catch (Exception e) {
+            return defaultValue;
+        }
+
+    }
+
+    //把String转化为double
+    public static double convertToDouble(String number, double defaultValue) {
+        if (TextUtils.isEmpty(number)) {
+            return defaultValue;
+        }
+        try {
+            return Double.parseDouble(number);
+        } catch (Exception e) {
+            return defaultValue;
+        }
+
+    }
+
+    //把String转化为int
+    public static int convertToInt(String number, int defaultValue) {
+        if (TextUtils.isEmpty(number)) {
+            return defaultValue;
+        }
+        try {
+            return Integer.parseInt(number);
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
 
 }
