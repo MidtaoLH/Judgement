@@ -114,7 +114,7 @@ public class MainLogin extends AppCompatActivity {
                 //登录到首页
                 String id_glob =preferences.getString("id", "");
                 String code_glob = preferences.getString("code", "");
-                String name_glob = preferences.getString("name", "");
+                String name_glob = preferences.getString("empname", "");
                 String EmpID_glob = preferences.getString("EmpID", "");
                 String Groupid_glob = preferences.getString("Groupid", "");
                 String GroupName_glob = preferences.getString("GroupName", "");
@@ -135,8 +135,8 @@ public class MainLogin extends AppCompatActivity {
                 LUM.setIsNotice(IsNotice_glob);
                 LUM.setAdId(adId_glob);
 
-                GlobalInformationApplication GIA = new GlobalInformationApplication();
-                GIA.saveCurrentUser(LUM);
+                //GlobalInformationApplication GIA = new GlobalInformationApplication();
+                //GIA.saveCurrentUser(LUM);
                // GlobalInformationApplication.getInstance().saveCurrentUser(LUM);
 
                 Intent intent = new Intent();
@@ -221,7 +221,7 @@ public class MainLogin extends AppCompatActivity {
 
                                             editor.putString("id", id_glob);
                                             editor.putString("code", code_glob);
-                                            editor.putString("name ", name_glob);
+                                            editor.putString("empname", name_glob);
                                             editor.putString("EmpID", EmpID_glob);
                                             editor.putString("Groupid", Groupid_glob);
                                             editor.putString("GroupName", GroupName_glob);
@@ -233,8 +233,8 @@ public class MainLogin extends AppCompatActivity {
 
                                             LU.get(0).setAdId(adId);
 
-                                            GlobalInformationApplication GIA = new GlobalInformationApplication();
-                                            GIA.saveCurrentUser(LU.get(0));
+                                            //GlobalInformationApplication GIA = new GlobalInformationApplication();
+                                            //GIA.saveCurrentUser(LU.get(0));
 
                                             //GlobalInformationApplication.getInstance().saveCurrentUser(LU.get(0));
 

@@ -60,7 +60,11 @@
             style="@style/text_middle"
             android:layout_marginRight="6dp"
             android:gravity="left"
-            android:text="123456789123456789" />
+            android:maxLines="1"
+            android:maxEms="20"
+            android:ellipsize="end"
+
+        android:text="赵丹的公告测试是否可以省略！赵丹的公告测试是否可以省略赵丹的公告测试是否可以省略" />
 
 
     </LinearLayout>

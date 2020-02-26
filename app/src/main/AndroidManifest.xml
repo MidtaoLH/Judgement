@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".app.view.NoticeListView"></activity>
-        <activity android:name=".app.activity.Notice.MainNoticeActivity" />
+        <activity android:name=".app.activity.Notice.MainNoticeActivity">
+
+        </activity>
         <activity android:name=".app.activity.WayCheck.WayCheck_view" />
         <activity android:name=".app.activity.WayCheck.WayCheckFragment" />
         <activity android:name=".app.activity.WayCheck.WayCheckFragmentActivity" />
