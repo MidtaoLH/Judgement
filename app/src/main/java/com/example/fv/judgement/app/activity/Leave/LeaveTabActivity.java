@@ -22,6 +22,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.fv.judgement.R;
@@ -36,6 +37,7 @@ import zuo.biao.library.interfaces.OnBottomDragListener;
 public class LeaveTabActivity extends BaseBottomTabActivity implements View.OnClickListener, OnBottomDragListener {
     //	private static final String TAG = "MainTabActivity";
     private TextView tvAddBtn;
+    private ImageButton left_back;
     //启动方法<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /**启动这个Activity的Intent
@@ -72,6 +74,7 @@ public class LeaveTabActivity extends BaseBottomTabActivity implements View.OnCl
 
         tvAddBtn = (TextView) findViewById(R.id.tvAddBtn);
         tvAddBtn.setOnClickListener(this);
+
     }
 
     @Override
@@ -157,10 +160,15 @@ public class LeaveTabActivity extends BaseBottomTabActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
             case R.id.tvAddBtn:
                 toActivity(LeaveEdit.createIntent(context, "1"));
                 break;
         }
+    }
+    @Override
+    public void onReturnClick(View v) {
+        finish();
     }
     //双击手机返回键退出>>>>>>>>>>>>>>>>>>>>>
 
