@@ -84,7 +84,7 @@ public class MainLogin extends AppCompatActivity {
         adId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
 
         //实例化控件
-        // Username = findViewById(R.id.username);
+       // Username = findViewById(R.id.username);
         Password = findViewById(R.id.password);
         loginbtn  = findViewById(R.id.login);
         set_image = findViewById(R.id.set_image);
@@ -135,8 +135,7 @@ public class MainLogin extends AppCompatActivity {
                 LUM.setIsNotice(IsNotice_glob);
                 LUM.setAdId(adId_glob);
 
-                //GlobalInformationApplication GIA = new GlobalInformationApplication();
-                //GIA.saveCurrentUser(LUM);
+
                 GlobalInformationApplication.getInstance().saveCurrentUser(LUM);
 
                 Intent intent = new Intent();
@@ -147,15 +146,15 @@ public class MainLogin extends AppCompatActivity {
             else
             {
 
-//                try {
-//                    url = new URL(IMAGE_URL + userid + ".png");
-//                    set_image.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
-//                } catch (MalformedURLException e) {
-//                    e.printStackTrace();
-//                }
-//                 catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    url = new URL(IMAGE_URL + userid + ".png");
+                    set_image.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                 catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -232,9 +231,6 @@ public class MainLogin extends AppCompatActivity {
                                             editor.commit();//写入
 
                                             LU.get(0).setAdId(adId);
-
-                                            //GlobalInformationApplication GIA = new GlobalInformationApplication();
-                                            //GIA.saveCurrentUser(LU.get(0));
 
                                             GlobalInformationApplication.getInstance().saveCurrentUser(LU.get(0));
 

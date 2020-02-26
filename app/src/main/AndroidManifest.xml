@@ -10,32 +10,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".app.activity.ExamineEdit.ExamineEdit">
+        <activity android:name=".app.activity.BusinessTrip.BusinessTripTabbar"></activity>
+        <activity android:name=".app.activity.BusinessTrip.BusinessTripRecordList" />
+        <activity android:name=".app.activity.BusinessTrip.BusinessTripWaitList" />
+        <activity android:name=".app.activity.BusinessTrip.BusinessTripEdit" />
+        <activity android:name=".app.view.NoticeListView" />
+        <activity android:name=".app.activity.Notice.MainNoticeActivity" />
+        <activity android:name=".app.activity.WayCheck.WayCheck_view" />
+        <activity android:name=".app.activity.WayCheck.WayCheckFragment" />
+        <activity android:name=".app.activity.WayCheck.WayCheckFragmentActivity" >
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".app.activity.MyExamineList.AlreadyExamineList" />
         <activity android:name=".app.activity.MyExamineList.WaitExamineList" />
         <activity android:name=".app.activity.Login.MainLogin">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.catego1111ry.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".app.activity.ExamineEdit.ProductShowActivity">
-
-        </activity>
-
-        <activity android:name=".app.activity.MyExamineList.MainTabActivity"></activity>
-        <activity android:name=".app.activity.GoOut.GoOut"></activity>
-        <activity android:name=".app.activity.Leave.LeaveEdit">
-        </activity>
-        <activity android:name=".app.activity.Leave.LeaveType">
-        </activity>
-        <activity android:name=".app.activity.Home.PageHome">
-        </activity>
-        <activity android:name=".app.activity.Leave.LeaveTabActivity">
-        </activity>
+        <activity android:name=".app.activity.MyExamineList.MainTabActivity" />
+        <activity android:name=".app.activity.GoOut.GoOut" />
+        <activity android:name=".app.activity.Home.PageHome" />
+        <activity android:name=".app.activity.Leave.LeaveEdit" />
+        <activity android:name=".app.activity.WayCheck.EmpPickerWindow" />
+        <activity android:name=".app.activity.ExamineEdit.ExamineEdit"></activity>
+        <activity android:name=".app.activity.ExamineEdit.ProductShowActivity"></activity>
+        <activity android:name=".app.activity.Leave.LeaveType"></activity>
+        <activity android:name=".app.activity.Leave.LeaveTabActivity"></activity>
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.model.LoginUserModel;
+import com.example.fv.judgement.app.model.WayCheckModel;
 
 /**数据工具类
  * @author Lemon
@@ -49,6 +50,7 @@ public class DataManager {
 	//用户 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	private String PATH_USER = "PATH_USER";
+	private String PATH_WAY = "PATH_WAY";
 
 	public final String KEY_USER = "KEY_USER";
 	public final String KEY_USER_ID = "KEY_USER_ID";
@@ -56,8 +58,10 @@ public class DataManager {
 	public final String KEY_USER_PHONE = "KEY_USER_PHONE";
 
 	public final String KEY_CURRENT_USER_ID = "KEY_CURRENT_USER_ID";
-	public final String KEY_LAST_USER_ID = "KEY_LAST_USER_ID";
+	public final String KEY_CURRENT_WAY_ID = "KEY_CURRENT_WAY_ID";
 
+	public final String KEY_LAST_USER_ID = "KEY_LAST_USER_ID";
+	public final String KEY_LAST_WAY_ID = "KEY_LAST_WAY_ID";
 
 	/**判断是否为当前用户
 	 * @param context
@@ -77,6 +81,11 @@ public class DataManager {
 		return user == null ? "0" : user.getEmpID().toString();
 	}
 
+	public String getCurrentWayId() {
+		WayCheckModel Way = getCurrentWay();
+		return Way == null ? "0" : Way.getIndex().toString();
+	}
+
 	/**获取当前用户
 	 * @param context
 	 * @return
@@ -84,6 +93,11 @@ public class DataManager {
 	public LoginUserModel getCurrentUser() {
 		SharedPreferences sdf = context.getSharedPreferences(PATH_USER, Context.MODE_PRIVATE);
 		return sdf == null ? null : getUser(sdf.getString(KEY_CURRENT_USER_ID, "0"));
+	}
+
+	public WayCheckModel getCurrentWay() {
+		SharedPreferences sdf = context.getSharedPreferences(PATH_WAY, Context.MODE_PRIVATE);
+		return sdf == null ? null : getWay(sdf.getString(KEY_CURRENT_WAY_ID, "0"));
 	}
 
 
@@ -100,6 +114,16 @@ public class DataManager {
 		}
 		Log.i(TAG, "getUser  userId = " + userId);
 		return JSON.parseObject(sdf.getString(StringUtil.getTrimedString(userId), null), LoginUserModel.class);
+	}
+
+	public WayCheckModel getWay(String userId) {
+		SharedPreferences sdf = context.getSharedPreferences(PATH_WAY, Context.MODE_PRIVATE);
+		if (sdf == null) {
+			Log.e(TAG, "get sdf == null >>  return;");
+			return null;
+		}
+		Log.i(TAG, "getUser  userId = " + userId);
+		return JSON.parseObject(sdf.getString(StringUtil.getTrimedString(userId), null), WayCheckModel.class);
 	}
 
 
@@ -124,6 +148,23 @@ public class DataManager {
 		saveUser(sdf, user);
 	}
 
+	public void saveCurrentWay(WayCheckModel Way) {
+		SharedPreferences sdf = context.getSharedPreferences(PATH_WAY, Context.MODE_PRIVATE);
+		if (sdf == null) {
+			Log.e(TAG, "saveUser sdf == null  >> return;");
+			return;
+		}
+		if (Way == null) {
+			Log.w(TAG, "saveUser  user == null >>  user = new User();");
+			Way = new WayCheckModel();
+		}
+		SharedPreferences.Editor editor = sdf.edit();
+		editor.remove(KEY_LAST_WAY_ID).putString(KEY_LAST_WAY_ID, getCurrentWayId());
+		editor.remove(KEY_CURRENT_WAY_ID).putString(KEY_CURRENT_WAY_ID, Way.getIndex());
+		editor.commit();
+		saveWay(sdf, Way);
+	}
+
 	/**保存用户
 	 * @param context
 	 * @param user
@@ -131,6 +172,11 @@ public class DataManager {
 	public void saveUser(LoginUserModel user) {
 		saveUser(context.getSharedPreferences(PATH_USER, Context.MODE_PRIVATE), user);
 	}
+
+	public void saveWay(WayCheckModel Way) {
+		saveWay(context.getSharedPreferences(PATH_WAY, Context.MODE_PRIVATE), Way);
+	}
+
 	/**保存用户
 	 * @param context
 	 * @param sdf
@@ -145,6 +191,17 @@ public class DataManager {
 		Log.i(TAG, "saveUser  key = user.getId() = " + user.getId());
 		sdf.edit().remove(key).putString(key, JSON.toJSONString(user)).commit();
 	}
+
+	public void saveWay(SharedPreferences sdf, WayCheckModel Way) {
+		if (sdf == null || Way == null) {
+			Log.e(TAG, "saveUser sdf == null || Way == null >> return;");
+			return;
+		}
+		String key = StringUtil.getTrimedString(Way.getId());
+		Log.i(TAG, "saveUser  key = user.getId() = " + Way.getId());
+		sdf.edit().remove(key).putString(key, JSON.toJSONString(Way)).commit();
+	}
+
 
 	/**删除用户
 	 * @param context
