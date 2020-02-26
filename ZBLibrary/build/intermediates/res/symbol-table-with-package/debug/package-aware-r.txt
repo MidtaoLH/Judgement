@@ -499,6 +499,7 @@ color button_material_dark
 color button_material_light
 color button_selected
 color button_unselected
+color c_status
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
@@ -924,6 +925,7 @@ drawable btn_orange_bg
 drawable btn_red_round_bg
 drawable btn_red_round_bg_normal
 drawable btn_red_round_bg_pressed
+drawable c_status
 drawable cancel
 drawable cancel_light
 drawable cilcle_gray
@@ -932,7 +934,6 @@ drawable circle_blue
 drawable circle_green
 drawable circle_pink
 drawable circle_white
-drawable circle_yellow
 drawable design_bottom_navigation_item_background
 drawable design_fab_background
 drawable design_ic_visibility

@@ -64,7 +64,8 @@ import zuo.biao.library.util.TimeUtil;
 
 public class LeaveEdit extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = LeaveEdit.class.getSimpleName();
-    private String processApplyCode, edittype, userID, groupid, empID, processInstanceID,vatcationID, processid, iosid, empname, vatcationid, ApplyCode, proCelReson, userHour;
+    private String  edittype, userID, groupid, empID, processid, iosid
+            , empname, vatcationid,ApplyCode,userHour,processApplyCode,proCelReson,vtype;
     private TextView title,lblTitle, lblbalance, lblstartdate, lblenddate, lblCause,lblduration,typetag,startdatetag,endDateTag;
     private EditText txtcause,txtduration;
     private Button btnpath, btnsave, btnsubmit;
@@ -110,8 +111,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         if(edittype.equals("2"))
         {
             vatcationid = StringUtil.get(getIntent().getStringExtra("vatcationid"));
-            processInstanceID = StringUtil.get(getIntent().getStringExtra("processInstanceID"));
-            processApplyCode = StringUtil.get(getIntent().getStringExtra("processApplyCode"));
+            processid = StringUtil.get(getIntent().getStringExtra("processInstanceID"));
             initData();
         }
         else
@@ -231,6 +231,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         lblduration.setHint(str);
         str = "请输入请假事由";
         txtcause.setHint(str);
+        lblbalance.setText("年假余额："+userHour);
 
         btnpath.setOnClickListener(this);
         btnsave.setOnClickListener(this);
@@ -257,18 +258,20 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         Type LeaveModelType = new TypeToken<List<LeaveModel>>() {
         }.getType();
 
-        String str = LU.get(0).getVatcationtype().toString();
+        String str = LU.get(0).getVatcationtype();
         typetag.setText(str);
-        str = LU.get(0).getTimestart().toString();
+        str = LU.get(0).getTimestart();
         startdatetag.setText(str);
-        str = LU.get(0).getTimesend().toString();
+        str = LU.get(0).getTimesend();
         endDateTag.setText(str);
-        str = LU.get(0).getVatcationreason().toString();
+        str = LU.get(0).getTimesum();
         txtduration.setText(str);
-        str = LU.get(0).getVatcationreason().toString();
+        str = LU.get(0).getVatcationreason();
         txtcause.setText(str);
+        vtype= LU.get(0).getVatcationtrpeid();
+        proCelReson= LU.get(0).getVatcationreason();
         for (LeaveModel bean : LU) {
-            if (bean != null) {
+            if (bean.getImagepath() != null) {
                 LocalMedia localMedia = new LocalMedia();
                 String url = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL, bean.getImagepath());
                 localMedia.setPath(url);
@@ -278,52 +281,77 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
     }
     public String SaveInfo() {
         try {
-            if (edittype == "1") {
-                ApplyCode = "";
-                String methodName = "btnsave_new";
-                SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
-                        methodName);
-                soapObject.addProperty("ProcessApplyCode", processApplyCode);
-                soapObject.addProperty("edittype", edittype);
-                soapObject.addProperty("userid", userID);
-                soapObject.addProperty("groupid", groupid);
-                soapObject.addProperty("empid", empID);
-                soapObject.addProperty("vtype", edittype);
-                soapObject.addProperty("starttime", lblstartdate.getText());
-                soapObject.addProperty("endtime", lblenddate.getText());
-                soapObject.addProperty("vatcationtime", txtduration.getText());
-                soapObject.addProperty("name", empname);
-                soapObject.addProperty("leavleid", vatcationid);
-                soapObject.addProperty("processid", processid);
-                soapObject.addProperty("imagecount", recyclerView.getItemDecorationCount());
-                soapObject.addProperty("applycode", ApplyCode);
-                soapObject.addProperty("CelReson", proCelReson);
-                soapObject.addProperty("iosid", iosid);
-                HttpRequest http = new HttpRequest();
-                String datastring = http.httpWebService_GetString(methodName, soapObject);
-            } else {
-                String methodName = "btnsave_new";
-                SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
-                        methodName);
-                soapObject.addProperty("ProcessApplyCode", processApplyCode);
-                soapObject.addProperty("edittype", edittype);
-                soapObject.addProperty("userid", userID);
-                soapObject.addProperty("groupid", groupid);
-                soapObject.addProperty("empid", empID);
-                soapObject.addProperty("vtype", edittype);
-                soapObject.addProperty("starttime", lblstartdate.getText());
-                soapObject.addProperty("endtime", lblenddate.getText());
-                soapObject.addProperty("vatcationtime", txtduration.getText());
-                soapObject.addProperty("name", empname);
-                soapObject.addProperty("leavleid", vatcationid);
-                soapObject.addProperty("processid", processid);
-                soapObject.addProperty("imagecount", recyclerView.getItemDecorationCount());
-                soapObject.addProperty("applycode", ApplyCode);
-                soapObject.addProperty("CelReson", proCelReson);
-                soapObject.addProperty("iosid", iosid);
-                HttpRequest http = new HttpRequest();
-                String datastring = http.httpWebService_GetString(methodName, soapObject);
+            if(vtype.trim().equals(""))
+            {
+                return "请假类型不能为空";
             }
+            if(lblstartdate.getText().toString().trim().equals(""))
+            {
+                return "开始时间不能为空";
+            }
+            if(lblenddate.getText().toString().trim().equals(""))
+            {
+                return "结束时间不能为空";
+            }
+            if(txtduration.getText().toString().trim().equals(""))
+            {
+                return "请假时长不能为空";
+            }
+            if(Integer.parseInt(txtduration.getText().toString())<=0)
+            {
+                return "请假时长必须大于0";
+            }
+            if(Integer.parseInt(txtduration.getText().toString())>9999)
+            {
+                return "请假时长不能大于9999";
+            }
+            if(txtduration.getText().toString().trim().equals(""))
+            {
+                return "请假事由不能为空";
+            }
+            if(!vatcationid.trim().equals(""))
+            {
+                vatcationid = "";
+            }
+            if(!processid.trim().equals(""))
+            {
+                processid = "";
+            }
+            if(!ApplyCode.trim().equals(""))
+            {
+                ApplyCode = "";
+            }
+            if(edittype.equals("1")){ //新增进入
+                edittype="4";  //申请 原单还没有申请
+            }
+            else if(edittype.equals("2")){ //待申请进入
+                edittype="5";  //申请 原单还没有申请
+            }
+            else if(edittype.equals("3")){ //修改已申请进入
+                edittype="6";  //申请 原单还没有申请
+            }
+            ApplyCode = "";
+            String methodName = "btnsave_new";
+            SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
+                    methodName);
+            soapObject.addProperty("ProcessApplyCode", processApplyCode);
+            soapObject.addProperty("edittype", edittype);
+            soapObject.addProperty("userid", userID);
+            soapObject.addProperty("groupid", groupid);
+            soapObject.addProperty("empid", empID);
+            soapObject.addProperty("vtype", vtype);
+            soapObject.addProperty("starttime", lblstartdate.getText());
+            soapObject.addProperty("endtime", lblenddate.getText());
+            soapObject.addProperty("vatcationtime", txtduration.getText());
+            soapObject.addProperty("name", empname);
+            soapObject.addProperty("leavleid", vatcationid);
+            soapObject.addProperty("processid", processid);
+            soapObject.addProperty("imagecount", recyclerView.getItemDecorationCount());
+            soapObject.addProperty("applycode", ApplyCode);
+            soapObject.addProperty("CelReson", proCelReson);
+            soapObject.addProperty("iosid", iosid);
+            HttpRequest http = new HttpRequest();
+            String datastring = http.httpWebService_GetString(methodName, soapObject);
         } catch (Exception e) {
             MyLog.writeLogtoFile("错误", "LeaveEdit", "GetInfo", e.toString(), "0");
         }
@@ -337,7 +365,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
                     methodName);
             soapObject.addProperty("userID", userID);
-            soapObject.addProperty("VatcationID", vatcationID);
+            soapObject.addProperty("VatcationID", vatcationid);
             soapObject.addProperty("processid", processid);
             soapObject.addProperty("iosid", iosid);
             HttpRequest http = new HttpRequest();
@@ -404,6 +432,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==0x002&&resultCode==0x001){
             typetag.setText(data.getStringExtra("name"));//当LoginActivity finish后，就会调用这里，data为值
+            vtype=data.getStringExtra("code");
         }
         else if (resultCode == RESULT_OK) {
             switch (requestCode) {
