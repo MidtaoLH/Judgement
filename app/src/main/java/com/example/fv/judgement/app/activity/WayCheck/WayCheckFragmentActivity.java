@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.application.Waydata;
 import com.example.fv.judgement.app.model.WayCheckModel;
@@ -136,25 +137,28 @@ public class WayCheckFragmentActivity extends BaseActivity implements OnBottomDr
         {
             if(demoFragment.list.size() > 0 )
             {
-                Waydata AppWaydata = (Waydata)getApplication();
+                //Waydata AppWaydata = (Waydata)getApplication();
 
-                if(AppWaydata.getIndex().equals("0"))
+                WayCheckModel Way = GlobalInformationApplication.getInstance().getCurrentWay();
+
+
+                if(Way.getIndex().equals("0"))
                 {
 
                 }
                 else
                 {
                     WayCheckModel addWCM = new WayCheckModel();
-                    addWCM.setEnglishname(AppWaydata.getEnglishname());
-                    addWCM.setEditflag(AppWaydata.getEditflag());
-                    addWCM.setName(AppWaydata.getName());
-                    addWCM.setGroupname(AppWaydata.getGroupname());
-                    addWCM.setLevelname(AppWaydata.getLevelname());
-                    addWCM.setNameid(AppWaydata.getNameid());
-                    addWCM.setLevel(AppWaydata.getLevel());
-                    addWCM.setGroupid(AppWaydata.getGroupid());
-                    addWCM.setIndex(AppWaydata.getIndex());
-                    int index =Integer.parseInt(AppWaydata.getIndex());
+                    addWCM.setEnglishname(Way.getEnglishname());
+                    addWCM.setEditflag(Way.getEditflag());
+                    addWCM.setName(Way.getName());
+                    addWCM.setGroupname(Way.getGroupname());
+                    addWCM.setLevelname(Way.getLevelname());
+                    addWCM.setNameid(Way.getNameid());
+                    addWCM.setLevel(Way.getLevel());
+                    addWCM.setGroupid(Way.getGroupid());
+                    addWCM.setIndex(Way.getIndex());
+                    int index =Integer.parseInt(Way.getIndex());
 
                     demoFragment.list.add(index,addWCM);
                 }

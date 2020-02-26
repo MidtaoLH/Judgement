@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.application.Waydata;
 import com.example.fv.judgement.app.model.Emp;
 import com.example.fv.judgement.app.model.Group;
+import com.example.fv.judgement.app.model.WayCheckModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.example.fv.judgement.app.util.MyLog;
 import com.google.gson.Gson;
@@ -125,7 +127,7 @@ public class EmpPickerWindow extends BaseViewBottomWindow<List<Entry<Integer, St
 
             soapObject.addProperty("groupid", Code);
             soapObject.addProperty("AuditUsedFlag", "0");
-            soapObject.addProperty("iosid", Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID));
+            soapObject.addProperty("iosid", "d90730e57c3bdb81");//Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID));
             soapObject.addProperty("userid", 94);
 
             HttpRequest http=new HttpRequest();
@@ -367,7 +369,10 @@ public class EmpPickerWindow extends BaseViewBottomWindow<List<Entry<Integer, St
 
         ArrayList<String> list = new ArrayList<String>();
         list= containerView.getSelectedItemList();
-        Waydata AppWaydata = (Waydata)getApplication();
+
+        WayCheckModel Way = new WayCheckModel();
+
+        //Waydata AppWaydata = (Waydata)getApplication();
         if(list.size() ==2)
         {
             String groupname = list.get(0).toString();
@@ -378,12 +383,12 @@ public class EmpPickerWindow extends BaseViewBottomWindow<List<Entry<Integer, St
             {
                if (groupname.equals(Group.get(i).getName()))
                {
-                   AppWaydata.setIndex(index);
-                   AppWaydata.setGroupname(groupname);
+                   Way.setIndex(index);
+                   Way.setGroupname(groupname);
                    groupid = Group.get(i).getCode();
-                   AppWaydata.setGroupid(groupid);
-                   AppWaydata.setEditflag("1");
-                   AppWaydata.setName(empname);
+                   Way.setGroupid(groupid);
+                   Way.setEditflag("1");
+                   Way.setName(empname);
                }
             }
 
@@ -391,53 +396,53 @@ public class EmpPickerWindow extends BaseViewBottomWindow<List<Entry<Integer, St
             {
                 if( Emp.get(i).getGCode().toString().equals(groupid) && Emp.get(i).getName().toString().equals(empname))
                 {
-                    AppWaydata.setEnglishname(Emp.get(i).getENGLISHNAME());
-                    AppWaydata.setNameid(Emp.get(i).getCode());
+                    Way.setEnglishname(Emp.get(i).getENGLISHNAME());
+                    Way.setNameid(Emp.get(i).getCode());
                 }
             }
 
             if(levelname.equals("一级审批人"))
             {
-                AppWaydata.setLevel("1");
-                AppWaydata.setLevelname("一级审批人");
+                Way.setLevel("1");
+                Way.setLevelname("一级审批人");
             }
             else if(levelname.equals("二级审批人"))
             {
-                AppWaydata.setLevel("2");
-                AppWaydata.setLevelname("二级审批人");
+                Way.setLevel("2");
+                Way.setLevelname("二级审批人");
             }
             else if(levelname.equals("三级审批人"))
             {
-                AppWaydata.setLevel("3");
-                AppWaydata.setLevelname("三级审批人");
+                Way.setLevel("3");
+                Way.setLevelname("三级审批人");
             }
             else if(levelname.equals("四级审批人"))
             {
-                AppWaydata.setLevel("4");
-                AppWaydata.setLevelname("四级审批人");
+                Way.setLevel("4");
+                Way.setLevelname("四级审批人");
             }
             else if(levelname.equals("五级审批人"))
             {
-                AppWaydata.setLevel("5");
-                AppWaydata.setLevelname("五级审批人");
+                Way.setLevel("5");
+                Way.setLevelname("五级审批人");
             }
             else if(levelname.equals("六级审批人"))
             {
-                AppWaydata.setLevel("6");
-                AppWaydata.setLevelname("六级审批人");
+                Way.setLevel("6");
+                Way.setLevelname("六级审批人");
             }
             else if(levelname.equals("七级审批人"))
             {
-                AppWaydata.setLevel("7");
-                AppWaydata.setLevelname("七级审批人");
+                Way.setLevel("7");
+                Way.setLevelname("七级审批人");
             }
             else
             {
-                AppWaydata.setLevel("99");
-                AppWaydata.setLevelname("回览人");
+                Way.setLevel("99");
+                Way.setLevelname("回览人");
             }
 
-
+            GlobalInformationApplication.getInstance().saveCurrentWay(Way);
 
 
 
