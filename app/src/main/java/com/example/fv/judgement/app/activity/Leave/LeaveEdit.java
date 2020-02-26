@@ -33,6 +33,7 @@ import com.example.fv.judgement.app.model.LeaveStatusModel;
 import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.example.fv.judgement.app.util.MyLog;
+import com.example.fv.judgement.app.util.UploadImage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.luck.picture.lib.PictureSelector;
@@ -46,12 +47,17 @@ import com.luck.picture.lib.tools.PictureFileUtils;
 
 import org.ksoap2.serialization.SoapObject;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -267,10 +273,14 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
 
         String str = LU.get(0).getVatcationtype();
         typetag.setText(str);
-        str = LU.get(0).getTimestart();
+        str = GlobalMethodApplication.getMyDate(LU.get(0).getTimestart());
         startdatetag.setText(str);
-        str = LU.get(0).getTimesend();
-        endDateTag.setText(str);
+        selectedStaraDate=GlobalMethodApplication.StringToInt(str);
+
+        str =  GlobalMethodApplication.getMyDate(LU.get(0).getTimesend());
+        endDateTag.setText(GlobalMethodApplication.getMyDate(str));
+        selectedEndDate=GlobalMethodApplication.StringToInt(str);
+
         str = LU.get(0).getTimesum();
         txtduration.setText(str);
         str = LU.get(0).getVatcationreason();
@@ -347,6 +357,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                     edittype="6";  //申请 原单还没有申请
                 }
             }
+
             String methodName = "btnsave_new";
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
                     methodName);
@@ -363,7 +374,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
             soapObject.addProperty("name", empname);
             soapObject.addProperty("leavleid", vatcationid);
             soapObject.addProperty("processid", processid);
-            soapObject.addProperty("imagecount", recyclerView.getItemDecorationCount());
+            soapObject.addProperty("imagecount",selectList.size());
             soapObject.addProperty("applycode", ApplyCode);
             soapObject.addProperty("CelReson", "");
             soapObject.addProperty("iosid", iosid);
@@ -379,13 +390,31 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                 //json转为实体
                 Type LeaveStatusModel = new TypeToken<List<LeaveStatusModel>>() {
                 }.getType();
+
                 if(LU.get(0).getStatus().equals("suess"))
                 {
+                    int i=1;
+                    String status="";
+                    if (selectList.size()>0)
+                    {
+                        for (LocalMedia bean : selectList) {
+                            if (bean.getCompressPath() != null) {
+                                File file = new File(bean.getCompressPath());
+                                ExecutorService pool = Executors.newFixedThreadPool(10);
+                                String url = String.format(GlobalVariableApplication.UpdateIMAGE_URL, LU.get(0).getApplyCode(),i+".png");
+                                Callable<String> c1 = new UploadImage("图片线程", url, file);
+                                Future<String> f1 = pool.submit(c1);
+                                status = f1.get();
+                                pool.shutdown();
+                                i++;
+                            }
+                        }
+                    }
                     return "1";
                 }
                 else
                 {
-                    return  LU.get(0).getStatus();
+                    return  LU.get(0).getMessage();
                 }
             }
             else
@@ -483,6 +512,7 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                     // 例如 LocalMedia 里面返回两种path
                     // 1.media.getPath(); 为原图path
                     // 2.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
                     DebugUtil.i(TAG, "onActivityResult:" + selectList.size());
@@ -565,12 +595,12 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
                 message=SaveInfo("0");
                 if(message=="1")
                 {
-                    showShortToast(GlobalVariableApplication.UpdateMessage);
+                    showShortToast(GlobalVariableApplication.SaveMessage);
                     finish();
                 }
                 else if(message=="0")
                 {
-                    showShortToast(GlobalVariableApplication.UpdateMessageN);
+                    showShortToast(GlobalVariableApplication.SaveMessageN);
                 }
                 else
                 {

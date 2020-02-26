@@ -17,10 +17,10 @@ import java.util.concurrent.Callable;
 
 public class UploadImage implements Callable<String> {
     private String str,actionUrl;
-    private File[] files;
+    private File files;
     private static String tag = "决裁系统" ;
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
-    public UploadImage(String str, String actionUrl, File[] files) {
+    public UploadImage(String str, String actionUrl, File files) {
         this.str = str;
         this.actionUrl=actionUrl;
         this.files=files;
@@ -64,18 +64,16 @@ public class UploadImage implements Callable<String> {
             ds = new DataOutputStream(httpURLConnection.getOutputStream());
             int bufferSize = 4096;
             byte[] buffer = new byte[bufferSize];
-            for (File file : files) {
-                if (!file.isDirectory()) {
-                    if(file!=null){
-                        String filename =file.getName();
-                        if (filename.endsWith(".txt")) {
-                            FileInputStream fStream = new FileInputStream(file);
-                            int length = -1;
-                            while ((length = fStream.read(buffer)) != -1) {
-                                ds.write(buffer, 0, length);
-                            }
-                            fStream.close();
+            if (!files.isDirectory()) {
+                if(files!=null){
+                    String filename =files.getName();
+                    if (filename.endsWith(".png")) {
+                        FileInputStream fStream = new FileInputStream(files);
+                        int length = -1;
+                        while ((length = fStream.read(buffer)) != -1) {
+                            ds.write(buffer, 0, length);
                         }
+                        fStream.close();
                     }
                 }
             }

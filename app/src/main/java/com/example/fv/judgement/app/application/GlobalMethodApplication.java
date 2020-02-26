@@ -10,6 +10,7 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -99,4 +100,32 @@ public class GlobalMethodApplication  {
     }
 
 
+    //字符串转指定格式时间
+    public static String getMyDate(String str) {
+        return StringToDate(str, "yyyy-M-d", "yyyy-M-d");
+    }
+
+    public static String StringToDate(String dateStr, String dateFormatStr, String formatStr) {
+        DateFormat sdf = new SimpleDateFormat(dateFormatStr);
+        Date date = null;
+        try{
+            date = sdf.parse(dateStr);
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+        SimpleDateFormat s = new SimpleDateFormat(formatStr);
+
+        return s.format(date);
+    }
+    public static int[] StringToInt(String dateStr) {
+        int[] selectedDate=null;
+        String[] temp = dateStr.split("-");
+        if (temp != null && temp.length >= 3) {
+            selectedDate = new int[temp.length];
+            for (int i = 0; i < temp.length; i++) {
+                selectedDate[i] = Integer.parseInt(temp[i]);
+            }
+        }
+        return selectedDate;
+    }
 }
