@@ -10,27 +10,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".app.activity.WayCheck.WayCheck_view"></activity>
+        <activity android:name=".app.view.NoticeListView"></activity>
+        <activity android:name=".app.activity.Notice.MainNoticeActivity" />
+        <activity android:name=".app.activity.WayCheck.WayCheck_view" />
         <activity android:name=".app.activity.WayCheck.WayCheckFragment" />
-        <activity android:name=".app.activity.WayCheck.WayCheckFragmentActivity" >
-
+        <activity android:name=".app.activity.WayCheck.WayCheckFragmentActivity" />
+        <activity android:name=".app.activity.MyExamineList.AlreadyExamineList" />
+        <activity android:name=".app.activity.MyExamineList.WaitExamineList" />
+        <activity android:name=".app.activity.Login.MainLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>
-        <activity android:name=".app.activity.MyExamineList.AlreadyExamineList" />
-        <activity android:name=".app.activity.MyExamineList.WaitExamineList" />
-        <activity android:name=".app.activity.Login.MainLogin">
-
         </activity>
         <activity android:name=".app.activity.MyExamineList.MainTabActivity" />
         <activity android:name=".app.activity.GoOut.GoOut" />
         <activity android:name=".app.activity.Home.PageHome" />
         <activity android:name=".app.activity.Leave.LeaveEdit" />
-
         <activity android:name=".app.activity.WayCheck.EmpPickerWindow" />
     </application>
 

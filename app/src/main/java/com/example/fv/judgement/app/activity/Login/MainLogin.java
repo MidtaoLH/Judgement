@@ -135,7 +135,9 @@ public class MainLogin extends AppCompatActivity {
                 LUM.setIsNotice(IsNotice_glob);
                 LUM.setAdId(adId_glob);
 
-                GlobalInformationApplication.getInstance().saveCurrentUser(LUM);
+                GlobalInformationApplication GIA = new GlobalInformationApplication();
+                GIA.saveCurrentUser(LUM);
+               // GlobalInformationApplication.getInstance().saveCurrentUser(LUM);
 
                 Intent intent = new Intent();
                 intent.setClass(MainLogin.this, PageHome.class);
@@ -230,7 +232,11 @@ public class MainLogin extends AppCompatActivity {
                                             editor.commit();//写入
 
                                             LU.get(0).setAdId(adId);
-                                            GlobalInformationApplication.getInstance().saveCurrentUser(LU.get(0));
+
+                                            GlobalInformationApplication GIA = new GlobalInformationApplication();
+                                            GIA.saveCurrentUser(LU.get(0));
+
+                                            //GlobalInformationApplication.getInstance().saveCurrentUser(LU.get(0));
 
 
                                             if(usercount_int > 0)

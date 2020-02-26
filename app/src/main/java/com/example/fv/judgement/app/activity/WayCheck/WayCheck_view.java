@@ -3,6 +3,7 @@ package com.example.fv.judgement.app.activity.WayCheck;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -109,18 +110,44 @@ public class WayCheck_view  extends BaseView<WayCheckModel> implements View.OnCl
             URL url = null;
             try {
                 //data.getEnglishname()
-                url = new URL(IMAGE_URL + "moren" + ".png");
-                ivUserViewHead.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
+
+                if(data.getEnglishname().equals("wangting"))
+                {
+                    url = new URL(IMAGE_URL +data.getEnglishname() + ".png");
+
+
+                    Bitmap bmp = null;
+
+                    bmp = BitmapFactory.decodeStream(url.openStream());
+                    ivUserViewHead.setImageBitmap(bmp);
+                    ivUserViewHead.setVisibility(View.VISIBLE); //头像
+                }
+                else
+                {
+                    url = new URL(IMAGE_URL +data.getEnglishname() + ".png");
+
+
+                    Bitmap bmp = null;
+
+                    bmp = BitmapFactory.decodeStream(url.openStream());
+                    ivUserViewHead.setImageBitmap(bmp);
+                    ivUserViewHead.setVisibility(View.VISIBLE); //头像
+                }
+
+
+
+
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
             catch (IOException e) {
                 e.printStackTrace();
-
+                ivUserViewHead.setVisibility(View.INVISIBLE);
             }
 
             btnadd.setVisibility(View.INVISIBLE);
-            ivUserViewHead.setVisibility(View.VISIBLE); //头像
+
             tvname.setVisibility(View.VISIBLE);         //用户名
             tvlevelname.setVisibility(View.VISIBLE);    //级别
             tvgroupname.setVisibility(View.VISIBLE);    //部门名称
