@@ -10,7 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".app.view.NoticeListView"></activity>
+        <activity android:name=".app.activity.BusinessTrip.BusinessTripTabbar"></activity>
+        <activity android:name=".app.activity.BusinessTrip.BusinessTripRecordList" />
+        <activity android:name=".app.activity.BusinessTrip.BusinessTripWaitList" />
+        <activity android:name=".app.activity.BusinessTrip.BusinessTripEdit" />
+        <activity android:name=".app.view.NoticeListView" />
         <activity android:name=".app.activity.Notice.MainNoticeActivity" />
         <activity android:name=".app.activity.WayCheck.WayCheck_view" />
         <activity android:name=".app.activity.WayCheck.WayCheckFragment" />
