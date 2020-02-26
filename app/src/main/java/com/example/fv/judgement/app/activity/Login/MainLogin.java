@@ -236,7 +236,7 @@ public class MainLogin extends AppCompatActivity {
                                             //GlobalInformationApplication GIA = new GlobalInformationApplication();
                                             //GIA.saveCurrentUser(LU.get(0));
 
-                                            //GlobalInformationApplication.getInstance().saveCurrentUser(LU.get(0));
+                                            GlobalInformationApplication.getInstance().saveCurrentUser(LU.get(0));
 
 
                                             if(usercount_int > 0)
