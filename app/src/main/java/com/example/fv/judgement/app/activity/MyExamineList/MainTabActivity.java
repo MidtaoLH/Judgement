@@ -93,9 +93,9 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
 			default:
 				return WaitExamineList.createInstance(WaitExamineList.RANGE_ALL);
 		}
-	};
+	}
 
-//	private static final String[] TAB_NAMES = {"主页", "消息", "发现", "设置"};
+    //	private static final String[] TAB_NAMES = {"主页", "消息", "发现", "设置"};
     private static final String[] TAB_NAMES = {"待审批", "已审批"};
 	@Override
 	protected void selectTab(int position) {

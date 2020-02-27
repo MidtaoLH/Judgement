@@ -26,18 +26,18 @@ public interface ViewPresenter {
 	 * @return null - View.GONE; "" - View.GONE; "xxx" - "xxx"
 	 */
 	@Nullable
-	public String getTitleName();
+    String getTitleName();
 
 	/**获取导航栏返回按钮名
 	 * @return null - default; "" - default; "xxx" - "xxx"
 	 */
 	@Nullable
-	public String getReturnName();
+    String getReturnName();
 	
 	/**获取导航栏前进按钮名
 	 * @return null - default; "" - default; "xxx" - "xxx"
 	 */
 	@Nullable
-	public String getForwardName();
+    String getForwardName();
 
 }

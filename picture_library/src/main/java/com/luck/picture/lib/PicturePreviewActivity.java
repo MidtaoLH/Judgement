@@ -94,21 +94,21 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
         LightStatusBarUtils.setLightStatusBar(this, previewStatusFont);
         animation = OptAnimationLoader.loadAnimation(this, R.anim.modal_in);
         animation.setAnimationListener(this);
-        picture_left_back = (ImageView) findViewById(R.id.picture_left_back);
-        viewPager = (PreviewViewPager) findViewById(R.id.preview_pager);
-        ll_check = (LinearLayout) findViewById(R.id.ll_check);
-        id_ll_ok = (LinearLayout) findViewById(R.id.id_ll_ok);
-        check = (TextView) findViewById(R.id.check);
+        picture_left_back = findViewById(R.id.picture_left_back);
+        viewPager = findViewById(R.id.preview_pager);
+        ll_check = findViewById(R.id.ll_check);
+        id_ll_ok = findViewById(R.id.id_ll_ok);
+        check = findViewById(R.id.check);
         picture_left_back.setOnClickListener(this);
-        tv_ok = (TextView) findViewById(R.id.tv_ok);
+        tv_ok = findViewById(R.id.tv_ok);
         id_ll_ok.setOnClickListener(this);
-        tv_img_num = (TextView) findViewById(R.id.tv_img_num);
-        tv_title = (TextView) findViewById(R.id.picture_title);
+        tv_img_num = findViewById(R.id.tv_img_num);
+        tv_title = findViewById(R.id.picture_title);
         position = getIntent().getIntExtra(PictureConfig.EXTRA_POSITION, 0);
         tv_ok.setText(numComplete ? getString(R.string.picture_done_front_num, 0, maxSelectNum)
                 : getString(R.string.picture_please_select));
 
-        tv_img_num.setSelected(checkNumMode ? true : false);
+        tv_img_num.setSelected(checkNumMode);
 
         selectImages = (List<LocalMedia>) getIntent().
                 getSerializableExtra(PictureConfig.EXTRA_SELECT_LIST);
@@ -385,8 +385,8 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View contentView = inflater.inflate(R.layout.picture_image_preview, container, false);
-            final PhotoView imageView = (PhotoView) contentView.findViewById(R.id.preview_image);
-            ImageView iv_play = (ImageView) contentView.findViewById(R.id.iv_play);
+            final PhotoView imageView = contentView.findViewById(R.id.preview_image);
+            ImageView iv_play = contentView.findViewById(R.id.iv_play);
             LocalMedia media = images.get(position);
             if (media != null) {
                 final String pictureType = media.getPictureType();

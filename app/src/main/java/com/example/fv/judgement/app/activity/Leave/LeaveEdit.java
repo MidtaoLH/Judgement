@@ -164,26 +164,26 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
     //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public void initView() {
         intent = getIntent();
-        lblTitle = (TextView) findViewById(R.id.lbltype);
+        lblTitle = findViewById(R.id.lbltype);
         lblTitle.setFocusable(true);
         lblTitle.setFocusableInTouchMode(true);
         lblTitle.requestFocus();
-        lblbalance = (TextView) findViewById(R.id.lblbalance);
-        lblstartdate = (TextView) findViewById(R.id.lblstartdate);
-        lblenddate = (TextView) findViewById(R.id.lblenddate);
-        lblCause = (TextView) findViewById(R.id.lblCause);
-        txtduration = (EditText) findViewById(R.id.txtduration);
-        txtcause = (EditText) findViewById(R.id.txtcause);
-        btnpath = (Button) findViewById(R.id.btnpath);
-        btnsave = (Button) findViewById(R.id.btnsave);
-        btnsubmit = (Button) findViewById(R.id.btnsubmit);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        lblduration=(TextView) findViewById(R.id.lblduration);
-        typetag = (TextView) findViewById(R.id.typetag);
-        startdatetag = (TextView) findViewById(R.id.startdatetag);
-        endDateTag = (TextView) findViewById(R.id.endDateTag);
-        txtduration = (EditText) findViewById(R.id.txtduration);
-        txtcause = (EditText) findViewById(R.id.txtcause);
+        lblbalance = findViewById(R.id.lblbalance);
+        lblstartdate = findViewById(R.id.lblstartdate);
+        lblenddate = findViewById(R.id.lblenddate);
+        lblCause = findViewById(R.id.lblCause);
+        txtduration = findViewById(R.id.txtduration);
+        txtcause = findViewById(R.id.txtcause);
+        btnpath = findViewById(R.id.btnpath);
+        btnsave = findViewById(R.id.btnsave);
+        btnsubmit = findViewById(R.id.btnsubmit);
+        recyclerView = findViewById(R.id.recycler);
+        lblduration= findViewById(R.id.lblduration);
+        typetag = findViewById(R.id.typetag);
+        startdatetag = findViewById(R.id.startdatetag);
+        endDateTag = findViewById(R.id.endDateTag);
+        txtduration = findViewById(R.id.txtduration);
+        txtcause = findViewById(R.id.txtcause);
 
         String str = " <font color='#FF0000'>*</font> 请假类型";
         lblTitle.setText(Html.fromHtml(str));
@@ -245,15 +245,15 @@ public class LeaveEdit extends BaseActivity implements View.OnClickListener, Vie
         Type LeaveModelType = new TypeToken<List<LeaveModel>>() {
         }.getType();
 
-        String str = LU.get(0).getVatcationtype().toString();
+        String str = LU.get(0).getVatcationtype();
         typetag.setText(str);
-        str = LU.get(0).getTimestart().toString();
+        str = LU.get(0).getTimestart();
         startdatetag.setText(str);
-        str = LU.get(0).getTimesend().toString();
+        str = LU.get(0).getTimesend();
         endDateTag.setText(str);
-        str = LU.get(0).getVatcationreason().toString();
+        str = LU.get(0).getVatcationreason();
         txtduration.setText(str);
-        str = LU.get(0).getVatcationreason().toString();
+        str = LU.get(0).getVatcationreason();
         txtcause.setText(str);
         for (LeaveModel bean : LU) {
             if (bean != null) {

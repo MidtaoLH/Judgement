@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import zuo.biao.library.base.BaseActivity;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.ExamineEdit.ExamineEdit;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.model.ExamineModel;
@@ -73,12 +75,9 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
             super.onCreateView(inflater, container, savedInstanceState);
             argument = getArguments();
-
             GetGroupWebService();
-
 
             if (argument != null) {
      //           range = argument.getInt(ARGUMENT_RANGE, range);
@@ -103,7 +102,6 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
       //  public void setList(final List<ExamineModel> list) {
         public void setList(final List<ExamineModel> list) {
             setList(new AdapterCallBack<ExamineListAdapter>() {
-
                 @Override
                 public ExamineListAdapter createAdapter() {
                     return new ExamineListAdapter(context);
@@ -116,6 +114,11 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         }
         //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+        //点击跳转
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            startActivity(ExamineEdit.createIntent(context, adapter.getItem(position).getDocumentName(), adapter.getItem(position).getTaskInstanceID()));
+        }
         //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         public String GetGroupWebService()
         {
@@ -137,15 +140,12 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
                 //methodName);
 
                 HttpRequest http=new HttpRequest();
-
                 datastring =http.httpWebService_GetString(methodName,soapObject);
-
                 return datastring;
 
             } catch (Exception e) {
 
             }
-
             return datastring;
         }
 
@@ -236,12 +236,7 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         public void initEvent() {//必须调用
             super.initEvent();
         }
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            if (id > 0) {
-//                toActivity(UserActivity.createIntent(context, id));
-//            }
-//        }
+
         //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
         //生命周期、onActivityResult>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

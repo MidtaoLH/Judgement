@@ -74,7 +74,7 @@ public class DataManager {
 	 */
 	public String getCurrentUserId() {
 		LoginUserModel user = getCurrentUser();
-		return user == null ? "0" : user.getEmpID().toString();
+		return user == null ? "0" : user.getEmpID();
 	}
 
 	/**获取当前用户

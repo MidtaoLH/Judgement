@@ -76,7 +76,7 @@ public class WayCheck_view  extends BaseView<WayCheckModel> implements View.OnCl
         super.bindView(data_);
         //itemView.setBackgroundResource(selected ? R.drawable.alpha3 : R.drawable.white_to_alpha);
 
-        if(data.getEnglishname().toString().equals("button"))
+        if(data.getEnglishname().equals("button"))
         {
             btnadd.setVisibility(View.VISIBLE);
             ivUserViewHead.setVisibility(View.INVISIBLE); //头像
@@ -86,7 +86,7 @@ public class WayCheck_view  extends BaseView<WayCheckModel> implements View.OnCl
 
 
         }
-        else if(data.getEnglishname().toString().equals("null"))
+        else if(data.getEnglishname().equals("null"))
         {
             btnadd.setVisibility(View.INVISIBLE);
             ivUserViewHead.setVisibility(View.INVISIBLE); //头像
@@ -99,7 +99,7 @@ public class WayCheck_view  extends BaseView<WayCheckModel> implements View.OnCl
             URL url = null;
             try {
                 //data.getEnglishname()
-                url = new URL(IMAGE_URL + "moren" + ".png");
+               url = new URL(IMAGE_URL + "moren" + ".png");
                 ivUserViewHead.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
             } catch (MalformedURLException e) {
                 e.printStackTrace();

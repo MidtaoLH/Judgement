@@ -339,7 +339,34 @@
     <item name="android:layout_height">match_parent</item>
     <item name="android:paddingLeft">@dimen/padding_micro</item>
     <item name="android:src">@drawable/forward2_light</item>
-</style><style name="edit_item">
+</style><style name="content_item_gray" parent="content_item">
+
+    </style><style name="content_item_grayPath" parent="content_itemPath">
+
+    </style><style name="content_item_grayedit" parent="content_itemedit">
+
+    </style><style name="content_item_image" parent="content_itemimage">
+
+    </style><style name="content_itemPath">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style><style name="content_itemedit">
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:paddingLeft">1dp</item>
+        <item name="android:paddingRight">1dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style><style name="content_itemimage">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style><style name="edit_item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">45dp</item>
         <item name="android:background">@color/white_selected</item>

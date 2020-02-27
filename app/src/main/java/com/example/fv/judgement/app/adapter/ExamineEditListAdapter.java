@@ -12,27 +12,25 @@ import android.widget.TextView;
 
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.model.MdlExamineEditDetail;
+import com.example.fv.judgement.app.view.ExamineEditListView;
 
 import java.util.List;
 
-public class ExamineEditListAdapter extends ArrayAdapter<MdlExamineEditDetail>
+import zuo.biao.library.base.BaseAdapter;
+
+public class ExamineEditListAdapter extends BaseAdapter<MdlExamineEditDetail, ExamineEditListView>
 {
-    private  int resourceID;
-
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        MdlExamineEditDetail detail = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceID,parent,false);
-        TextView tvCaseName = view.findViewById(R.id.tvCaseType);
-        tvCaseName.setText("23");
-        return view;
+    public ExamineEditListAdapter(Activity context) {
+        super(context);
     }
-
-    public ExamineEditListAdapter(Context context, int viewid, List<MdlExamineEditDetail> objects)
-    {
-        super(context,viewid,objects);
-        resourceID = viewid;
-
+    @Override
+    public ExamineEditListView createView(int position, ViewGroup parent) {
+        return new ExamineEditListView(context, parent);
+    }
+    @Override
+    //获取列表id的方法
+    public long getItemId(int position) {
+        return getItem(position).getId();
     }
 }
 

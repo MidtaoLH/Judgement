@@ -24,10 +24,7 @@ public class RomUtils {
     }
 
     public static boolean isLightStatusBarAvailable () {
-        if (isMIUIV6OrAbove() || isFlymeV4OrAbove() || isAndroidMOrAbove()) {
-            return true;
-        }
-        return false;
+        return isMIUIV6OrAbove() || isFlymeV4OrAbove() || isAndroidMOrAbove();
     }
 
     public static int getLightStatausBarAvailableRomType() {
@@ -79,10 +76,7 @@ public class RomUtils {
 
     //Android Api 23以上
     private static boolean isAndroidMOrAbove() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return true;
-        }
-        return false;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     private static String getSystemProperty(String propName) {

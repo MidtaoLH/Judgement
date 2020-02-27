@@ -237,7 +237,7 @@ public class TimePickerWindow extends BaseViewBottomWindow<List<Entry<Integer, S
 	}
 
 	boolean[] isCenter = new boolean[3];
-	boolean isEqualStart[] = new boolean[3];
+    boolean[] isEqualStart = new boolean[3];
 	/**获取列表
 	 * @param tabPosition
 	 * @param selectedItemList

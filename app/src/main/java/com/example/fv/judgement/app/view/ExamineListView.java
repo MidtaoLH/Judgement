@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.ExamineEdit.ExamineEdit;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.ExamineModel;
 import android.view.View.OnClickListener;
@@ -99,4 +101,5 @@ public class ExamineListView extends BaseView<ExamineModel> implements OnClickLi
                 break;
         }
     }
+
 }

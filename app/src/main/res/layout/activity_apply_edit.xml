@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page"
+    android:id="@+id/main">
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="申请修改" />
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/activity_page"
+        android:padding="4dp"
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/ll_horizontal_match_wrap"
+            android:padding="4dp" >
+
+            <ImageView
+                android:id="@+id/ivUserViewHead"
+                style="@style/img_fitXY"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/oval_alpha" />
+
+            <LinearLayout
+                style="@style/ll_vertical_match_wrap"
+                android:layout_weight="2"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="4dp" >
+
+                <TextView
+                    android:id="@+id/tvEmpName"
+                    style="@style/text_middle_black"
+                    android:layout_marginRight="6dp"
+                    android:gravity="left"
+                    android:text="姓名" />
+
+
+                <TextView
+                    android:id="@+id/tvGroupName"
+                    style="@style/text_middle"
+                    android:layout_marginRight="6dp"
+                    android:gravity="left"
+                    android:text="部门" />
+
+                <TextView
+                    android:id="@+id/tvApplyDate"
+                    style="@style/text_middle"
+                    android:layout_marginRight="6dp"
+                    android:gravity="left"
+                    android:text="申请时间：" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/shape_round_textview"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="状态"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSettingAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <TextView
+                android:id="@+id/tvPlace"
+                style="@style/text_middle"
+                android:layout_marginRight="6dp"
+                android:gravity="left"
+                android:text="出差地点：" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                style="@style/text_middle"
+                android:layout_marginRight="6dp"
+                android:gravity="left"
+                android:text="出差时间：" />
+
+            <TextView
+                android:id="@+id/tvCount"
+                style="@style/text_middle"
+                android:layout_marginRight="6dp"
+                android:gravity="left"
+                android:text="出差时长：" />
+
+            <TextView
+                android:id="@+id/tvRemark"
+                style="@style/text_middle"
+                android:layout_marginRight="6dp"
+                android:gravity="left"
+                android:text="出差事由：" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/content_item_image">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llChengRenReamrk2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <TextView
+                style="@style/content_item_lf_tv"
+                android:text="承认意见" />
+
+            <EditText
+                android:id="@+id/etxtRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入承认意见"
+                android:maxLines="2"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llChengRenReamrk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <ListView
+                android:id="@+id/ExamineList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom" >
+
+        <Button
+            android:id="@+id/btnno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_examine_shape"
+            android:text="驳回" />
+
+        <Button
+            android:id="@+id/btnyes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_examineyes_shape"
+            android:text="同意" />
+
+    </LinearLayout>
+
+</LinearLayout>

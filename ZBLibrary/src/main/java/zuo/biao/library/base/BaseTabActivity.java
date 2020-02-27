@@ -402,15 +402,14 @@ public abstract class BaseTabActivity extends BaseActivity implements ViewPresen
 
 	public TextView getCurrentTab() {
 		return topTabView == null ? null : topTabView.getCurrentTab();
-	};
+	}
 
-	public Fragment getCurrentFragment() {
+    public Fragment getCurrentFragment() {
 		return fragments[currentPosition];
-	};
+	}
 
 
-
-	//Data数据区(存在数据获取或处理代码，但不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
 

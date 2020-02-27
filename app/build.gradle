@@ -29,4 +29,5 @@ dependencies {
     implementation files('libs/gson-2.8.0.jar')
     compile project(path: ':ZBLibrary')
     compile project(path: ':picture_library')
+    compile project(path: ':picture_library')
 }

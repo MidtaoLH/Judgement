@@ -117,8 +117,6 @@ public class ImagesObservable implements SubjectListener {
 
     @Override
     public void remove(ObserverListener observerListener) {
-        if (observers.contains(observerListener)) {
-            observers.remove(observerListener);
-        }
+        observers.remove(observerListener);
     }
 }

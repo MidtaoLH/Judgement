@@ -92,7 +92,7 @@ public class LeaveTabActivity extends BaseBottomTabActivity implements OnBottomD
             default:
                 return LeaveRecordingList.createInstance(LeaveRecordingList.RANGE_ALL);
         }
-    };
+    }
 
     //	private static final String[] TAB_NAMES = {"主页", "消息", "发现", "设置"};
     private static final String[] TAB_NAMES = {"待申请", "请假记录"};

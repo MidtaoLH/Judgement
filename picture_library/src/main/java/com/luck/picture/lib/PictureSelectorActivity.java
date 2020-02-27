@@ -93,7 +93,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             case PictureConfig.UPDATE_FLAG:
                 // 预览时勾选图片更新回调
                 List<LocalMedia> selectImages = obj.medias;
-                anim = selectImages.size() > 0 ? true : false;
+                anim = selectImages.size() > 0;
                 int position = obj.position;
                 DebugUtil.i(TAG, "刷新下标::" + position);
                 adapter.bindSelectImages(selectImages);
@@ -165,17 +165,17 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      */
     private void initView(Bundle savedInstanceState) {
 
-        rl_picture_title = (RelativeLayout) findViewById(R.id.rl_picture_title);
-        picture_left_back = (ImageView) findViewById(R.id.picture_left_back);
-        picture_title = (TextView) findViewById(R.id.picture_title);
-        picture_right = (TextView) findViewById(R.id.picture_right);
-        picture_tv_ok = (TextView) findViewById(R.id.picture_tv_ok);
-        picture_id_preview = (TextView) findViewById(R.id.picture_id_preview);
-        picture_tv_img_num = (TextView) findViewById(R.id.picture_tv_img_num);
-        picture_recycler = (RecyclerView) findViewById(R.id.picture_recycler);
-        rl_bottom = (RelativeLayout) findViewById(R.id.rl_bottom);
-        id_ll_ok = (LinearLayout) findViewById(R.id.id_ll_ok);
-        tv_empty = (TextView) findViewById(R.id.tv_empty);
+        rl_picture_title = findViewById(R.id.rl_picture_title);
+        picture_left_back = findViewById(R.id.picture_left_back);
+        picture_title = findViewById(R.id.picture_title);
+        picture_right = findViewById(R.id.picture_right);
+        picture_tv_ok = findViewById(R.id.picture_tv_ok);
+        picture_id_preview = findViewById(R.id.picture_id_preview);
+        picture_tv_img_num = findViewById(R.id.picture_tv_img_num);
+        picture_recycler = findViewById(R.id.picture_recycler);
+        rl_bottom = findViewById(R.id.rl_bottom);
+        id_ll_ok = findViewById(R.id.id_ll_ok);
+        tv_empty = findViewById(R.id.tv_empty);
         rl_bottom.setVisibility(selectionMode == PictureConfig.SINGLE ? View.GONE : View.VISIBLE);
         isNumComplete(numComplete);
         if (mimeType == PictureMimeType.ofAll()) {
@@ -511,13 +511,13 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 audioH,
                 R.layout.picture_audio_dialog, R.style.Theme_dialog);
         audioDialog.getWindow().setWindowAnimations(R.style.Dialog_Audio_StyleAnim);
-        tv_musicStatus = (TextView) audioDialog.findViewById(R.id.tv_musicStatus);
-        tv_musicTime = (TextView) audioDialog.findViewById(R.id.tv_musicTime);
-        musicSeekBar = (SeekBar) audioDialog.findViewById(R.id.musicSeekBar);
-        tv_musicTotal = (TextView) audioDialog.findViewById(R.id.tv_musicTotal);
-        tv_PlayPause = (TextView) audioDialog.findViewById(R.id.tv_PlayPause);
-        tv_Stop = (TextView) audioDialog.findViewById(R.id.tv_Stop);
-        tv_Quit = (TextView) audioDialog.findViewById(R.id.tv_Quit);
+        tv_musicStatus = audioDialog.findViewById(R.id.tv_musicStatus);
+        tv_musicTime = audioDialog.findViewById(R.id.tv_musicTime);
+        musicSeekBar = audioDialog.findViewById(R.id.musicSeekBar);
+        tv_musicTotal = audioDialog.findViewById(R.id.tv_musicTotal);
+        tv_PlayPause = audioDialog.findViewById(R.id.tv_PlayPause);
+        tv_Stop = audioDialog.findViewById(R.id.tv_Stop);
+        tv_Quit = audioDialog.findViewById(R.id.tv_Quit);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -708,7 +708,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     @Override
     public void onItemClick(String folderName, List<LocalMedia> images) {
         boolean camera = StringUtils.isCamera(folderName);
-        camera = isCamera ? camera : false;
+        camera = isCamera && camera;
         adapter.setShowCamera(camera);
         picture_title.setText(folderName);
         adapter.bindImagesData(images);

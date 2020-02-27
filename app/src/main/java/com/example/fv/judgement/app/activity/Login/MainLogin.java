@@ -145,15 +145,15 @@ public class MainLogin extends AppCompatActivity {
             else
             {
 
-//                try {
-//                    url = new URL(IMAGE_URL + userid + ".png");
-//                    set_image.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
-//                } catch (MalformedURLException e) {
-//                    e.printStackTrace();
-//                }
-//                 catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    url = new URL(IMAGE_URL + userid + ".png");
+                    set_image.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                 catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -199,21 +199,21 @@ public class MainLogin extends AppCompatActivity {
                                     if(LU.size() > 0)
                                     {
                                         SharedPreferences.Editor editor = preferences.edit();
-                                        String Flag = LU.get(0).getFlag().toString();
+                                        String Flag = LU.get(0).getFlag();
                                         if(Flag.equals("1"))
                                         {
                                             //denglu chengg
                                             editor.putString("username", set_diy_att.getValue());
 
-                                            String id_glob = LU.get(0).getId().toString();
-                                            String code_glob = LU.get(0).getCode().toString();
-                                            String name_glob = LU.get(0).getName().toString();
-                                            String EmpID_glob = LU.get(0).getEmpID().toString();
-                                            String Groupid_glob = LU.get(0).getGroupid().toString();
-                                            String GroupName_glob = LU.get(0).getGroupName().toString();
-                                            String UserNO_glob = LU.get(0).getUserNO().toString();
-                                            String UserHour_glob = LU.get(0).getUserHour().toString();
-                                            String IsNotice_glob = LU.get(0).getIsNotice().toString();
+                                            String id_glob = LU.get(0).getId();
+                                            String code_glob = LU.get(0).getCode();
+                                            String name_glob = LU.get(0).getName();
+                                            String EmpID_glob = LU.get(0).getEmpID();
+                                            String Groupid_glob = LU.get(0).getGroupid();
+                                            String GroupName_glob = LU.get(0).getGroupName();
+                                            String UserNO_glob = LU.get(0).getUserNO();
+                                            String UserHour_glob = LU.get(0).getUserHour();
+                                            String IsNotice_glob = LU.get(0).getIsNotice();
 
                                             editor.putString("id", id_glob);
                                             editor.putString("code", code_glob);
@@ -279,7 +279,7 @@ public class MainLogin extends AppCompatActivity {
     }
 
     private void initDIYAttSpinnerEditText(){
-        set_diy_att= (SpinnerEditText<BaseBean>) findViewById(R.id.set_div_att);
+        set_diy_att= findViewById(R.id.set_div_att);
         set_diy_att.setRightCompoundDrawable(R.drawable.vector_drawable_arrowdown);
 
 
@@ -316,7 +316,7 @@ public class MainLogin extends AppCompatActivity {
                 baseBean.Id = i;
                 baseBeanList.add(baseBean);
             }
-        };
+        }
         set_diy_att.setNeedShowSpinner(true);
         set_diy_att.setList(baseBeanList);
         set_diy_att.setAlwaysShowAllItemList(false);
