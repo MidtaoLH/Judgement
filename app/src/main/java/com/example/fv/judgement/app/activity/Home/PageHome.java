@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.AttendanceCalendar.AttendanceCalendar;
 import com.example.fv.judgement.app.activity.BusinessTrip.BusinessTripTabbar;
 import com.example.fv.judgement.app.activity.Leave.LeaveTabActivity;
 import com.example.fv.judgement.app.activity.MyExamineList.MainTabActivity;
@@ -19,7 +20,7 @@ public class PageHome extends AppCompatActivity {
     private Button leavebtn;
     private Button gooutbtn;
     private Button businessTripbtn;
-    private Button noticebtn;
+    private Button noticebtn,attendanceCalendarbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class PageHome extends AppCompatActivity {
         gooutbtn = findViewById(R.id.goout);
         businessTripbtn = findViewById(R.id.businessTrip);
         noticebtn = findViewById(R.id.notice);
-
+        attendanceCalendarbtn= findViewById(R.id.attendanceCalendarbtn);
         waitmyApplybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +64,14 @@ public class PageHome extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(PageHome.this, MainNoticeActivity.class);
+                startActivity(intent);
+            }
+        });
+        attendanceCalendarbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(PageHome.this, AttendanceCalendar.class);
                 startActivity(intent);
             }
         });

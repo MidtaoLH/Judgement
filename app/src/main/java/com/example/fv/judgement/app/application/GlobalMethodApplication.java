@@ -105,6 +105,20 @@ public class GlobalMethodApplication  {
         return StringToDate(str, "yyyy-M-d", "yyyy-M-d");
     }
 
+
+    //把string转成int数组 日期用
+    public static int[] StringToInt(String dateStr) {
+        int[] selectedDate=null;
+        String[] temp = dateStr.split("-");
+        if (temp != null && temp.length >= 3) {
+            selectedDate = new int[temp.length];
+            for (int i = 0; i < temp.length; i++) {
+                selectedDate[i] = Integer.parseInt(temp[i]);
+            }
+        }
+        return selectedDate;
+    }
+
     public static String StringToDate(String dateStr, String dateFormatStr, String formatStr) {
         DateFormat sdf = new SimpleDateFormat(dateFormatStr);
         Date date = null;
@@ -116,16 +130,5 @@ public class GlobalMethodApplication  {
         SimpleDateFormat s = new SimpleDateFormat(formatStr);
 
         return s.format(date);
-    }
-    public static int[] StringToInt(String dateStr) {
-        int[] selectedDate=null;
-        String[] temp = dateStr.split("-");
-        if (temp != null && temp.length >= 3) {
-            selectedDate = new int[temp.length];
-            for (int i = 0; i < temp.length; i++) {
-                selectedDate[i] = Integer.parseInt(temp[i]);
-            }
-        }
-        return selectedDate;
     }
 }
