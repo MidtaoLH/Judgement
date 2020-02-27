@@ -113,11 +113,9 @@ public class LeaveType  extends BaseActivity implements View.OnClickListener{
             LoginUserModel model= GlobalInformationApplication.getInstance().getCurrentUser();
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
                     methodName);
-            //soapObject.addProperty("userID", model.getId());
-            //soapObject.addProperty("iosid", model.getAdId());
+            soapObject.addProperty("userID", model.getId());
+            soapObject.addProperty("iosid", model.getAdId());
             soapObject.addProperty("data","1");
-            soapObject.addProperty("userID","91");
-            soapObject.addProperty("iosid", "00000000-0000-0000-0000-000000000000");
 
             HttpRequest http = new HttpRequest();
             datastring = http.httpWebService_GetString(methodName, soapObject);

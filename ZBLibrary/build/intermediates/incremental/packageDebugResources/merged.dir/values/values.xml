@@ -73,6 +73,7 @@
     <color name="btn_red_pressed">#dd0000</color>
     <color name="button_selected">#ff419de4</color>
     <color name="button_unselected">#ff54acea</color>
+    <color name="c_status">#40E0D0</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>

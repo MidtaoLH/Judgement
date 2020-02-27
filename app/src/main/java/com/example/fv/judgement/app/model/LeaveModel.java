@@ -7,7 +7,7 @@ public class LeaveModel  extends BaseModel
 
     private String vatcationid;//请假主键id
     private String vatcationtrpeid;//请假类型id
-    private String vatcationtype;//请假类型名称
+    private String vatcationtrpe;//请假类型名称
     private String timestart;//请假开始时间
     private String timesend;//请假结束时间
     private String timesum;//请假时长
@@ -31,11 +31,11 @@ public class LeaveModel  extends BaseModel
     }
 
     public String getVatcationtype() {
-        return vatcationtype;
+        return vatcationtrpe;
     }
 
     public void setVatcationtype(String vatcationtrpe) {
-        this.vatcationtype = vatcationtrpe;
+        this.vatcationtrpe = vatcationtrpe;
     }
 
     public String getTimestart() {

@@ -2,6 +2,7 @@ package com.example.fv.judgement.app.application;
 
 import com.example.fv.judgement.app.manager.DataManager;
 import com.example.fv.judgement.app.model.LoginUserModel;
+import com.example.fv.judgement.app.model.WayCheckModel;
 
 import zuo.biao.library.base.BaseApplication;
 
@@ -30,11 +31,20 @@ public class GlobalInformationApplication  extends BaseApplication {
         return currentUser.getEmpID();
     }
     private static LoginUserModel currentUser = null;
+    private static WayCheckModel currentWay = null;
+
     public LoginUserModel getCurrentUser() {
         if (currentUser == null) {
             currentUser = DataManager.getInstance().getCurrentUser();
         }
         return currentUser;
+    }
+
+    public WayCheckModel getCurrentWay() {
+        if (currentWay == null) {
+            currentWay = DataManager.getInstance().getCurrentWay();
+        }
+        return currentWay;
     }
 
     public void saveCurrentUser(LoginUserModel user) {
@@ -46,6 +56,17 @@ public class GlobalInformationApplication  extends BaseApplication {
         }
         currentUser = user;
         DataManager.getInstance().saveCurrentUser(currentUser);
+    }
+
+    public void saveCurrentWay(WayCheckModel Way) {
+        if (Way == null) {
+            return;
+        }
+        if (Way.getIndex()== "0" ) {
+            return;
+        }
+        currentWay = Way;
+        DataManager.getInstance().saveCurrentWay(currentWay);
     }
 
     public void logout() {

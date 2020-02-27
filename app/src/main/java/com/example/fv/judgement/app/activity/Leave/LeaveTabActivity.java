@@ -19,6 +19,12 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.example.fv.judgement.R;
 
 import zuo.biao.library.base.BaseBottomTabActivity;
@@ -28,9 +34,10 @@ import zuo.biao.library.interfaces.OnBottomDragListener;
  * @author Lemon
  * @use MainTabActivity.createIntent(...)
  */
-public class LeaveTabActivity extends BaseBottomTabActivity implements OnBottomDragListener {
+public class LeaveTabActivity extends BaseBottomTabActivity implements View.OnClickListener, OnBottomDragListener {
     //	private static final String TAG = "MainTabActivity";
-
+    private TextView tvAddBtn;
+    private ImageButton left_back;
     //启动方法<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /**启动这个Activity的Intent
@@ -64,6 +71,10 @@ public class LeaveTabActivity extends BaseBottomTabActivity implements OnBottomD
     public void initView() {// 必须调用
         super.initView();
         exitAnim = R.anim.bottom_push_out;
+
+        tvAddBtn = (TextView) findViewById(R.id.tvAddBtn);
+        tvAddBtn.setOnClickListener(this);
+
     }
 
     @Override
@@ -75,7 +86,7 @@ public class LeaveTabActivity extends BaseBottomTabActivity implements OnBottomD
     protected int[][] getTabSelectIds() {
         return new int[][]{
                 new int[]{R.id.ivBottomTabTab0, R.id.ivBottomTabTab1},//, R.id.ivBottomTabTab2, R.id.ivBottomTabTab3},//顶部图标
-                new int[]{R.id.tvBottomTabTab0, R.id.tvBottomTabTab1}//, R.id.tvBottomTabTab2, R.id.tvBottomTabTab3}//底部文字
+                new int[]{R.id.tvBottomTabTab0,R.id.tvBottomTabTab1}//, R.id.tvBottomTabTab2, R.id.tvBottomTabTab3}//底部文字
         };
     }
 
@@ -86,16 +97,18 @@ public class LeaveTabActivity extends BaseBottomTabActivity implements OnBottomD
 
     @Override
     protected Fragment getFragment(int position) {
-        switch (position) {
-            case 1:
-                return LeavePendingList.createInstance(LeavePendingList.RANGE_ALL);
-            default:
-                return LeaveRecordingList.createInstance(LeaveRecordingList.RANGE_ALL);
+        if(position==0)
+        {
+            return LeavePendingList.createInstance(LeavePendingList.RANGE_ALL);
+        }
+        else
+        {
+            return LeaveRecordingList.createInstance(LeaveRecordingList.RANGE_ALL);
         }
     }
 
     //	private static final String[] TAB_NAMES = {"主页", "消息", "发现", "设置"};
-    private static final String[] TAB_NAMES = {"待申请", "请假记录"};
+    private static final String[] TAB_NAMES = {"待申请","请假记录"};
     @Override
     protected void selectTab(int position) {
         //导致切换时闪屏，建议去掉BottomTabActivity中的topbar，在fragment中显示topbar
@@ -142,6 +155,20 @@ public class LeaveTabActivity extends BaseBottomTabActivity implements OnBottomD
                 return true;
         }
         return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.tvAddBtn:
+                toActivity(LeaveEdit.createIntent(context, "1"));
+                break;
+        }
+    }
+    @Override
+    public void onReturnClick(View v) {
+        finish();
     }
     //双击手机返回键退出>>>>>>>>>>>>>>>>>>>>>
 

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.activity.BusinessTrip.BusinessTripEdit">
+    <LinearLayout style="@style/activity_page"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            style="@style/topbar_bg"
+            android:background="@color/btn_gray_normal">
+
+            <ImageButton style="@style/topbar_return_img" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/topbar_title"
+                android:layout_centerHorizontal="true"
+                android:text="出差申请" />
+        </RelativeLayout>
+
+        <View style="@style/divider_horizontal_1px" />
+
+        <ScrollView
+            style="@style/match_match"
+            android:layout_weight="1">
+
+            <LinearLayout style="@style/ll_vertical_match_match">
+
+                <LinearLayout
+                    android:id="@+id/llUserBusinessCardContainer"
+                    style="@style/ll_vertical_match_wrap"
+                    android:layout_marginTop="@dimen/padding_huge"
+                    android:layout_marginBottom="@dimen/padding_huge"></LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/leavetype"
+                    style="@style/content_item_white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_border"
+                    >
+
+                    <TextView
+                        android:id="@+id/lbltype"
+                        style="@style/content_item_lf_tv_black"
+                        android:text="* 请假类型" />
+
+                    <TextView
+                        android:id="@+id/typetag"
+                        style="@style/content_item_rt_tv"
+                        android:layout_weight="1"
+                        android:hint="请选择"
+                        android:text="" />
+
+                    <ImageView
+                        android:id="@+id/typeright"
+                        style="@style/content_item_rt_img" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/content_item_gray"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+
+                    <TextView
+                        android:id="@+id/lblbalance"
+                        style="@style/text_big"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical|left"
+                        android:text="年假余额"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llStartDateTag"
+                    style="@style/content_item_white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_border">
+
+                    <TextView
+                        android:id="@+id/lblstartdate"
+                        style="@style/content_item_lf_tv_black"
+                        android:text=" * 开始时间" />
+
+                    <TextView
+                        android:id="@+id/startdatetag"
+                        style="@style/content_item_rt_tv"
+                        android:layout_weight="1"
+                        android:hint="请选择" />
+
+                    <ImageView style="@style/content_item_rt_img" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llEndDateTag"
+                    style="@style/content_item_white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_bordernotop">
+
+                    <TextView
+                        android:id="@+id/lblenddate"
+                        style="@style/content_item_lf_tv_black"
+                        android:text=" * 结束时间" />
+
+                    <TextView
+                        android:id="@+id/endDateTag"
+                        style="@style/content_item_rt_tv"
+                        android:layout_weight="1"
+                        android:hint="请选择" />
+
+                    <ImageView style="@style/content_item_rt_img" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llduration"
+                    style="@style/content_item_white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_bordernotop">
+
+                    <TextView
+                        android:id="@+id/lblduration"
+                        style="@style/content_item_lf_tv_black"
+                        android:layout_width="wrap_content"
+                        android:text=" * 请假时长（h）" />
+
+                    <EditText
+                        android:id="@+id/txtduration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="请输入"
+                        android:inputType="numberDecimal"
+                        android:background="@null"
+                        android:gravity="right"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/content_item_gray"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+
+                    <TextView
+                        android:id="@+id/lblCause"
+                        style="@style/text_big"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical|left"
+                        android:text=" * 请假事由"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/content_item_grayedit"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_border"
+                    >
+                    <EditText
+                        android:id="@+id/txtcause"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/edit_bg"
+                        android:layout_height="100dp"
+                        android:gravity="left"
+                        android:hint="请输入请假事由"
+                        android:maxLines="3" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lblimg"
+                    style="@style/text_big"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center_vertical|left"
+                    android:text="图片"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    style="@style/content_item_image"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+                <TextView
+                    style="@style/text_big"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:text="" />
+
+
+                <LinearLayout
+                    android:id="@+id/aaaTag"
+                    style="@style/content_item_grayPath"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_border">
+
+
+                    <Button
+                        android:id="@+id/btnpath"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/white_border"
+                        android:text="查看审批路径"
+                        android:textColor="@color/title_bg"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_horizontal|center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnsave"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/button_circle_shape"
+                        android:text="保存"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                    <Button
+                        android:id="@+id/btnsubmit"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/button_circle_shape"
+                        android:text="提交"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+        <View style="@style/divider_horizontal_1px" />
+
+        <LinearLayout
+            android:id="@+id/llUserBottomMenuContainer"
+            style="@style/ll_vertical_match_wrap" >
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -72,7 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical|left"
-                        android:text="假期余额"
+                        android:text="年假余额"
                         android:textSize="15sp" />
                 </LinearLayout>
 

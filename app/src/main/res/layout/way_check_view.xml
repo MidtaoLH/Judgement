@@ -43,12 +43,35 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnadd"
-            style="@style/wrap_wrap"
-            android:text="+"
-            android:layout_marginLeft="100dp"
-            />
+
+        <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <Button
+                    android:id="@+id/btnadd"
+                    style="@style/wrap_wrap"
+                    android:text="+"
+                    android:layout_marginLeft="100dp"
+                    />
+
+                <Button
+                    android:id="@+id/btndelete"
+                    style="@style/wrap_wrap"
+                    android:text="删除"
+                    android:layout_marginLeft="20dp"
+                    />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
 
         <TextView
             android:id="@+id/tvgroupname"

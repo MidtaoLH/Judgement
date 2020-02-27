@@ -4,23 +4,25 @@ import zuo.biao.library.base.BaseModel;
 
 public class WayCheckModel extends BaseModel {
 
-    public String levelname;
+    public String Index = "0";
 
-    public String name;
+    public String levelname = "";
 
-    private String nameid;
+    public String name = "";
 
-    private String groupname;
+    private String nameid = "";
 
-    private String groupid;
+    private String groupname = "";
 
-    private String englishname;
+    private String groupid = "";
 
-    private String level;
+    private String englishname = "";
 
-    private String editflag;
+    private String level = "";
 
-    private String Condition;
+    private String editflag = "";
+
+   //private String Condition = "";
 
     public String getLevelname() {
         return levelname;
@@ -86,12 +88,20 @@ public class WayCheckModel extends BaseModel {
         this.editflag = editflag;
     }
 
-    public String getCondition() {
-        return Condition;
+//    public String getCondition() {
+//        return Condition;
+//    }
+
+//    public void setCondition(String condition) {
+//        Condition = condition;
+//    }
+
+    public String getIndex() {
+        return Index;
     }
 
-    public void setCondition(String condition) {
-        Condition = condition;
+    public void setIndex(String index) {
+        Index = index;
     }
 
     @Override
