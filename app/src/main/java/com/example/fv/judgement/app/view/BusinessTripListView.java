@@ -20,7 +20,7 @@ import zuo.biao.library.util.CommonUtil;
 
 public class BusinessTripListView extends BaseView<BusinessTripListModel> implements View.OnClickListener
 {
-    private static final String TAG = "LeaveListView";
+    private static final String TAG = "BusinessTripListView";
 
     //构造需继承样式继承列表样式R.layout.user_view
     public BusinessTripListView(Activity context, ViewGroup parent) {
@@ -32,6 +32,7 @@ public class BusinessTripListView extends BaseView<BusinessTripListModel> implem
     public TextView tvEndDate;
     public TextView tvStatus;
     public TextView tvCaseDate;
+    public TextView tvCaseType;
     //  public TextView tvYuLan;
     @SuppressLint("InflateParams")
     @Override
@@ -42,7 +43,8 @@ public class BusinessTripListView extends BaseView<BusinessTripListModel> implem
         tvBeginDate = findView(R.id.tvBeginDate);
         tvEndDate = findView(R.id.tvEndDate);
         tvStatus = findView(R.id.tvStatus);
-        tvCaseDate = findView(R.id.tvCaseDate);
+        tvCaseDate= findView(R.id.tvCaseDate);
+        tvCaseType = findView(R.id.tvCaseType);
 
         return super.createView();
     }
@@ -64,6 +66,7 @@ public class BusinessTripListView extends BaseView<BusinessTripListModel> implem
         tvCaseDate.setText(data_.getCaseDate());
         tvStatus.setText(data_.getCaseStatusTxt());
         tvStatus.setTextColor(GlobalVariableApplication.cellStatusColor);
+        tvCaseType.setVisibility(View.GONE);
     }
     @Override
     public void onClick(View v) {
