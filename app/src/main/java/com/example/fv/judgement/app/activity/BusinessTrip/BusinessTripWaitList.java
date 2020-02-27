@@ -174,8 +174,8 @@ public class BusinessTripWaitList extends BaseHttpListFragment<BusinessTripListM
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        toActivity(BusinessTripEdit.createIntent(context, adapter.getItem(position).getAidFK(), adapter.getItem(position).getPicID(),adapter.getItem(position).getCaseApplyCode()
-                ,"2","getdata"));
+        toActivity(BusinessTripEdit.createIntent(context, adapter.getItem(position).getAidFK(), adapter.getItem(position).getPicID()
+                ,"2"));
     }
 //        @Override
 //        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

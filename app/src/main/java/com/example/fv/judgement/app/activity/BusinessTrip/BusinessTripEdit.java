@@ -17,13 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fv.judgement.R;
-import com.example.fv.judgement.app.activity.Leave.LeaveType;
 import com.example.fv.judgement.app.adapter.GridImageAdapter;
 import com.example.fv.judgement.app.application.FullyGridLayoutManager;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalMethodApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
-import com.example.fv.judgement.app.model.LeaveModel;
+import com.example.fv.judgement.app.model.BusinessTripDetailModel;
 import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.example.fv.judgement.app.util.MyLog;
@@ -52,9 +51,9 @@ import zuo.biao.library.util.StringUtil;
 import zuo.biao.library.util.TimeUtil;
 
 public class BusinessTripEdit extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
-    private static final String TAG = com.example.fv.judgement.app.activity.Leave.LeaveEdit.class.getSimpleName();
-    private String  edittype, userID, groupid, empID, processid, iosid
-            , empname, vatcationid,ApplyCode,userHour,processApplyCode,proCelReson,vtype;
+    private static final String TAG = com.example.fv.judgement.app.activity.BusinessTrip.BusinessTripEdit.class.getSimpleName();
+    private String  businessTripID, userID, groupid, empID, processInstanceID, iosid
+            , empname, pagetype,ApplyCode,userHour,proCelReson,vtype,operateType;
     private TextView title,lblTitle, lblbalance, lblstartdate, lblenddate, lblCause,lblduration,typetag,startdatetag,endDateTag;
     private EditText txtcause,txtduration;
     private Button btnpath, btnsave, btnsubmit;
@@ -71,16 +70,14 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
     private static final int REQUEST_TO_DATE_PICKEREND = 34;
     private int[] selectedDate = new int[]{1971, 0, 1};
     private int[] selectedStaraDate,selectedEndDate;
+
     //启动方法>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     private Intent intent;
-    public static Intent createIntent(Context context, String vatcationid, String processInstanceID
-            , String processApplyCode, String edittype, String urltype) {
-        return new Intent(context, com.example.fv.judgement.app.activity.Leave.LeaveEdit.class) .
-                putExtra("vatcationid", vatcationid).
+    public static Intent createIntent(Context context, String businessTripID, String processInstanceID, String pagetype) {
+        return new Intent(context, com.example.fv.judgement.app.activity.BusinessTrip.BusinessTripEdit.class) .
+                putExtra("businessTripID", businessTripID).
                 putExtra("processInstanceID", processInstanceID).
-                putExtra("processApplyCode", processApplyCode).
-                putExtra("edittype", edittype).
-                putExtra("urltype", urltype);
+                putExtra("pagetype", pagetype);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,20 +89,21 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leave_edit);
+        setContentView(R.layout.activity_businesstrip_edit);
         initImage();
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
-        edittype = StringUtil.get(getIntent().getStringExtra("edittype"));
-        if(edittype.equals("2"))
+        pagetype = StringUtil.get(getIntent().getStringExtra("pagetype"));
+        if(pagetype.equals("2") || pagetype.equals("3"))
         {
-            vatcationid = StringUtil.get(getIntent().getStringExtra("vatcationid"));
-            processid = StringUtil.get(getIntent().getStringExtra("processInstanceID"));
+            businessTripID = StringUtil.get(getIntent().getStringExtra("businessTripID"));
+            processInstanceID = StringUtil.get(getIntent().getStringExtra("processInstanceID"));
+            operateType="2";
             initData();
         }
         else
         {
-            edittype="1";
+            pagetype="1";
         }
         initEvent();
         //功能归类分区方法，必须调用>>>>>>>>>>
@@ -182,11 +180,7 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         userHour = model.getUserHour();
 
         intent = getIntent();
-        lblTitle = (TextView) findViewById(R.id.lbltype);
-        lblTitle.setFocusable(true);
-        lblTitle.setFocusableInTouchMode(true);
-        lblTitle.requestFocus();
-        lblbalance = (TextView) findViewById(R.id.lblbalance);
+
         lblstartdate = (TextView) findViewById(R.id.lblstartdate);
         lblenddate = (TextView) findViewById(R.id.lblenddate);
         lblCause = (TextView) findViewById(R.id.lblCause);
@@ -197,30 +191,23 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         btnsubmit = (Button) findViewById(R.id.btnsubmit);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         lblduration=(TextView) findViewById(R.id.lblduration);
-        typetag = (TextView) findViewById(R.id.typetag);
         startdatetag = (TextView) findViewById(R.id.startdatetag);
         endDateTag = (TextView) findViewById(R.id.endDateTag);
-        txtduration = (EditText) findViewById(R.id.txtduration);
         txtcause = (EditText) findViewById(R.id.txtcause);
         title=(TextView) findViewById(R.id.title);
-        title.setText(GlobalVariableApplication.editLeave);
-        String str = " <font color='#FF0000'>*</font> 请假类型";
-        lblTitle.setText(Html.fromHtml(str));
-        str = "假期余额";
-        lblbalance.setText(str);
-        str = " <font color='#FF0000'>*</font> 开始时间";
+        //title.setText(GlobalVariableApplication.editLeave);
+        String str =  " <font color='#FF0000'>*</font> 出发日期";
         lblstartdate.setText(Html.fromHtml(str));
-        str = " <font color='#FF0000'>*</font> 结束时间";
+        str = " <font color='#FF0000'>*</font> 返回日期";
         lblenddate.setText(Html.fromHtml(str));
-        str = " <font color='#FF0000'>*</font> 请假事由";
+        str = " <font color='#FF0000'>*</font> 出差事由";
         lblCause.setText(Html.fromHtml(str));
-        str = " <font color='#FF0000'>*</font> 请假时长（h）";
+        str = " <font color='#FF0000'>*</font> 出差天数";
         lblduration.setText(Html.fromHtml(str));
         str = "请输入";
         lblduration.setHint(str);
-        str = "请输入请假事由";
+        str = "请输入出差事由";
         txtcause.setHint(str);
-        lblbalance.setText("年假余额："+userHour);
 
         btnpath.setOnClickListener(this);
         btnsave.setOnClickListener(this);
@@ -237,32 +224,40 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         //必须在onCreate方法内调用
 
         String jsonString = GetInfo();
-        List<LeaveModel> LU = new ArrayList<LeaveModel>();
-        //json转为实体
-        Type type1 = new TypeToken<List<LeaveModel>>() {
-        }.getType();
-        LU = new Gson().fromJson(jsonString, type1);
+        //拆分 头表、图片、出差地点
+        String[] parts = jsonString.split("❀");
+        String jsondetail=parts[0];//头信息
+        String jsonphoto=parts[2];//图片
+        String jsonplace=parts[1];//出差地点
+
+        List<BusinessTripDetailModel> LUDetail = new ArrayList<BusinessTripDetailModel>();
+        List<BusinessTripDetailModel> LUPhoto = new ArrayList<BusinessTripDetailModel>();
+        List<BusinessTripDetailModel> LUPlace = new ArrayList<BusinessTripDetailModel>();
 
         //json转为实体
-        Type LeaveModelType = new TypeToken<List<LeaveModel>>() {
+        Type type1 = new TypeToken<List<BusinessTripDetailModel>>() {
         }.getType();
+        LUDetail = new Gson().fromJson(jsondetail, type1);
+        LUPhoto = new Gson().fromJson(jsonphoto, type1);
+        LUPlace = new Gson().fromJson(jsonplace, type1);
 
-        String str = LU.get(0).getVatcationtype();
-        typetag.setText(str);
-        str = LU.get(0).getTimestart();
+        //json转为实体
+        //Type BusinessTripDetailModel = new TypeToken<List<BusinessTripDetailModel>>() { }.getType();
+
+        //String str = LUDetail.get(0).getBusinessTripID();
+        //typetag.setText(str);
+        String str = LUDetail.get(0).getBusinessTripStartTime();
         startdatetag.setText(str);
-        str = LU.get(0).getTimesend();
+        str = LUDetail.get(0).getBusinessTripEndTime();
         endDateTag.setText(str);
-        str = LU.get(0).getTimesum();
+        str = LUDetail.get(0).getBusinessTripNum();
         txtduration.setText(str);
-        str = LU.get(0).getVatcationreason();
+        str = LUDetail.get(0).getBusinessTripReason();
         txtcause.setText(str);
-        vtype= LU.get(0).getVatcationtrpeid();
-        proCelReson= LU.get(0).getVatcationreason();
-        for (LeaveModel bean : LU) {
-            if (bean.getImagepath() != null) {
+        for (BusinessTripDetailModel bean : LUPhoto) {
+            if (bean.getAnnexName() != null) {
                 LocalMedia localMedia = new LocalMedia();
-                String url = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL, bean.getImagepath());
+                String url = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL, bean.getAnnexName());
                 localMedia.setPath(url);
                 selectList.add(localMedia);//添加图片
             }
@@ -298,33 +293,32 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
             {
                 return "请假事由不能为空";
             }
-            if(!vatcationid.trim().equals(""))
+            if(!businessTripID.trim().equals(""))
             {
-                vatcationid = "";
+                businessTripID = "";
             }
-            if(!processid.trim().equals(""))
+            if(!processInstanceID.trim().equals(""))
             {
-                processid = "";
+                processInstanceID = "";
             }
             if(!ApplyCode.trim().equals(""))
             {
                 ApplyCode = "";
             }
-            if(edittype.equals("1")){ //新增进入
-                edittype="4";  //申请 原单还没有申请
+            if(pagetype.equals("1")){ //新增进入
+                pagetype="4";  //申请 原单还没有申请
             }
-            else if(edittype.equals("2")){ //待申请进入
-                edittype="5";  //申请 原单还没有申请
+            else if(pagetype.equals("2")){ //待申请进入
+                pagetype="5";  //申请 原单还没有申请
             }
-            else if(edittype.equals("3")){ //修改已申请进入
-                edittype="6";  //申请 原单还没有申请
+            else if(pagetype.equals("3")){ //修改已申请进入
+                pagetype="6";  //申请 原单还没有申请
             }
             ApplyCode = "";
             String methodName = "btnsave_new";
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
                     methodName);
-            soapObject.addProperty("ProcessApplyCode", processApplyCode);
-            soapObject.addProperty("edittype", edittype);
+            soapObject.addProperty("edittype", pagetype);
             soapObject.addProperty("userid", userID);
             soapObject.addProperty("groupid", groupid);
             soapObject.addProperty("empid", empID);
@@ -333,8 +327,8 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
             soapObject.addProperty("endtime", lblenddate.getText());
             soapObject.addProperty("vatcationtime", txtduration.getText());
             soapObject.addProperty("name", empname);
-            soapObject.addProperty("leavleid", vatcationid);
-            soapObject.addProperty("processid", processid);
+            soapObject.addProperty("leavleid", businessTripID);
+            soapObject.addProperty("processid", processInstanceID);
             soapObject.addProperty("imagecount", recyclerView.getItemDecorationCount());
             soapObject.addProperty("applycode", ApplyCode);
             soapObject.addProperty("CelReson", proCelReson);
@@ -342,7 +336,7 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
             HttpRequest http = new HttpRequest();
             String datastring = http.httpWebService_GetString(methodName, soapObject);
         } catch (Exception e) {
-            MyLog.writeLogtoFile("错误", "LeaveEdit", "GetInfo", e.toString(), "0");
+            MyLog.writeLogtoFile("错误", "BusinessTripEdit", "GetInfo", e.toString(), "0");
         }
         return "";
     }
@@ -350,18 +344,17 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         String datastring = "";
         try {
             //NSString *strURL = [NSString stringWithFormat:@"http://47.94.85.101:8095/AppWebService.asmx/VatcationSearchByID?userID=%@&VatcationID=%@&processid=%@&iosid=%@", userID,vatcationid,processid,iosid];
-            String methodName = "VatcationSearchByID";
+            String methodName = "BusinessTripSearchByID";
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
                     methodName);
             soapObject.addProperty("userID", userID);
-            soapObject.addProperty("VatcationID", vatcationid);
-            soapObject.addProperty("processid", processid);
+            soapObject.addProperty("businessTripID", businessTripID);
             soapObject.addProperty("iosid", iosid);
             HttpRequest http = new HttpRequest();
             datastring = http.httpWebService_GetString(methodName, soapObject);
             return datastring;
         } catch (Exception e) {
-            MyLog.writeLogtoFile("错误", "LeaveEdit", "GetInfo", e.toString(), "0");
+            MyLog.writeLogtoFile("错误", "BusinessTripEdit", "GetInfo", e.toString(), "0");
         }
         return "";
     }
@@ -412,7 +405,7 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
                             .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
                 }
             } catch (Exception e) {
-                MyLog.writeLogtoFile("错误", "LeaveEdit", "onAddPicClick", e.toString(), "0");
+                MyLog.writeLogtoFile("错误", "BusinessTripEdit", "onAddPicClick", e.toString(), "0");
             }
         }
     };
@@ -476,11 +469,6 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.left_back:
                 finish();
-                break;
-            case R.id.leavetype:
-                Intent intent = new Intent();
-                intent.setClass(com.example.fv.judgement.app.activity.BusinessTrip.BusinessTripEdit.this, LeaveType.class);
-                startActivityForResult(intent,0x002);
                 break;
             case R.id.llduration:
                 break;

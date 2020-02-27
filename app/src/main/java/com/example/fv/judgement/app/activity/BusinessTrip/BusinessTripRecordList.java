@@ -176,9 +176,9 @@ public class BusinessTripRecordList extends BaseHttpListFragment<BusinessTripLis
                 adapter.getItem(position).getCaseStatusTxt().equals("承认中") ||
                 adapter.getItem(position).getCaseStatusTxt().equals("已驳回"))
         {
-            toActivity(BusinessTripEdit.createIntent(context, adapter.getItem(position).getAidFK(),
-                    adapter.getItem(position).getPicID(),adapter.getItem(position).getCaseApplyCode()
-                    ,"","getdata"));
+           // toActivity(BusinessTripEdit.createIntent(context, adapter.getItem(position).getAidFK(),
+            //        adapter.getItem(position).getPicID(),adapter.getItem(position).getCaseApplyCode()
+            //        ,"","getdata"));
         }
         else
         {
