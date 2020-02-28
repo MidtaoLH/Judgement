@@ -71,7 +71,7 @@ public class NoticeListView extends BaseView<NoticeModel> implements View.OnClic
         }
         switch (v.getId()) {
             case R.id.ivUserViewHead:
-                //toActivity(WebViewActivity.createIntent(context, data.getDocumentName(), data.getDocumentName()));
+                String aa = "";
                 break;
             default:
                 switch (v.getId()) {

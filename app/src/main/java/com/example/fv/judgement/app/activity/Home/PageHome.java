@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.Agent.AgentTabActivity;
 import com.example.fv.judgement.app.activity.BusinessTrip.BusinessTripTabbar;
 import com.example.fv.judgement.app.activity.Leave.LeaveTabActivity;
 import com.example.fv.judgement.app.activity.MyExamineList.MainTabActivity;
@@ -20,6 +21,7 @@ public class PageHome extends AppCompatActivity {
     private Button gooutbtn;
     private Button businessTripbtn;
     private Button noticebtn;
+    private Button agent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class PageHome extends AppCompatActivity {
         gooutbtn = findViewById(R.id.goout);
         businessTripbtn = findViewById(R.id.businessTrip);
         noticebtn = findViewById(R.id.notice);
-
+        agent = findViewById(R.id.agent);
         waitmyApplybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +65,15 @@ public class PageHome extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(PageHome.this, MainNoticeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        agent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(PageHome.this, AgentTabActivity.class);
                 startActivity(intent);
             }
         });

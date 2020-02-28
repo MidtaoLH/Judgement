@@ -15,11 +15,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.activity.GoOut.GoOut;
 import com.example.fv.judgement.app.activity.Home.PageHome;
 import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.application.GlobalMethodApplication;
+import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.model.WayCheckModel;
 import com.google.gson.Gson;
@@ -35,6 +39,7 @@ import java.util.List;
 import zuo.biao.library.base.BaseView;
 import zuo.biao.library.model.Entry;
 import zuo.biao.library.ui.PlacePickerWindow;
+import zuo.biao.library.util.CommonUtil;
 import zuo.biao.library.util.StringUtil;
 
 import static android.app.Activity.RESULT_OK;
@@ -109,45 +114,19 @@ public class WayCheck_view  extends BaseView<WayCheckModel> implements View.OnCl
         {
             URL url = null;
             try {
-                //data.getEnglishname()
+                //格式化头像地址
+                String strPhoto = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL, data_.getEnglishname());
+                Glide.with(context).asBitmap().load(strPhoto).into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                        ivUserViewHead.setImageBitmap(CommonUtil.toRoundCorner(bitmap, bitmap.getWidth() / 2));
+                    }
+                });
 
-                if(data.getEnglishname().equals("wangting"))
-                {
-                    url = new URL(IMAGE_URL +data.getEnglishname() + ".png");
-
-
-                    Bitmap bmp = null;
-
-                    bmp = BitmapFactory.decodeStream(url.openStream());
-                    ivUserViewHead.setImageBitmap(bmp);
-                    ivUserViewHead.setVisibility(View.VISIBLE); //头像
-                }
-                else
-                {
-                    url = new URL(IMAGE_URL +data.getEnglishname() + ".png");
-
-
-                    Bitmap bmp = null;
-
-                    bmp = BitmapFactory.decodeStream(url.openStream());
-                    ivUserViewHead.setImageBitmap(bmp);
-                    ivUserViewHead.setVisibility(View.VISIBLE); //头像
-                }
-
-
-
-
-
-            } catch (MalformedURLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            catch (IOException e) {
-                e.printStackTrace();
-                ivUserViewHead.setVisibility(View.INVISIBLE);
-            }
-
             btnadd.setVisibility(View.INVISIBLE);
-
             tvname.setVisibility(View.VISIBLE);         //用户名
             tvlevelname.setVisibility(View.VISIBLE);    //级别
             tvgroupname.setVisibility(View.VISIBLE);    //部门名称

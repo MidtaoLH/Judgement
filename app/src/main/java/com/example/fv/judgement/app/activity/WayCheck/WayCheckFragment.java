@@ -14,8 +14,10 @@ import android.widget.ListView;
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
 import com.example.fv.judgement.app.adapter.WayCheckAdapter;
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.ExamineModel;
+import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.model.WayCheckModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.google.gson.Gson;
@@ -190,11 +192,13 @@ public class WayCheckFragment extends BaseFragment {
 //        list.add(test);
 //        return list;
 
+        LoginUserModel LUM = GlobalInformationApplication.getInstance().getCurrentUser();
+
         String methodName = "GetWay";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
         soapObject.addProperty("id","94");
         soapObject.addProperty("processid","271");
-        soapObject.addProperty("iosid","d90730e57c3bdb81");
+        soapObject.addProperty("iosid","f61e4b5e616ea390");// LUM.getAdId());
         soapObject.addProperty("userid","94");
 
         HttpRequest httpres= new HttpRequest();

@@ -25,4 +25,8 @@ public class GlobalVariableApplication {
 
    public static final int cellStatusColor=Color.rgb(0, 204, 204);
 
+    public static String UnLoginMessage="您的账号在其他设备登录，需要重新登录";
+
+    public static String UnLoginFlag="unlogin";
+
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton android:id="@+id/returnbtn" style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="公告查看" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llChengRenReamrk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="4dp">
+
+        <TextView
+            style="@style/content_item_lf_tv"
+            android:id="@+id/tvtitle"
+            android:textSize="25sp"
+            android:text="春节放假通知"
+            android:textStyle="bold"/>
+
+        <TextView
+            style="@style/content_item_lf_tv"
+            android:textSize="20sp"
+            android:id="@+id/tvgroupname"
+            android:text="中道益通" />
+
+        <TextView
+            style="@style/content_item_lf_tv"
+            android:id="@+id/tvdate"
+            android:textSize="20sp"
+            android:text="发布时间：2020-02-02" />
+
+        <TextView
+            android:id="@+id/tvcontent"
+            android:textSize="22sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="后水水水水水水水水咳嗽都我见覅ofo或多或少快考试了数控技术看到回复和恢复"
+            android:textStyle="bold"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

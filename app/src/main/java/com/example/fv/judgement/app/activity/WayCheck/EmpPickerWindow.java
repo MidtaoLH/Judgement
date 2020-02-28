@@ -127,7 +127,7 @@ public class EmpPickerWindow extends BaseViewBottomWindow<List<Entry<Integer, St
 
             soapObject.addProperty("groupid", Code);
             soapObject.addProperty("AuditUsedFlag", "0");
-            soapObject.addProperty("iosid", "d90730e57c3bdb81");//Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID));
+            soapObject.addProperty("iosid", Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID));//
             soapObject.addProperty("userid", 94);
 
             HttpRequest http=new HttpRequest();

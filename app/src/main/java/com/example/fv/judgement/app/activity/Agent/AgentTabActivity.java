@@ -1,4 +1,4 @@
-package com.example.fv.judgement.app.activity.Notice;
+package com.example.fv.judgement.app.activity.Agent;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,22 +9,24 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.example.fv.judgement.R;
-import com.example.fv.judgement.app.activity.MyExamineList.AlreadyExamineList;
-import com.example.fv.judgement.app.activity.MyExamineList.MainTabActivity;
-import com.example.fv.judgement.app.activity.MyExamineList.WaitExamineList;
+import com.example.fv.judgement.app.activity.Leave.LeavePendingList;
+import com.example.fv.judgement.app.activity.Leave.LeaveRecordingList;
+import com.example.fv.judgement.app.activity.Leave.LeaveTabActivity;
 
 import zuo.biao.library.base.BaseBottomTabActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
 
-public class MainNoticeActivity extends BaseBottomTabActivity implements OnBottomDragListener {
+public class AgentTabActivity extends BaseBottomTabActivity implements OnBottomDragListener {
     //	private static final String TAG = "MainTabActivity";
+
+    //启动方法<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /**启动这个Activity的Intent
      * @param context
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, MainNoticeActivity.class);
+        return new Intent(context, LeaveTabActivity.class);
     }
 
     //启动方法>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -35,7 +37,7 @@ public class MainNoticeActivity extends BaseBottomTabActivity implements OnBotto
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_notice, this);
+        setContentView(R.layout.activity_agent_tab, this);
 
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
@@ -74,15 +76,14 @@ public class MainNoticeActivity extends BaseBottomTabActivity implements OnBotto
     protected Fragment getFragment(int position) {
         switch (position) {
             case 999:
-                return AlreadyExamineList.createInstance(AlreadyExamineList.RANGE_ALL);
-
+                return AgentPendingList.createInstance(0);
             default:
-                return GetNotice.createInstance(GetNotice.RANGE_ALL);
+                return AgentPendingList.createInstance(0);
         }
     };
 
     //	private static final String[] TAB_NAMES = {"主页", "消息", "发现", "设置"};
-    private static final String[] TAB_NAMES = {"公告列表", "公告列表"};
+    private static final String[] TAB_NAMES = {"代理人列表", "代理人列表"};
     @Override
     protected void selectTab(int position) {
         //导致切换时闪屏，建议去掉BottomTabActivity中的topbar，在fragment中显示topbar
@@ -130,15 +131,15 @@ public class MainNoticeActivity extends BaseBottomTabActivity implements OnBotto
         }
         return super.onKeyUp(keyCode, event);
     }
-//双击手机返回键退出>>>>>>>>>>>>>>>>>>>>>
+    //双击手机返回键退出>>>>>>>>>>>>>>>>>>>>>
 
-//生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-//生命周期、onActivityResult>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //生命周期、onActivityResult>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-//Event事件区(只要存在事件监听代码就是)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //Event事件区(只要存在事件监听代码就是)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-// 内部类,尽量少用<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    // 内部类,尽量少用<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-// 内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    // 内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
