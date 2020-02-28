@@ -428,8 +428,8 @@ public static final String TAG = "ExamineEdit";
         for (MdlExamineEditImagePath bean : listImageList) {
             if (bean != null) {
                 LocalMedia localMedia = new LocalMedia();
-                String url = GlobalVariableApplication.IMAGE_FUJIAN_URL + bean.getAnnexPath();
-                localMedia.setPath(url);
+            //    String url = GlobalVariableApplication.IMAGE_FUJIAN_URL + bean.getAnnexPath();
+          //      localMedia.setPath(url);
                 selectList.add(localMedia);//添加图片
             }
         }

@@ -1,45 +1,23 @@
 package com.example.fv.judgement.app.activity.MyExamineList;
 
-import android.os.StrictMode;
 import android.os.Bundle;
-import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import zuo.biao.library.base.BaseActivity;
 
-import com.alibaba.fastjson.JSONObject;
-import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.ApplyEdit.ApplyTaskLookActivity;
 import com.example.fv.judgement.app.activity.ExamineEdit.ExamineEdit;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.model.ExamineModel;
-import com.example.fv.judgement.app.view.ExamineListView;
 
-import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.base.BaseHttpListFragment;
-import zuo.biao.library.base.BaseModel;
-import zuo.biao.library.base.BaseView.OnDataChangedListener;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.interfaces.CacheCallBack;
-import zuo.biao.library.interfaces.OnBottomDragListener;
-import zuo.biao.library.interfaces.OnHttpResponseListener;
-import zuo.biao.library.manager.CacheManager;
-import zuo.biao.library.ui.BottomMenuView;
-import zuo.biao.library.ui.BottomMenuView.OnBottomMenuItemClickListener;
-import zuo.biao.library.ui.BottomMenuWindow;
-import zuo.biao.library.ui.EditTextInfoActivity;
-import zuo.biao.library.ui.TextClearSuit;
-import zuo.biao.library.util.CommonUtil;
 import zuo.biao.library.util.JSON;
-import zuo.biao.library.util.Log;
-import zuo.biao.library.util.StringUtil;
+
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
@@ -71,18 +49,16 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         public static final int RANGE_ALL = 0;//HttpRequest.USER_LIST_RANGE_ALL;
         public static final int RANGE_RECOMMEND = 1;//HttpRequest.USER_LIST_RANGE_RECOMMEND;
         private int range = RANGE_ALL;
-        private int CurentPageCount = 5;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             super.onCreateView(inflater, container, savedInstanceState);
             argument = getArguments();
-            GetGroupWebService();
+         //   GetGroupWebService();
 
             if (argument != null) {
      //           range = argument.getInt(ARGUMENT_RANGE, range);
             }
-  //          initCache(this);
             //功能归类分区方法，必须调用<<<<<<<<<<
             initView();
             initData();
@@ -117,8 +93,19 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         //点击跳转
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            startActivity(ExamineEdit.createIntent(context, adapter.getItem(position).getDocumentName(), adapter.getItem(position).getTaskInstanceID()));
-        }
+
+//            startActivity(ExamineEdit.createIntent(context, adapter.getItem(position).getDocumentName(), adapter.getItem(position).getTaskInstanceID()));
+
+            //如果是预览 跳到 ApplyTaskList
+            if(adapter.getItem(position).getTaskNodeOperateType().equals("1"))
+            {
+                startActivity(ApplyTaskLookActivity.createIntent(context, "1", adapter.getItem(position).getPicID()));
+            }
+            else
+            {
+                startActivity(ExamineEdit.createIntent(context, adapter.getItem(position).getDocumentName(), adapter.getItem(position).getTaskInstanceID()));
+            }
+          }
         //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         public String GetGroupWebService()
         {
@@ -161,25 +148,13 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
 
             int pageindex = page;
             pageindex++;
-            CurentPageCount = 5;
-
-//            if(pageindex == 0)
-//            {
-//
-////                CurentPageCount = CurentPageCount*pageindex;pageindex
-//            }
-//            else
-//            {
-//                CurentPageCount = CurentPageCount*pageindex;
-//            }
-//            String strPageIndex = String.valueOf(pageindex);
 
             String methodName = "GetPendingInfoAndroid";
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
             soapObject.addProperty("pasgeIndex",pageindex);
-            soapObject.addProperty("pageSize",CurentPageCount);
+            soapObject.addProperty("pageSize" ,GlobalVariableApplication.pageSize);
             soapObject.addProperty("code",45);
-            soapObject.addProperty("userID",96);
+            soapObject.addProperty("userID",85);
             soapObject.addProperty("menuID","4");
             soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
             HttpRequest httpres= new HttpRequest();

@@ -21,6 +21,8 @@ public class ExamineModel extends BaseModel
     private String CaseStatusTxt;
     private String  AidFK;
     private String  TaskInstanceID;
+    private String   TaskNodeOperateType;
+    private String   PicID;
     /**默认构造方法，JSON等解析时必须要有
      */
     public ExamineModel() {
@@ -145,6 +147,22 @@ public class ExamineModel extends BaseModel
 
     public void setTaskInstanceID(String taskInstanceID) {
         TaskInstanceID = taskInstanceID;
+    }
+
+    public String getTaskNodeOperateType() {
+        return TaskNodeOperateType;
+    }
+
+    public void setTaskNodeOperateType(String taskNodeOperateType) {
+        TaskNodeOperateType = taskNodeOperateType;
+    }
+
+    public String getPicID() {
+        return PicID;
+    }
+
+    public void setPicID(String picID) {
+        PicID = picID;
     }
 }
 

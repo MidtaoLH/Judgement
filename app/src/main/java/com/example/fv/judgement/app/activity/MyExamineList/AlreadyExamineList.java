@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import zuo.biao.library.base.BaseActivity;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.ExamineEdit.ExamineEdit;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
 import com.example.fv.judgement.app.model.ExamineModel;
 import com.example.fv.judgement.app.view.ExamineListView;
@@ -68,12 +70,12 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
     public static final int RANGE_ALL = 0;//HttpRequest.USER_LIST_RANGE_ALL;
     public static final int RANGE_RECOMMEND = 1;//HttpRequest.USER_LIST_RANGE_RECOMMEND;
     private int range = RANGE_ALL;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         super.onCreateView(inflater, container, savedInstanceState);
         argument = getArguments();
+
         if (argument != null) {
             //           range = argument.getInt(ARGUMENT_RANGE, range);
         }
@@ -110,7 +112,11 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
     //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+    //点击跳转
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startActivity(ExamineEdit.createIntent(context, adapter.getItem(position).getDocumentName(), adapter.getItem(position).getAidFK()));
+    }
     @Override
     public void initData() {//必须调用
         super.initData();
@@ -124,9 +130,9 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
         String methodName = "GetPendingInfoAndroid";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
         soapObject.addProperty("pasgeIndex",pageindex);
-        soapObject.addProperty("pageSize","5");
+        soapObject.addProperty("pageSize",GlobalVariableApplication.pageSize);
         soapObject.addProperty("code","40");
-        soapObject.addProperty("userID","91");
+        soapObject.addProperty("userID","96");
         soapObject.addProperty("menuID","6");
         soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
         HttpRequest httpres= new HttpRequest();
@@ -184,12 +190,7 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
     public void initEvent() {//必须调用
         super.initEvent();
     }
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            if (id > 0) {
-//                toActivity(UserActivity.createIntent(context, id));
-//            }
-//        }
+
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     //生命周期、onActivityResult>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

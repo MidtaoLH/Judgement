@@ -151,6 +151,8 @@ public class ExamineEdit extends AppCompatActivity  implements View.OnClickListe
         //获取服务器数据
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
+
+        //初始化图片选择控件
         initViewImage();
         initData();
 
@@ -332,6 +334,7 @@ public class ExamineEdit extends AppCompatActivity  implements View.OnClickListe
                 break;
         }
     }
+
     public void initView()
     {
         edittype = "";
@@ -383,7 +386,7 @@ public class ExamineEdit extends AppCompatActivity  implements View.OnClickListe
             strDatetxt = "出差时间: ";
             strRemarktxt = "出差事由: ";
         }
-        tvDate.setText(strDatetxt+Item.getBeignDate() + "-" +Item.getEndDate() );
+        tvDate.setText(strDatetxt+Item.getBeignDate() + "～" +Item.getEndDate() );
         tvCount.setText(strDateCounttxt+Item.getNumcount());
         tvRemark.setText(strRemarktxt + Item.getDescribe());
         //添加用户名片，这些方式都可<<<<<<<<<<<<<<<<<<<<<<
@@ -495,7 +498,6 @@ public class ExamineEdit extends AppCompatActivity  implements View.OnClickListe
 
         List<MdlServiceReturn> returnResult=new ArrayList<MdlServiceReturn>();
 
-        //
         Type typeHead = new TypeToken<List<MdlServiceReturn>>(){}.getType();
         returnResult = new Gson().fromJson(jsonData,typeHead);
 
