@@ -7,9 +7,10 @@ public class BusinessTripDetailModel extends BaseModel
     private String BusinessTripID;//主键id
     private String BusinessTripStartTime;//开始时间
     private String BusinessTripEndTime;//结束时间
-    private String BusinessTripNum;//天数
+    private String BusinessNum;//天数
     private String BusinessTripReason;//缘由
     private String AnnexName;//图片
+    private String AnnexPath;//图片路径+名称
     private String BusinessTripPlace;//地点
 
     @Override
@@ -42,11 +43,11 @@ public class BusinessTripDetailModel extends BaseModel
     }
 
     public String getBusinessTripNum() {
-        return BusinessTripNum;
+        return BusinessNum;
     }
 
     public void setBusinessTripNum(String businessTripNum) {
-        BusinessTripNum = businessTripNum;
+        BusinessNum = businessTripNum;
     }
 
     public String getBusinessTripReason() {
@@ -71,5 +72,13 @@ public class BusinessTripDetailModel extends BaseModel
 
     public void setBusinessTripPlace(String businessTripPlace) {
         BusinessTripPlace = businessTripPlace;
+    }
+
+    public String getAnnexPath() {
+        return AnnexPath;
+    }
+
+    public void setAnnexPath(String annexPath) {
+        AnnexPath = annexPath;
     }
 }

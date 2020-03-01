@@ -49,15 +49,17 @@
                         android:id="@+id/lblplace1"
                         style="@style/content_item_lf_tv_black"
                         android:text=" * 出差地点" />
-                    <TextView
+                    <EditText
                         android:id="@+id/txtbusnessTripPlace1"
                         style="@style/content_item_rt_tv"
                         android:layout_weight="1"
+                        android:background="@null"
                         android:hint="请输入" />
 
                     <ImageView
                         android:id="@+id/btnadd1"
-                        style="@style/content_item_rt_img" />
+                        style="@style/content_item_rt_img_add"
+                        ></ImageView>
                     <ImageView
                         android:id="@+id/btndelete1"
                         style="@style/content_item_rt_img" />
@@ -75,10 +77,11 @@
                         android:id="@+id/lblplace2"
                         style="@style/content_item_lf_tv_black"
                         android:text=" * 出差地点" />
-                    <TextView
+                    <EditText
                         android:id="@+id/txtbusnessTripPlace2"
                         style="@style/content_item_rt_tv"
                         android:layout_weight="1"
+                        android:background="@null"
                         android:hint="请输入" />
 
                     <ImageView
@@ -101,10 +104,11 @@
                         android:id="@+id/lblplace3"
                         style="@style/content_item_lf_tv_black"
                         android:text=" * 出差地点" />
-                    <TextView
+                    <EditText
                         android:id="@+id/txtbusnessTripPlace3"
                         style="@style/content_item_rt_tv"
                         android:layout_weight="1"
+                        android:background="@null"
                         android:hint="请输入" />
 
                     <ImageView
@@ -127,10 +131,11 @@
                         android:id="@+id/lblplace4"
                         style="@style/content_item_lf_tv_black"
                         android:text=" * 出差地点" />
-                    <TextView
+                    <EditText
                         android:id="@+id/txtbusnessTripPlace4"
                         style="@style/content_item_rt_tv"
                         android:layout_weight="1"
+                        android:background="@null"
                         android:hint="请输入" />
 
                     <ImageView
@@ -153,10 +158,11 @@
                         android:id="@+id/lblplace5"
                         style="@style/content_item_lf_tv_black"
                         android:text=" * 出差地点" />
-                    <TextView
+                    <EditText
                         android:id="@+id/txtbusnessTripPlace5"
                         style="@style/content_item_rt_tv"
                         android:layout_weight="1"
+                        android:background="@null"
                         android:hint="请输入" />
 
                     <ImageView
@@ -228,6 +234,7 @@
                         android:id="@+id/txtduration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="请输入"

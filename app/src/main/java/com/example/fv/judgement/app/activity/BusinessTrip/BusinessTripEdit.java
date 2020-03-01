@@ -25,9 +25,11 @@ import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalMethodApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.BusinessTripDetailModel;
+import com.example.fv.judgement.app.model.LeaveStatusModel;
 import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.example.fv.judgement.app.util.MyLog;
+import com.example.fv.judgement.app.util.UploadImage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.luck.picture.lib.PictureSelector;
@@ -41,9 +43,14 @@ import com.luck.picture.lib.tools.PictureFileUtils;
 
 import org.ksoap2.serialization.SoapObject;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -54,7 +61,7 @@ import zuo.biao.library.util.TimeUtil;
 
 public class BusinessTripEdit extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = com.example.fv.judgement.app.activity.BusinessTrip.BusinessTripEdit.class.getSimpleName();
-    private String  businessTripID, userID, groupid, empID, processInstanceID, iosid
+    private String  businessTripID="0", userID, groupid, empID, processInstanceID="0", iosid
             , empname, pagetype,ApplyCode,userHour,proCelReson,vtype,operateType;
     private TextView title,lblTitle, lblbalance, lblstartdate, lblenddate, lblCause,lblduration,typetag,startdatetag,endDateTag;
     private EditText txtcause,txtduration;
@@ -75,7 +82,7 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
 
     //出差地点
     private LinearLayout busnessTripPlace1,busnessTripPlace2,busnessTripPlace3,busnessTripPlace4,busnessTripPlace5;
-    private TextView txtbusnessTripPlace1,txtbusnessTripPlace2,txtbusnessTripPlace3,txtbusnessTripPlace4,txtbusnessTripPlace5;
+    private EditText txtbusnessTripPlace1,txtbusnessTripPlace2,txtbusnessTripPlace3,txtbusnessTripPlace4,txtbusnessTripPlace5;
     private TextView lblplace1,lblplace2,lblplace3,lblplace4,lblplace5;
     private ImageView btnadd1,btnadd2,btnadd3,btnadd4,btnadd5;
     private ImageView btndelete1,btndelete2,btndelete3,btndelete4,btndelete5;
@@ -221,11 +228,11 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         lblplace3=(TextView)findView(R.id.lblplace3);
         lblplace4=(TextView)findView(R.id.lblplace4);
         lblplace5=(TextView)findView(R.id.lblplace5);
-        txtbusnessTripPlace1=(TextView)findView(R.id.txtbusnessTripPlace1);
-        txtbusnessTripPlace2=(TextView)findView(R.id.txtbusnessTripPlace2);
-        txtbusnessTripPlace3=(TextView)findView(R.id.txtbusnessTripPlace3);
-        txtbusnessTripPlace4=(TextView)findView(R.id.txtbusnessTripPlace4);
-        txtbusnessTripPlace5=(TextView)findView(R.id.txtbusnessTripPlace5);
+        txtbusnessTripPlace1=(EditText)findView(R.id.txtbusnessTripPlace1);
+        txtbusnessTripPlace2=(EditText)findView(R.id.txtbusnessTripPlace2);
+        txtbusnessTripPlace3=(EditText)findView(R.id.txtbusnessTripPlace3);
+        txtbusnessTripPlace4=(EditText)findView(R.id.txtbusnessTripPlace4);
+        txtbusnessTripPlace5=(EditText)findView(R.id.txtbusnessTripPlace5);
         btnadd1=(ImageView)findView(R.id.btnadd1);
         btnadd2=(ImageView)findView(R.id.btnadd2);
         btnadd3=(ImageView)findView(R.id.btnadd3);
@@ -304,12 +311,14 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         //json转为实体
         //Type BusinessTripDetailModel = new TypeToken<List<BusinessTripDetailModel>>() { }.getType();
 
-        //String str = LUDetail.get(0).getBusinessTripID();
-        //typetag.setText(str);
-        String str = LUDetail.get(0).getBusinessTripStartTime();
+        String str = GlobalMethodApplication.getMyDate(LUDetail.get(0).getBusinessTripStartTime());
         startdatetag.setText(str);
-        str = LUDetail.get(0).getBusinessTripEndTime();
-        endDateTag.setText(str);
+        selectedStaraDate=GlobalMethodApplication.StringToInt(str);
+
+        str =  GlobalMethodApplication.getMyDate(LUDetail.get(0).getBusinessTripEndTime());
+        endDateTag.setText(GlobalMethodApplication.getMyDate(str));
+        selectedEndDate=GlobalMethodApplication.StringToInt(str);
+
         str = LUDetail.get(0).getBusinessTripNum();
         txtduration.setText(str);
         str = LUDetail.get(0).getBusinessTripReason();
@@ -344,13 +353,13 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         for (BusinessTripDetailModel bean : LUPhoto) {
             if (bean.getAnnexName() != null) {
                 LocalMedia localMedia = new LocalMedia();
-                String url = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL, bean.getAnnexName());
+                String url = String.format(GlobalVariableApplication.Edit_PHOTO_URL, bean.getAnnexPath());
                 localMedia.setPath(url);
                 selectList.add(localMedia);//添加图片
             }
         }
     }
-    public String SaveInfo() {
+    public String SaveInfo(String type) {
         try {
             if(txtbusnessTripPlace1.getText().toString().trim().equals("") && txtbusnessTripPlace2.getText().toString().trim().equals("") && txtbusnessTripPlace3.getText().toString().trim().equals("")
                     && txtbusnessTripPlace4.getText().toString().trim().equals("") && txtbusnessTripPlace5.getText().toString().trim().equals(""))
@@ -369,52 +378,67 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
             {
                 return "出差天数不能为空";
             }
-            if(Integer.parseInt(txtduration.getText().toString())<=0)
+            if(GlobalMethodApplication.convertToDouble(txtduration.getText().toString(),0)<=0)
             {
                 return "出差天数必须大于0";
             }
-            if(Integer.parseInt(txtduration.getText().toString())>365)
+            if(GlobalMethodApplication.convertToDouble(txtduration.getText().toString(),0)>365)
             {
                 return "出差天数不能大于365";
             }
-            if(txtduration.getText().toString().trim().equals(""))
+            if(txtcause.getText().toString().trim().equals(""))
             {
                 return "出差事由不能为空";
             }
-            if(!businessTripID.trim().equals(""))
+            if(businessTripID==null)
             {
-                businessTripID = "";
+                businessTripID = "0";
             }
-            if(!processInstanceID.trim().equals(""))
+            if(processInstanceID==null)
             {
-                processInstanceID = "";
+                processInstanceID = "0";
             }
-            if(pagetype.equals("4")){ //新增进入
-                pagetype="1";  //申请 原单还没有申请
+            if(type.equals("0"))
+            {
+                if(pagetype.equals("4")){ //新增进入
+                    pagetype="1";  //申请 原单还没有申请
+                }
+                else if(pagetype.equals("5")){ //待申请进入
+                    pagetype="2";  //申请 原单还没有申请
+                }
+                else if(pagetype.equals("6")){ //修改已申请进入
+                    pagetype="3";  //申请 原单还没有申请
+                }
             }
-            else if(pagetype.equals("5")){ //待申请进入
-                pagetype="2";  //申请 原单还没有申请
+            else
+            {
+                if(pagetype.equals("1")){ //新增进入
+                    pagetype="4";  //申请 原单还没有申请
+                }
+                else if(pagetype.equals("2")){ //待申请进入
+                    pagetype="5";  //申请 原单还没有申请
+                }
+                else if(pagetype.equals("3")){ //修改已申请进入
+                    pagetype="6";  //申请 原单还没有申请
+                }
             }
-            else if(pagetype.equals("6")){ //修改已申请进入
-                pagetype="3";  //申请 原单还没有申请
-            }
-            String strPlace = ""; //出差地点{"json" : [    "B",    "W",    "H"  ]
+            String strPlace = ""; //出差地点{"json" : [    "B",    "W",    "H"  ]}
             if(!txtbusnessTripPlace1.getText().toString().trim().equals("")){
-                strPlace="["+txtbusnessTripPlace1.getText().toString().trim();
+                strPlace="{\"json\" : [\""+txtbusnessTripPlace1.getText().toString().trim()+"\"";
             }
             if(!txtbusnessTripPlace2.getText().toString().trim().equals("")){
-                strPlace=","+strPlace+txtbusnessTripPlace2.getText().toString().trim();
+                strPlace=strPlace+"\""+","+txtbusnessTripPlace2.getText().toString().trim()+"\"";
             }
             if(!txtbusnessTripPlace3.getText().toString().trim().equals("")){
-                strPlace=","+strPlace+txtbusnessTripPlace3.getText().toString().trim();
+                strPlace=","+strPlace+"\""+txtbusnessTripPlace3.getText().toString().trim()+"\"";
             }
             if(!txtbusnessTripPlace4.getText().toString().trim().equals("")){
-                strPlace=","+strPlace+txtbusnessTripPlace4.getText().toString().trim();
+                strPlace=","+strPlace+"\""+txtbusnessTripPlace4.getText().toString().trim()+"\"";
             }
             if(!txtbusnessTripPlace5.getText().toString().trim().equals("")){
-                strPlace=","+strPlace+txtbusnessTripPlace5.getText().toString().trim();
+                strPlace=","+strPlace+"\""+txtbusnessTripPlace5.getText().toString().trim();
             }
-            strPlace=strPlace+"]";
+            strPlace=strPlace+"\"]}";
 
             String methodName = "BusinessTripSave";
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
@@ -424,16 +448,58 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
             soapObject.addProperty("businessTripID", businessTripID);
             soapObject.addProperty("empID", empID);
             soapObject.addProperty("groupID", groupid);
-            soapObject.addProperty("starttime", lblstartdate.getText());
-            soapObject.addProperty("endtime", lblenddate.getText());
-            soapObject.addProperty("businessTripNum", txtduration.getText());
-            soapObject.addProperty("reson", proCelReson);
+            soapObject.addProperty("starttime", startdatetag.getText().toString());
+            soapObject.addProperty("endtime", endDateTag.getText().toString());
+            soapObject.addProperty("businessTripNum", txtduration.getText().toString().trim());
+            soapObject.addProperty("reson", txtcause.getText().toString().trim());
             soapObject.addProperty("operateType", pagetype);
-            soapObject.addProperty("imageCount", recyclerView.getItemDecorationCount());
+            soapObject.addProperty("imageCount", selectList.size());
             soapObject.addProperty("strdetail", strPlace);
             soapObject.addProperty("iosid", iosid);
             HttpRequest http = new HttpRequest();
             String datastring = http.httpWebService_GetString(methodName, soapObject);
+            if(datastring!="")
+            {
+                List<LeaveStatusModel> LU = new ArrayList<LeaveStatusModel>();
+                //json转为实体
+                Type type1 = new TypeToken<List<LeaveStatusModel>>() {
+                }.getType();
+                LU = new Gson().fromJson(datastring, type1);
+                //json转为实体
+                Type LeaveStatusModel = new TypeToken<List<LeaveStatusModel>>() {
+                }.getType();
+
+                if(!LU.get(0).getProcessID().equals("0"))
+                {
+                    int i=1;
+                    String status="";
+                    if (selectList.size()>0)
+                    {
+                        for (LocalMedia bean : selectList) {
+                            if (bean.getCompressPath() != null) {
+                                File file = new File(bean.getCompressPath());
+                                ExecutorService pool = Executors.newFixedThreadPool(10);
+                                String url = String.format(GlobalVariableApplication.UpdateIMAGE_URL, LU.get(0).getApplyCode(),i+".png");
+                                Callable<String> c1 = new UploadImage("图片线程", url, file);
+                                Future<String> f1 = pool.submit(c1);
+                                status = f1.get();
+                                pool.shutdown();
+                                i++;
+                            }
+                        }
+                    }
+                    return "1";
+                }
+                else
+                {
+                    return  "0";
+                }
+            }
+            else
+            {
+                return  "0";
+            }
+
         } catch (Exception e) {
             MyLog.writeLogtoFile("错误", "BusinessTripEdit", "GetInfo", e.toString(), "0");
         }
@@ -565,6 +631,7 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
     }
     @Override
     public void onClick(View v) {
+        String message="";
         switch (v.getId()) {
             case R.id.left_back:
                 finish();
@@ -622,7 +689,36 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
                 busnessTripPlace5.setVisibility(View.GONE);
                 break;
             case R.id.btnsave:
-                SaveInfo();
+                message=SaveInfo("0");
+                if(message=="1")
+                {
+                    showShortToast(GlobalVariableApplication.SaveMessage);
+                    finish();
+                }
+                else if(message=="0")
+                {
+                    showShortToast(GlobalVariableApplication.SaveMessageN);
+                }
+                else
+                {
+                    showShortToast(message);
+                }
+                break;
+            case R.id.btnsubmit:
+                message=SaveInfo("1");
+                if(message=="1")
+                {
+                    showShortToast(GlobalVariableApplication.UpdateMessage);
+                    finish();
+                }
+                else if(message=="0")
+                {
+                    showShortToast(GlobalVariableApplication.UpdateMessageN);
+                }
+                else
+                {
+                    showShortToast(message);
+                }
                 break;
         }
     }
