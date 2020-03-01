@@ -21,6 +21,8 @@ public class GlobalVariableApplication {
 
     public static final String UpdateIMAGE_URL = "http://47.94.85.101:8095//ImageHandler.ashx?name=%s&picname=%s";
 
+    public static final String IMAGE_FUJIAN_URL = "http://47.94.85.101:8095/";
+
     public static final int maxImageSelectNum=6;
 
     public static final int pageSize=5;

@@ -247,7 +247,7 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
         public HeaderViewHolder(View itemView) {
             super(itemView);
             headerView = itemView;
-            tv_title_camera = (TextView) itemView.findViewById(R.id.tv_title_camera);
+            tv_title_camera = itemView.findViewById(R.id.tv_title_camera);
             String title = mimeType == PictureMimeType.ofAudio() ?
                     context.getString(R.string.picture_tape)
                     : context.getString(R.string.picture_take_picture);
@@ -265,12 +265,12 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
         public ViewHolder(View itemView) {
             super(itemView);
             contentView = itemView;
-            iv_picture = (ImageView) itemView.findViewById(R.id.iv_picture);
-            check = (TextView) itemView.findViewById(R.id.check);
-            ll_check = (LinearLayout) itemView.findViewById(R.id.ll_check);
-            tv_duration = (TextView) itemView.findViewById(R.id.tv_duration);
-            tv_isGif = (TextView) itemView.findViewById(R.id.tv_isGif);
-            tv_long_chart = (TextView) itemView.findViewById(R.id.tv_long_chart);
+            iv_picture = itemView.findViewById(R.id.iv_picture);
+            check = itemView.findViewById(R.id.check);
+            ll_check = itemView.findViewById(R.id.ll_check);
+            tv_duration = itemView.findViewById(R.id.tv_duration);
+            tv_isGif = itemView.findViewById(R.id.tv_isGif);
+            tv_long_chart = itemView.findViewById(R.id.tv_long_chart);
         }
     }
 

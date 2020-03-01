@@ -70,9 +70,9 @@ public class FolderPopWindow extends PopupWindow implements View.OnClickListener
     }
 
     public void initView() {
-        id_ll_root = (LinearLayout) window.findViewById(R.id.id_ll_root);
+        id_ll_root = window.findViewById(R.id.id_ll_root);
         adapter = new PictureAlbumDirectoryAdapter(context);
-        recyclerView = (RecyclerView) window.findViewById(R.id.folder_list);
+        recyclerView = window.findViewById(R.id.folder_list);
         recyclerView.getLayoutParams().height = (int) (ScreenUtils.getScreenHeight(context) * 0.6);
         recyclerView.addItemDecoration(new RecycleViewDivider(
                 context, LinearLayoutManager.HORIZONTAL, ScreenUtils.dip2px(context, 0), ContextCompat.getColor(context, R.color.transparent)));

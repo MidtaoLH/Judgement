@@ -14,7 +14,7 @@ public class MdlExamineEditHead extends BaseModel
     private String TypeTxt;
     private String Describe;
     private String BusinessTripPlace;
-    private String numcount;;
+    private String numcount;
     private String U_LoginName;
     private String CCAddress;
     /**默认构造方法，JSON等解析时必须要有

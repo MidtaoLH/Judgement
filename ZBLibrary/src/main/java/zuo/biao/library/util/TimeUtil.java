@@ -222,22 +222,22 @@ public class TimeUtil {
 		String smartTime = "";
 
 		if (smartDetail[5] > 0) {
-			smartTime = String.valueOf(smartDetail[5]) + "秒" + smartTime;
+			smartTime = smartDetail[5] + "秒" + smartTime;
 		}
 		if (smartDetail[4] > 0) {
-			smartTime = String.valueOf(smartDetail[4]) + "分" + smartTime;
+			smartTime = smartDetail[4] + "分" + smartTime;
 		}
 		if (smartDetail[3] > 8) {
-			smartTime = String.valueOf(smartDetail[3]) + "时" + String.valueOf(smartDetail[4]) + "分";
+			smartTime = smartDetail[3] + "时" + smartDetail[4] + "分";
 		}
 		if (smartDetail[2] > 1) {
-			smartTime = String.valueOf(smartDetail[2]) + "天" + String.valueOf(smartDetail[3]) + "时";
+			smartTime = smartDetail[2] + "天" + smartDetail[3] + "时";
 		}
 		if (smartDetail[1] > 1) {
-			smartTime = String.valueOf(smartDetail[1]) + "月" + String.valueOf(smartDetail[2]) + "天";
+			smartTime = smartDetail[1] + "月" + smartDetail[2] + "天";
 		}
 		if (smartDetail[0] > 1970) {
-			smartTime = String.valueOf(smartDetail[0]) + "年" + smartTime;
+			smartTime = smartDetail[0] + "年" + smartTime;
 		}
 
 		return smartTime;
@@ -264,7 +264,7 @@ public class TimeUtil {
 				
 				long day = nowDetails[2] - smartDetail[2];//between/(24*3600);
 				if (day >= 3) {//fomer day
-					smartDate = String.valueOf(smartDetail[2]) + "日" + time;
+					smartDate = smartDetail[2] + "日" + time;
 				} else if (day >= 2) {//fomer day
 					smartDate = "前天" + time;
 				} else if (day >= 1) {//fomer day
@@ -287,13 +287,13 @@ public class TimeUtil {
 				} else if(day >= -2) {//the day after tomorrow
 					smartDate = "后天" + time;
 				} else {
-					smartDate = String.valueOf(smartDetail[2]) + "日" + time;
+					smartDate = smartDetail[2] + "日" + time;
 				}
 			} else {//!!!
-				smartDate = String.valueOf(smartDetail[1]) + "月" + String.valueOf(smartDetail[2]) + "日";
+				smartDate = smartDetail[1] + "月" + smartDetail[2] + "日";
 			}
 		} else {//!!!
-			smartDate = String.valueOf(smartDetail[0]) + "年" + String.valueOf(smartDetail[1]) + "月";
+			smartDate = smartDetail[0] + "年" + smartDetail[1] + "月";
 		}
 
 		//		System.out.println("返回智能日期" + smartDate);
@@ -590,11 +590,7 @@ public class TimeUtil {
 		if (fomerIsEqualOrBigger(time, start) && fomerIsEqualOrBigger(MAX_TIME_DETAILS, time)) {
 			return true;
 		}
-		if (fomerIsEqualOrBigger(time, MIN_TIME_DETAILS) && fomerIsEqualOrBigger(end, time)) {
-			return true;
-		}
-
-		return false;
-	}
+        return fomerIsEqualOrBigger(time, MIN_TIME_DETAILS) && fomerIsEqualOrBigger(end, time);
+    }
 
 }

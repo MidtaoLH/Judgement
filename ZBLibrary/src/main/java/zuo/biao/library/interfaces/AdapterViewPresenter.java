@@ -9,13 +9,13 @@ public interface AdapterViewPresenter<V> {
 	 * @param parent
 	 * @return
 	 */
-	public abstract V createView(int viewType, ViewGroup parent);
+    V createView(int viewType, ViewGroup parent);
 
 	/**设置BV显示
 	 * @param position
 	 * @param bv
 	 * @return
 	 */
-	public abstract void bindView(int position, V bv);
+    void bindView(int position, V bv);
 
 }

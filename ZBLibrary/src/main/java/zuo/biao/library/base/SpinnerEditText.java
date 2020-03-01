@@ -552,7 +552,7 @@ public class SpinnerEditText<T> extends AppCompatEditText {
                     if (convertView == null) {
                         holder = new ViewHolder();
                         convertView = LayoutInflater.from(context).inflate(R.layout.item_listpopupwindow, null, false);
-                        holder.itemTextView = (TextView) convertView.findViewById(R.id.tv);
+                        holder.itemTextView = convertView.findViewById(R.id.tv);
                         convertView.setTag(holder);
 
                         if (pop_textColor != 0)

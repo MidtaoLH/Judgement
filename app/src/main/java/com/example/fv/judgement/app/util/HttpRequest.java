@@ -52,7 +52,7 @@ public class HttpRequest {
             if (envelope.getResponse() != null) {
                 // 获取服务器响应返回的SOAP消息
                 // SoapObject result = (SoapObject) envelope.bodyIn;
-                Object object = (Object)envelope.getResponse();
+                Object object = envelope.getResponse();
                 String jsonString=object.toString();
                 // String jsonString=new Gson().toJson(object);
                 Log.e("test", jsonString);
@@ -86,7 +86,7 @@ public class HttpRequest {
             if (envelope.getResponse() != null) {
                 // 获取服务器响应返回的SOAP消息
                 // SoapObject result = (SoapObject) envelope.bodyIn;
-                Object object = (Object)envelope.getResponse();
+                Object object = envelope.getResponse();
                 String jsonString=object.toString();
                 // String jsonString=new Gson().toJson(object);
                 Log.e("test", jsonString);

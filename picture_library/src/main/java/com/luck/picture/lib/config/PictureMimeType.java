@@ -95,7 +95,7 @@ public final class PictureMimeType {
     public static boolean isImageGif(String path) {
         if (!TextUtils.isEmpty(path)) {
             int lastIndex = path.lastIndexOf(".");
-            String pictureType = path.substring(lastIndex, path.length());
+            String pictureType = path.substring(lastIndex);
             return pictureType.startsWith(".gif")
                     || pictureType.startsWith(".GIF");
         }
@@ -134,10 +134,8 @@ public final class PictureMimeType {
      */
     public static boolean isHttp(String path) {
         if (!TextUtils.isEmpty(path)) {
-            if (path.startsWith("http")
-                    || path.startsWith("https")) {
-                return true;
-            }
+            return path.startsWith("http")
+                    || path.startsWith("https");
         }
         return false;
     }
@@ -185,7 +183,7 @@ public final class PictureMimeType {
                 File file = new File(path);
                 String fileName = file.getName();
                 int last = fileName.lastIndexOf(".") + 1;
-                String temp = fileName.substring(last, fileName.length());
+                String temp = fileName.substring(last);
                 return "image/" + temp;
             }
         } catch (Exception e) {
@@ -201,7 +199,7 @@ public final class PictureMimeType {
                 File file = new File(path);
                 String fileName = file.getName();
                 int last = fileName.lastIndexOf(".") + 1;
-                String temp = fileName.substring(last, fileName.length());
+                String temp = fileName.substring(last);
                 return "video/" + temp;
             }
         } catch (Exception e) {
