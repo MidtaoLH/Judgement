@@ -32,19 +32,139 @@
                 <LinearLayout
                     android:id="@+id/llUserBusinessCardContainer"
                     style="@style/ll_vertical_match_wrap"
-                    android:layout_marginTop="@dimen/padding_huge"
-                    android:layout_marginBottom="@dimen/padding_huge"></LinearLayout>
+                    android:layout_marginTop="@dimen/padding_micro"
+                    android:layout_marginBottom="@dimen/padding_micro"></LinearLayout>
 
 
                 <LinearLayout
-                    android:id="@+id/leavetype"
+                    android:id="@+id/busnessTripPlace1"
                     style="@style/content_item_white"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/white_border"
-                    >
+                    android:orientation="horizontal">
 
 
+                    <TextView
+                        android:id="@+id/lblplace1"
+                        style="@style/content_item_lf_tv_black"
+                        android:text=" * 出差地点" />
+                    <TextView
+                        android:id="@+id/txtbusnessTripPlace1"
+                        style="@style/content_item_rt_tv"
+                        android:layout_weight="1"
+                        android:hint="请输入" />
+
+                    <ImageView
+                        android:id="@+id/btnadd1"
+                        style="@style/content_item_rt_img" />
+                    <ImageView
+                        android:id="@+id/btndelete1"
+                        style="@style/content_item_rt_img" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/busnessTripPlace2"
+                    style="@style/content_item_white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_border"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/lblplace2"
+                        style="@style/content_item_lf_tv_black"
+                        android:text=" * 出差地点" />
+                    <TextView
+                        android:id="@+id/txtbusnessTripPlace2"
+                        style="@style/content_item_rt_tv"
+                        android:layout_weight="1"
+                        android:hint="请输入" />
+
+                    <ImageView
+                        android:id="@+id/btnadd2"
+                        style="@style/content_item_rt_img" />
+                    <ImageView
+                        android:id="@+id/btndelete2"
+                        style="@style/content_item_rt_img" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/busnessTripPlace3"
+                    style="@style/content_item_white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_border"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/lblplace3"
+                        style="@style/content_item_lf_tv_black"
+                        android:text=" * 出差地点" />
+                    <TextView
+                        android:id="@+id/txtbusnessTripPlace3"
+                        style="@style/content_item_rt_tv"
+                        android:layout_weight="1"
+                        android:hint="请输入" />
+
+                    <ImageView
+                        android:id="@+id/btnadd3"
+                        style="@style/content_item_rt_img" />
+                    <ImageView
+                        android:id="@+id/btndelete3"
+                        style="@style/content_item_rt_img" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/busnessTripPlace4"
+                    style="@style/content_item_white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_border"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/lblplace4"
+                        style="@style/content_item_lf_tv_black"
+                        android:text=" * 出差地点" />
+                    <TextView
+                        android:id="@+id/txtbusnessTripPlace4"
+                        style="@style/content_item_rt_tv"
+                        android:layout_weight="1"
+                        android:hint="请输入" />
+
+                    <ImageView
+                        android:id="@+id/btnadd4"
+                        style="@style/content_item_rt_img" />
+                    <ImageView
+                        android:id="@+id/btndelete4"
+                        style="@style/content_item_rt_img" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/busnessTripPlace5"
+                    style="@style/content_item_white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/white_border"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/lblplace5"
+                        style="@style/content_item_lf_tv_black"
+                        android:text=" * 出差地点" />
+                    <TextView
+                        android:id="@+id/txtbusnessTripPlace5"
+                        style="@style/content_item_rt_tv"
+                        android:layout_weight="1"
+                        android:hint="请输入" />
+
+                    <ImageView
+                        android:id="@+id/btnadd5"
+                        style="@style/content_item_rt_img" />
+                    <ImageView
+                        android:id="@+id/btndelete5"
+                        style="@style/content_item_rt_img" />
                 </LinearLayout>
 
 
@@ -53,6 +173,7 @@
                     style="@style/content_item_white"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/white_border">
 
                     <TextView

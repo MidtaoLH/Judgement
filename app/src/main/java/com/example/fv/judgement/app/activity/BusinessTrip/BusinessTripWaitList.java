@@ -1,5 +1,6 @@
 package com.example.fv.judgement.app.activity.BusinessTrip;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.adapter.BusinessTripListAdapter;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
@@ -29,6 +31,8 @@ import zuo.biao.library.base.BaseHttpListFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.interfaces.CacheCallBack;
 import zuo.biao.library.util.JSON;
+
+import static com.example.fv.judgement.app.application.GlobalVariableApplication.UnLoginFlag;
 
 public class BusinessTripWaitList extends BaseHttpListFragment<BusinessTripListModel, ListView, BusinessTripListAdapter> implements CacheCallBack<BusinessTripListModel>
 {
@@ -118,6 +122,14 @@ public class BusinessTripWaitList extends BaseHttpListFragment<BusinessTripListM
         soapObject.addProperty("iosid",iosid);
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
+        if(jsonData.equals(UnLoginFlag)){
+            //其他设备登录 跳转到登录页
+            showShortToast(GlobalVariableApplication.UnLoginMessage);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
         List<BusinessTripListModel> listExaData=new ArrayList<BusinessTripListModel>();
 
         Type type = new TypeToken<List<BusinessTripListModel>>(){}.getType();

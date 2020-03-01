@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,12 +73,24 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
     private int[] selectedDate = new int[]{1971, 0, 1};
     private int[] selectedStaraDate,selectedEndDate;
 
+    //出差地点
+    private LinearLayout busnessTripPlace1,busnessTripPlace2,busnessTripPlace3,busnessTripPlace4,busnessTripPlace5;
+    private TextView txtbusnessTripPlace1,txtbusnessTripPlace2,txtbusnessTripPlace3,txtbusnessTripPlace4,txtbusnessTripPlace5;
+    private TextView lblplace1,lblplace2,lblplace3,lblplace4,lblplace5;
+    private ImageView btnadd1,btnadd2,btnadd3,btnadd4,btnadd5;
+    private ImageView btndelete1,btndelete2,btndelete3,btndelete4,btndelete5;
+
     //启动方法>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     private Intent intent;
     public static Intent createIntent(Context context, String businessTripID, String processInstanceID, String pagetype) {
         return new Intent(context, com.example.fv.judgement.app.activity.BusinessTrip.BusinessTripEdit.class) .
                 putExtra("businessTripID", businessTripID).
                 putExtra("processInstanceID", processInstanceID).
+                putExtra("pagetype", pagetype);
+    }
+
+    public static Intent createIntent(Context context,String pagetype) {
+        return new Intent(context, BusinessTripEdit.class) .
                 putExtra("pagetype", pagetype);
     }
     @Override
@@ -195,6 +209,52 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         endDateTag = (TextView) findViewById(R.id.endDateTag);
         txtcause = (EditText) findViewById(R.id.txtcause);
         title=(TextView) findViewById(R.id.title);
+
+        //出差地点
+        busnessTripPlace1=(LinearLayout)findView(R.id.busnessTripPlace1);
+        busnessTripPlace2=(LinearLayout)findView(R.id.busnessTripPlace2);
+        busnessTripPlace3=(LinearLayout)findView(R.id.busnessTripPlace3);
+        busnessTripPlace4=(LinearLayout)findView(R.id.busnessTripPlace4);
+        busnessTripPlace5=(LinearLayout)findView(R.id.busnessTripPlace5);
+        lblplace1=(TextView)findView(R.id.lblplace1);
+        lblplace2=(TextView)findView(R.id.lblplace2);
+        lblplace3=(TextView)findView(R.id.lblplace3);
+        lblplace4=(TextView)findView(R.id.lblplace4);
+        lblplace5=(TextView)findView(R.id.lblplace5);
+        txtbusnessTripPlace1=(TextView)findView(R.id.txtbusnessTripPlace1);
+        txtbusnessTripPlace2=(TextView)findView(R.id.txtbusnessTripPlace2);
+        txtbusnessTripPlace3=(TextView)findView(R.id.txtbusnessTripPlace3);
+        txtbusnessTripPlace4=(TextView)findView(R.id.txtbusnessTripPlace4);
+        txtbusnessTripPlace5=(TextView)findView(R.id.txtbusnessTripPlace5);
+        btnadd1=(ImageView)findView(R.id.btnadd1);
+        btnadd2=(ImageView)findView(R.id.btnadd2);
+        btnadd3=(ImageView)findView(R.id.btnadd3);
+        btnadd4=(ImageView)findView(R.id.btnadd4);
+        btnadd5=(ImageView)findView(R.id.btnadd5);
+        btndelete1=(ImageView)findView(R.id.btndelete1);
+        btndelete2=(ImageView)findView(R.id.btndelete2);
+        btndelete3=(ImageView)findView(R.id.btndelete3);
+        btndelete4=(ImageView)findView(R.id.btndelete4);
+        btndelete5=(ImageView)findView(R.id.btndelete5);
+        busnessTripPlace2.setVisibility(View.GONE);
+        busnessTripPlace3.setVisibility(View.GONE);
+        busnessTripPlace4.setVisibility(View.GONE);
+        busnessTripPlace5.setVisibility(View.GONE);
+        String strPlace =  " <font color='#FF0000'>*</font> 出差地点";
+        lblplace1.setText(Html.fromHtml(strPlace));
+        lblplace2.setText(Html.fromHtml(strPlace));
+        lblplace3.setText(Html.fromHtml(strPlace));
+        lblplace4.setText(Html.fromHtml(strPlace));
+        lblplace5.setText(Html.fromHtml(strPlace));
+        btnadd1.setOnClickListener(this);
+        btnadd2.setOnClickListener(this);
+        btnadd3.setOnClickListener(this);
+        btnadd4.setOnClickListener(this);
+        btndelete1.setOnClickListener(this);
+        btndelete2.setOnClickListener(this);
+        btndelete3.setOnClickListener(this);
+        btndelete4.setOnClickListener(this);
+
         //title.setText(GlobalVariableApplication.editLeave);
         String str =  " <font color='#FF0000'>*</font> 出发日期";
         lblstartdate.setText(Html.fromHtml(str));
@@ -254,6 +314,33 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
         txtduration.setText(str);
         str = LUDetail.get(0).getBusinessTripReason();
         txtcause.setText(str);
+
+        //出差地点
+        for(int i=0;i<LUPlace.size();i++) {
+            String strPlace = LUPlace.get(i).getBusinessTripPlace();
+            if(i==0){
+                busnessTripPlace1.setVisibility(View.VISIBLE);
+                txtbusnessTripPlace1.setText(strPlace);
+            }
+            if(i==1){
+                busnessTripPlace2.setVisibility(View.VISIBLE);
+                txtbusnessTripPlace2.setText(strPlace);
+            }
+            if(i==2){
+                busnessTripPlace3.setVisibility(View.VISIBLE);
+                txtbusnessTripPlace3.setText(strPlace);
+            }
+            if(i==3){
+                busnessTripPlace4.setVisibility(View.VISIBLE);
+                txtbusnessTripPlace4.setText(strPlace);
+            }
+            if(i==4){
+                busnessTripPlace5.setVisibility(View.VISIBLE);
+                txtbusnessTripPlace5.setText(strPlace);
+            }
+        }
+
+        //图片
         for (BusinessTripDetailModel bean : LUPhoto) {
             if (bean.getAnnexName() != null) {
                 LocalMedia localMedia = new LocalMedia();
@@ -265,33 +352,34 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
     }
     public String SaveInfo() {
         try {
-            if(vtype.trim().equals(""))
+            if(txtbusnessTripPlace1.getText().toString().trim().equals("") && txtbusnessTripPlace2.getText().toString().trim().equals("") && txtbusnessTripPlace3.getText().toString().trim().equals("")
+                    && txtbusnessTripPlace4.getText().toString().trim().equals("") && txtbusnessTripPlace5.getText().toString().trim().equals(""))
             {
-                return "请假类型不能为空";
+                return "出差地点不能为空";
             }
             if(lblstartdate.getText().toString().trim().equals(""))
             {
-                return "开始时间不能为空";
+                return "出发日期不能为空";
             }
             if(lblenddate.getText().toString().trim().equals(""))
             {
-                return "结束时间不能为空";
+                return "返回日期不能为空";
             }
             if(txtduration.getText().toString().trim().equals(""))
             {
-                return "请假时长不能为空";
+                return "出差天数不能为空";
             }
             if(Integer.parseInt(txtduration.getText().toString())<=0)
             {
-                return "请假时长必须大于0";
+                return "出差天数必须大于0";
             }
-            if(Integer.parseInt(txtduration.getText().toString())>9999)
+            if(Integer.parseInt(txtduration.getText().toString())>365)
             {
-                return "请假时长不能大于9999";
+                return "出差天数不能大于365";
             }
             if(txtduration.getText().toString().trim().equals(""))
             {
-                return "请假事由不能为空";
+                return "出差事由不能为空";
             }
             if(!businessTripID.trim().equals(""))
             {
@@ -301,37 +389,48 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
             {
                 processInstanceID = "";
             }
-            if(!ApplyCode.trim().equals(""))
-            {
-                ApplyCode = "";
+            if(pagetype.equals("4")){ //新增进入
+                pagetype="1";  //申请 原单还没有申请
             }
-            if(pagetype.equals("1")){ //新增进入
-                pagetype="4";  //申请 原单还没有申请
+            else if(pagetype.equals("5")){ //待申请进入
+                pagetype="2";  //申请 原单还没有申请
             }
-            else if(pagetype.equals("2")){ //待申请进入
-                pagetype="5";  //申请 原单还没有申请
+            else if(pagetype.equals("6")){ //修改已申请进入
+                pagetype="3";  //申请 原单还没有申请
             }
-            else if(pagetype.equals("3")){ //修改已申请进入
-                pagetype="6";  //申请 原单还没有申请
+            String strPlace = ""; //出差地点{"json" : [    "B",    "W",    "H"  ]
+            if(!txtbusnessTripPlace1.getText().toString().trim().equals("")){
+                strPlace="["+txtbusnessTripPlace1.getText().toString().trim();
             }
-            ApplyCode = "";
-            String methodName = "btnsave_new";
+            if(!txtbusnessTripPlace2.getText().toString().trim().equals("")){
+                strPlace=","+strPlace+txtbusnessTripPlace2.getText().toString().trim();
+            }
+            if(!txtbusnessTripPlace3.getText().toString().trim().equals("")){
+                strPlace=","+strPlace+txtbusnessTripPlace3.getText().toString().trim();
+            }
+            if(!txtbusnessTripPlace4.getText().toString().trim().equals("")){
+                strPlace=","+strPlace+txtbusnessTripPlace4.getText().toString().trim();
+            }
+            if(!txtbusnessTripPlace5.getText().toString().trim().equals("")){
+                strPlace=","+strPlace+txtbusnessTripPlace5.getText().toString().trim();
+            }
+            strPlace=strPlace+"]";
+
+            String methodName = "BusinessTripSave";
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
                     methodName);
-            soapObject.addProperty("edittype", pagetype);
-            soapObject.addProperty("userid", userID);
-            soapObject.addProperty("groupid", groupid);
-            soapObject.addProperty("empid", empID);
-            soapObject.addProperty("vtype", vtype);
+            soapObject.addProperty("userID", userID);
+            soapObject.addProperty("processID", processInstanceID);
+            soapObject.addProperty("businessTripID", businessTripID);
+            soapObject.addProperty("empID", empID);
+            soapObject.addProperty("groupID", groupid);
             soapObject.addProperty("starttime", lblstartdate.getText());
             soapObject.addProperty("endtime", lblenddate.getText());
-            soapObject.addProperty("vatcationtime", txtduration.getText());
-            soapObject.addProperty("name", empname);
-            soapObject.addProperty("leavleid", businessTripID);
-            soapObject.addProperty("processid", processInstanceID);
-            soapObject.addProperty("imagecount", recyclerView.getItemDecorationCount());
-            soapObject.addProperty("applycode", ApplyCode);
-            soapObject.addProperty("CelReson", proCelReson);
+            soapObject.addProperty("businessTripNum", txtduration.getText());
+            soapObject.addProperty("reson", proCelReson);
+            soapObject.addProperty("operateType", pagetype);
+            soapObject.addProperty("imageCount", recyclerView.getItemDecorationCount());
+            soapObject.addProperty("strdetail", strPlace);
             soapObject.addProperty("iosid", iosid);
             HttpRequest http = new HttpRequest();
             String datastring = http.httpWebService_GetString(methodName, soapObject);
@@ -360,7 +459,7 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
     }
     //Event事件区(只要存在事件监听代码就是)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public void initEvent() {//必须在onCreate方法内调用
-        findView(R.id.leavetype).setOnClickListener(this);
+        //findView(R.id.leavetype).setOnClickListener(this);
         findView(R.id.llStartDateTag).setOnClickListener(this);
         findView(R.id.llEndDateTag).setOnClickListener(this);
         findView(R.id.llduration).setOnClickListener(this);
@@ -497,6 +596,33 @@ public class BusinessTripEdit extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.btnpath:
+                break;
+            case R.id.btnadd1:
+                busnessTripPlace2.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btndelete1:
+                busnessTripPlace2.setVisibility(View.GONE);
+                break;
+            case R.id.btnadd2:
+                busnessTripPlace3.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btndelete2:
+                busnessTripPlace3.setVisibility(View.GONE);
+                break;
+            case R.id.btnadd3:
+                busnessTripPlace4.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btndelete3:
+                busnessTripPlace4.setVisibility(View.GONE);
+                break;
+            case R.id.btnadd4:
+                busnessTripPlace5.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btndelete4:
+                busnessTripPlace5.setVisibility(View.GONE);
+                break;
+            case R.id.btnsave:
+                SaveInfo();
                 break;
         }
     }

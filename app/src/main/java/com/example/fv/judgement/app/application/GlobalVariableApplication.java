@@ -36,4 +36,7 @@ public class GlobalVariableApplication {
     public static String UpdateMessage="修改成功";
 
     public static String UpdateMessageN="修改失败";
+
+    public static String UnLoginMessage="您的账号在其他设备登录，需要重新登录";
+    public static String UnLoginFlag="unlogin";
 }
