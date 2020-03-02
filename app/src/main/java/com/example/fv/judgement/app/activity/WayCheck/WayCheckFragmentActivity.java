@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.application.Waydata;
@@ -76,6 +77,17 @@ public class WayCheckFragmentActivity extends BaseActivity implements OnBottomDr
                 Gson g = new Gson();
                 String jsonString = g.toJson(demoFragment.list);
                 String datastring = InsertWebService(jsonString);
+
+                if (datastring.equals(GlobalVariableApplication.UnLoginFlag))
+                {
+                    showShortToast(GlobalVariableApplication.UnLoginMessage);
+                    Intent intent = new Intent();
+                    intent.setClass(context, MainLogin.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
+                }
+
             }
         });
 

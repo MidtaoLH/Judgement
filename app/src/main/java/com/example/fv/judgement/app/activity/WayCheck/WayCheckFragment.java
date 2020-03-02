@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
 import com.example.fv.judgement.app.adapter.WayCheckAdapter;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
@@ -203,13 +204,24 @@ public class WayCheckFragment extends BaseFragment {
 
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-        List<WayCheckModel> LCM=new ArrayList<WayCheckModel>();
 
-        Type type = new TypeToken<List<WayCheckModel>>(){}.getType();
-        LCM = new Gson().fromJson(jsonData,type);
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginMessage);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return null;
+        }
+        else{
+            List<WayCheckModel> LCM=new ArrayList<WayCheckModel>();
 
-        return LCM;
+            Type type = new TypeToken<List<WayCheckModel>>(){}.getType();
+            LCM = new Gson().fromJson(jsonData,type);
+            return LCM;
 
+        }
 
     }
 

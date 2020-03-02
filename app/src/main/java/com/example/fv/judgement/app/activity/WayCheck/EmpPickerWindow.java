@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.application.Waydata;
@@ -91,29 +92,47 @@ public class EmpPickerWindow extends BaseViewBottomWindow<List<Entry<Integer, St
         String json = "";
         json = GetGroupWebService();
 
-        Group=new ArrayList<Group>();
-        //json转为实体
-        Type type1=new TypeToken<List<Group>>(){}.getType();
-        Group = new Gson().fromJson(json, type1);
+        if (json.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginMessage);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else
+        {
+            Group=new ArrayList<Group>();
+            //json转为实体
+            Type type1=new TypeToken<List<Group>>(){}.getType();
+            Group = new Gson().fromJson(json, type1);
 
-        //获取员工的list
-        json = "";
-        json = GetEmpnameWebService("");
+            //获取员工的list
+            json = "";
+            json = GetEmpnameWebService("");
 
-        Emp=new ArrayList<Emp>();
-        //json转为实体
-        Type type2=new TypeToken<List<Emp>>(){}.getType();
-        Emp = new Gson().fromJson(json, type2);
+            if (json.equals(GlobalVariableApplication.UnLoginFlag))
+            {
+                showShortToast(GlobalVariableApplication.UnLoginMessage);
+                Intent intent = new Intent();
+                intent.setClass(this.context, MainLogin.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+            else
+            {
+                Emp=new ArrayList<Emp>();
+                //json转为实体
+                Type type2=new TypeToken<List<Emp>>(){}.getType();
+                Emp = new Gson().fromJson(json, type2);
 
-        //功能归类分区方法，必须调用<<<<<<<<<<
-        initView();
-        initData();
-        initEvent();
-        //功能归类分区方法，必须调用>>>>>>>>>>
-
-
-
-
+                //功能归类分区方法，必须调用<<<<<<<<<<
+                initView();
+                initData();
+                initEvent();
+                //功能归类分区方法，必须调用>>>>>>>>>>
+            }
+        }
     }
 
     public String GetEmpnameWebService(String Code)
@@ -443,16 +462,7 @@ public class EmpPickerWindow extends BaseViewBottomWindow<List<Entry<Integer, St
             }
 
             GlobalInformationApplication.getInstance().saveCurrentWay(Way);
-
-
-
-
         }
-
-
-
-
-
         setResult(RESULT_OK, new Intent().putStringArrayListExtra(
                 RESULT_PLACE_LIST, containerView.getSelectedItemList()));
     }

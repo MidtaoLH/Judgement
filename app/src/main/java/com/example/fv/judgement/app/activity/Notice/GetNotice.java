@@ -135,13 +135,25 @@ public class GetNotice extends BaseHttpListFragment<NoticeModel, ListView, Notic
         soapObject.addProperty("iosid",LUM.getAdId());
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-        List<NoticeModel> listExaData=new ArrayList<NoticeModel>();
 
-        Type type = new TypeToken<List<NoticeModel>>(){}.getType();
-        listExaData = new Gson().fromJson(jsonData,type);
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginMessage);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else
+        {
+            List<NoticeModel> listExaData=new ArrayList<NoticeModel>();
 
-        //框架是 每次取增量数据
-        onHttpResponse(-page, JSON.toJSONString(listExaData), null);
+            Type type = new TypeToken<List<NoticeModel>>(){}.getType();
+            listExaData = new Gson().fromJson(jsonData,type);
+
+            //框架是 每次取增量数据
+            onHttpResponse(-page, JSON.toJSONString(listExaData), null);
+        }
 
     }
 

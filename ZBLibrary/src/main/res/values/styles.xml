@@ -729,6 +729,10 @@
         <item name="android:scaleType">centerInside</item>
     </style>
 
+    <style name="topbar_add_tv" parent="topbar_right_btn">
+        <item name="android:text">新增</item>
+    </style>
+
     <!-- topbar menu <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
     <style name="topbar_menu_item_tv">
         <item name="android:layout_width">wrap_content</item>

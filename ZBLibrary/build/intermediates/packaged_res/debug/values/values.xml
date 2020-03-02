@@ -976,6 +976,9 @@
     <style name="text_title" parent="text">
         <item name="android:textSize">22sp</item>
     </style>
+    <style name="topbar_add_tv" parent="topbar_right_btn">
+        <item name="android:text">新增</item>
+    </style>
     <style name="topbar_bg">
         <item name="android:background">@color/topbar_bg</item>
         <item name="android:gravity">center_vertical</item>

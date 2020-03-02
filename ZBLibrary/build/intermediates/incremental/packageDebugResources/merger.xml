@@ -769,6 +769,8 @@
     </style><style name="AnimationUpPopup">
         <item name="android:windowEnterAnimation">@anim/grow_fade_in_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/shrink_fade_out_from_bottom</item>
+    </style><style name="topbar_add_tv" parent="topbar_right_btn">
+        <item name="android:text">新增</item>
     </style></file></source><source path="D:\andddddd\jcapp5\ZBLibrary\build\generated\res\rs\debug"/><source path="D:\andddddd\jcapp5\ZBLibrary\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="D:\andddddd\jcapp5\ZBLibrary\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="D:\andddddd\jcapp5\ZBLibrary\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="SpinnerEditText">
         <attr format="dimension" name="pop_textsize"/>
         <attr format="color" name="pop_textcolor"/>

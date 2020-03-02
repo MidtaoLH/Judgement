@@ -5,10 +5,15 @@
         android:id="@+id/rlBottomTabTopbar"
         style="@style/topbar_bg" >
 
+        <ImageButton style="@style/topbar_return_img"
+            android:id="@+id/back" />
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
             android:text="代理人列表" />
+
+        <TextView style="@style/topbar_add_tv"
+            android:id="@+id/add" />
     </RelativeLayout>
 
     <FrameLayout

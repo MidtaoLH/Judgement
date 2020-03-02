@@ -10,10 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".app.activity.Agent.AgentTabActivity">
-
-
-        </activity>
+        <activity android:name=".app.activity.Agent.AgentShow"></activity>
+        <activity android:name=".app.activity.Agent.AgentEdit" />
+        <activity android:name=".app.activity.Agent.AgentTabActivity" />
         <activity android:name=".app.activity.Notice.NoticeDetail" />
         <activity android:name=".app.activity.BusinessTrip.BusinessTripTabbar" />
         <activity android:name=".app.activity.BusinessTrip.BusinessTripRecordList" />
@@ -24,18 +23,15 @@
         <activity android:name=".app.activity.Notice.MainNoticeActivity" />
         <activity android:name=".app.activity.WayCheck.WayCheck_view" />
         <activity android:name=".app.activity.WayCheck.WayCheckFragment" />
-        <activity android:name=".app.activity.WayCheck.WayCheckFragmentActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-
+        <activity android:name=".app.activity.WayCheck.WayCheckFragmentActivity"></activity>
         <activity android:name=".app.activity.MyExamineList.AlreadyExamineList" />
         <activity android:name=".app.activity.MyExamineList.WaitExamineList" />
         <activity android:name=".app.activity.Login.MainLogin">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".app.activity.MyExamineList.MainTabActivity" />
         <activity android:name=".app.activity.GoOut.GoOut" />

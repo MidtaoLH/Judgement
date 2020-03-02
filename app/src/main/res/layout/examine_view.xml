@@ -5,12 +5,7 @@
     style="@style/ll_horizontal_match_wrap"
     android:background="@drawable/white_to_alpha"
     android:padding="4dp" >
-    <ImageView
-        android:id="@+id/ivUserViewHead"
-        style="@style/img_fitXY"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/oval_alpha" />
+
 
     <LinearLayout
         style="@style/ll_vertical_match_wrap"
@@ -47,4 +42,10 @@
             android:layout_gravity="top"
             android:text="CaseDate:" />
     </LinearLayout>
+    <ImageView
+        android:id="@+id/ivUserViewHead"
+        style="@style/img_fitXY"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/oval_alpha" />
 </LinearLayout>

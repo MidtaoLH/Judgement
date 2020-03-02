@@ -1,5 +1,6 @@
 package com.example.fv.judgement.app.activity.Agent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.adapter.AgentListAdapter;
 
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
@@ -118,23 +120,26 @@ public class AgentPendingList  extends BaseHttpListFragment<AgentListModel, List
         soapObject.addProperty("iosid",iosid);
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-        List<AgentListModel> listExaData=new ArrayList<AgentListModel>();
 
-        Type type = new TypeToken<List<AgentListModel>>(){}.getType();
-        listExaData = new Gson().fromJson(jsonData,type);
 
-        onHttpResponse(-page, JSON.toJSONString(listExaData), null);
-        //实际使用时用这个，需要配置服务器地址		HttpRequest.getUserList(range, page, -page, this);
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginMessage);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else
+        {
+            List<AgentListModel> listExaData=new ArrayList<AgentListModel>();
 
-        //仅测试用<<<<<<<<<<<
-//            new Handler().postDelayed(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    onHttpResponse(-page, page >= 5 ? null : JSON.toJSONString(TestUtil.getUserList(page, getCacheCount())), null);
-//                }
-//            }, 1000);
-        //仅测试用>>>>>>>>>>>>
+            Type type = new TypeToken<List<AgentListModel>>(){}.getType();
+            listExaData = new Gson().fromJson(jsonData,type);
+
+            onHttpResponse(-page, JSON.toJSONString(listExaData), null);
+        }
+
     }
 
     @Override
@@ -180,10 +185,15 @@ public class AgentPendingList  extends BaseHttpListFragment<AgentListModel, List
         if(adapter.getItem(position).getAgentStatus().equals("1"))
         {
                 //跳转到编辑页面
+            toActivity(AgentEdit.createIntent(context, "", "","",""
+                    ,adapter.getItem(position).getAgentSetID(),"",""));
         }
         else
         {
                 //跳转到终止页面
+            toActivity(AgentShow.createIntent(context, "", "","",""
+                    ,adapter.getItem(position).getAgentSetID(),"",""));
+
         }
 
 

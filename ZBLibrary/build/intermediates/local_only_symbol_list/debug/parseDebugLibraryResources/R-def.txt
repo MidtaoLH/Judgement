@@ -539,6 +539,7 @@ style text_small_black
 style text_small_blue
 style text_small_white
 style text_title
+style topbar_add_tv
 style topbar_bg
 style topbar_bg_green
 style topbar_btn

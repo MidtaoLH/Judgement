@@ -7,8 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.Home.PageHome;
+import com.example.fv.judgement.app.activity.Leave.LeaveEdit;
 import com.example.fv.judgement.app.activity.Leave.LeavePendingList;
 import com.example.fv.judgement.app.activity.Leave.LeaveRecordingList;
 import com.example.fv.judgement.app.activity.Leave.LeaveTabActivity;
@@ -31,6 +37,9 @@ public class AgentTabActivity extends BaseBottomTabActivity implements OnBottomD
 
     //启动方法>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    private ImageButton back;
+    private TextView add;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
@@ -38,6 +47,25 @@ public class AgentTabActivity extends BaseBottomTabActivity implements OnBottomD
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent_tab, this);
+
+        back = findViewById(R.id.back);
+        add = findViewById(R.id.add);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             finish();
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toActivity(AgentEdit.createIntent(context, "", "","",""
+                        ,"","",""));
+            }
+        });
+
 
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
