@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".app.activity.ApplyEdit.ApplyTaskLookActivity"></activity>
+        <activity android:name=".app.activity.ApplyEdit.ApplyEditActivity">
+
+        </activity>
         <activity android:name=".app.activity.AttendanceCalendar.AttendanceCalendar" />
         <activity android:name=".app.activity.AttendanceCalendar.AttendanceSummary" />
         <activity android:name=".app.activity.BusinessTrip.BusinessTripTabbar" />
@@ -27,7 +30,6 @@
         <activity android:name=".app.activity.Login.MainLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

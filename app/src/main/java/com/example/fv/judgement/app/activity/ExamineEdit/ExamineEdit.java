@@ -26,6 +26,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.activity.Leave.LeaveEdit;
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.activity.MyExamineList.MainTabActivity;
 import com.example.fv.judgement.app.adapter.ExamineEditListAdapter;
 import com.example.fv.judgement.app.adapter.ExamineEditListBaseAdapter;
@@ -81,9 +82,9 @@ import com.luck.picture.lib.tools.DebugUtil;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import io.reactivex.Observer;
 
-public class ExamineEdit extends AppCompatActivity  implements View.OnClickListener {
-        public static final String TAG = "ExamineEdit";
-
+public class ExamineEdit extends BaseActivity  implements View.OnClickListener {
+    public static final String TAG = "ExamineEdit";
+    private String userID, groupid,iosid;
     private static final int REQUEST_TO_DATE_PICKER = 33;
     private static final int REQUEST_TO_DATE_PICKEREND = 34;
     private int[] selectedDate = new int[]{1971, 0, 1};
@@ -222,8 +223,6 @@ public class ExamineEdit extends AppCompatActivity  implements View.OnClickListe
                 if (aBoolean) {
                     PictureFileUtils.deleteCacheDirFile(ExamineEdit.this);
                 } else {
-                    Toast.makeText(ExamineEdit.this,
-                            getString(R.string.picture_jurisdiction), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -413,111 +412,130 @@ public class ExamineEdit extends AppCompatActivity  implements View.OnClickListe
 
     //获取服务器数据
     public void initData() {
-        LoginUserModel userModel = GlobalInformationApplication.getInstance().getCurrentUser();
+        LoginUserModel model = GlobalInformationApplication.getInstance().getCurrentUser();
+        userID = model.getId();
+        groupid = model.getGroupid();
+        iosid =model.getAdId();
 
         //获取服务器数据
         String methodName = "GetExamineEditData";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-        soapObject.addProperty("userID","75");
+        soapObject.addProperty("userID",userID);
         soapObject.addProperty("taskID",taskid);
         soapObject.addProperty("TaskType",strDataType);
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+        soapObject.addProperty("iosid",iosid);
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-
-        //解析字符串
-        String strHead= getInsideString(jsonData,"{\"Table\":",",\"Table1\":");
-        String strImageList= getInsideString(jsonData,",\"Table1\":",",\"Table2\":");
-        String strTaskList= getInsideString(jsonData,",\"Table2\":",",\"Table3\":");
-
-        List<MdlExamineEditHead> listHead=new ArrayList<MdlExamineEditHead>();
-        List<MdlExamineEditImagePath> listImageList=new ArrayList<MdlExamineEditImagePath>();
-        List<MdlExamineEditDetail> listTaskList=new ArrayList<MdlExamineEditDetail>();
-
-        //头部数据
-        Type typeHead = new TypeToken<List<MdlExamineEditHead>>(){}.getType();
-        listHead = new Gson().fromJson(strHead,typeHead);
-
-        //图片地址
-        Type typeImage = new TypeToken<List<MdlExamineEditImagePath>>(){}.getType();
-        listImageList = new Gson().fromJson(strImageList,typeImage);
-        for (MdlExamineEditImagePath bean : listImageList) {
-            if (bean != null) {
-                LocalMedia localMedia = new LocalMedia();
-                String url = GlobalVariableApplication.IMAGE_FUJIAN_URL + bean.getAnnexPath();
-                localMedia.setPath(url);
-                selectList.add(localMedia);//添加图片
-            }
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginFlag);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
-        //承认任务
-        Type typeTask = new TypeToken<List<MdlExamineEditDetail>>(){}.getType();
-        listTaskList = new Gson().fromJson(strTaskList,typeTask);
+        else if(jsonData.length()>0) {
+            //解析字符串
+            String strHead = getInsideString(jsonData, "{\"Table\":", ",\"Table1\":");
+            String strImageList = getInsideString(jsonData, ",\"Table1\":", ",\"Table2\":");
+            String strTaskList = getInsideString(jsonData, ",\"Table2\":", ",\"Table3\":");
 
-        initViewHead(listHead.get(0));
+            List<MdlExamineEditHead> listHead = new ArrayList<MdlExamineEditHead>();
+            List<MdlExamineEditImagePath> listImageList = new ArrayList<MdlExamineEditImagePath>();
+            List<MdlExamineEditDetail> listTaskList = new ArrayList<MdlExamineEditDetail>();
 
-        initViewList(listTaskList);
+            //头部数据
+            Type typeHead = new TypeToken<List<MdlExamineEditHead>>() {
+            }.getType();
+            listHead = new Gson().fromJson(strHead, typeHead);
+
+            //图片地址
+            Type typeImage = new TypeToken<List<MdlExamineEditImagePath>>() {
+            }.getType();
+            listImageList = new Gson().fromJson(strImageList, typeImage);
+            for (MdlExamineEditImagePath bean : listImageList) {
+                if (bean != null) {
+                    LocalMedia localMedia = new LocalMedia();
+                    String url = GlobalVariableApplication.IMAGE_FUJIAN_URL + bean.getAnnexPath();
+                    localMedia.setPath(url);
+                    selectList.add(localMedia);//添加图片
+                }
+            }
+            //承认任务
+            Type typeTask = new TypeToken<List<MdlExamineEditDetail>>() {
+            }.getType();
+            listTaskList = new Gson().fromJson(strTaskList, typeTask);
+
+            initViewHead(listHead.get(0));
+            initViewList(listTaskList);
+        }
     }
-
-    //驳回 承认
+    //3是驳回 2是承认
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.left_back:
+                finish();
+                break;
             case R.id.btnyes:
-                edittype = "1";
+                edittype = "2";
                 editservice(view);
                 break;
             case R.id.btnno:
-                edittype = "2";
+                edittype = "3";
                 editservice(view);
                 break;
             default:
                 break;
         }
     }
-
     private void editservice(View view) {
         EditText editText1 = findViewById (R.id.etxtRemark);
         String strRemark=editText1.getText().toString();
 
-        if(edittype.equals("2") && "".equals(strRemark))
+        if(edittype.equals("3") && "".equals(strRemark))
         {
-            showShortToast(ExamineEdit.this,"请输入驳回理由");
+            showShortToast("请输入驳回理由");
             return;
         }
         //获取服务器数据
         String methodName = "TaskInstanceEdit";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-        soapObject.addProperty("userID","96");
-        soapObject.addProperty("taskInstanceID","238");
+        soapObject.addProperty("userID",userID);
+        soapObject.addProperty("taskInstanceID",taskid);
         soapObject.addProperty("Remark",strRemark);
         soapObject.addProperty("operate",edittype);
-        soapObject.addProperty("operatr","96");
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+        soapObject.addProperty("operatr",userID);
+        soapObject.addProperty("iosid",iosid);
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-
-        List<MdlServiceReturn> returnResult=new ArrayList<MdlServiceReturn>();
-
-        Type typeHead = new TypeToken<List<MdlServiceReturn>>(){}.getType();
-        returnResult = new Gson().fromJson(jsonData,typeHead);
-
-        if(returnResult.size()>0)
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
         {
-            MdlServiceReturn item = new MdlServiceReturn();
-            item = returnResult.get(0);
+            showShortToast(GlobalVariableApplication.UnLoginFlag);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else if(jsonData.length()>0) {
+            List<MdlServiceReturn> returnResult = new ArrayList<MdlServiceReturn>();
 
-            if(item.getResuelt().equals("0"))
-            {
-                if(item.getResuelt().equals("1"))
-                {
-                    showShortToast(ExamineEdit.this,"同意成功");
+            Type typeHead = new TypeToken<List<MdlServiceReturn>>() {
+            }.getType();
+            returnResult = new Gson().fromJson(jsonData, typeHead);
+
+            if (returnResult.size() > 0) {
+                MdlServiceReturn item = new MdlServiceReturn();
+                item = returnResult.get(0);
+
+                if (item.getResuelt().equals("0")) {
+                    if (item.getResuelt().equals("1")) {
+                    } else if (item.getResuelt().equals("2")) {
+                    }
+                    finish();
+                } else {
+                    showShortToast(GlobalVariableApplication.SaveMessageN);
                 }
-                else if(item.getResuelt().equals("2"))
-                {
-                    showShortToast(ExamineEdit.this,"驳回成功");
-                }
-                Intent intent = new Intent(ExamineEdit.this, MainTabActivity.class);
-                startActivity(intent);
             }
         }
         //如果返回为0 则跳转画面
@@ -546,23 +564,6 @@ public class ExamineEdit extends AppCompatActivity  implements View.OnClickListe
 
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    private static final int REQUEST_TO_BOTTOM_MENU = 1;
-    private static final int REQUEST_TO_EDIT_TEXT_INFO = 2;
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode != RESULT_OK) {
-//            return;
-//        }
-//
-//    }
-
-    @Override
-    public void finish() {
-        super.finish();
-
-    }
     //生命周期、onActivityResult>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //Event事件区(只要存在事件监听代码就是)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

@@ -8,6 +8,7 @@
         <ImageButton style="@style/topbar_return_img" />
 
         <TextView
+            android:id="@+id/tvTitle"
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
             android:text="申请修改" />

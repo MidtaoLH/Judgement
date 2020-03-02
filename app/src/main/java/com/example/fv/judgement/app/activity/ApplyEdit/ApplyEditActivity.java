@@ -1,7 +1,9 @@
 package com.example.fv.judgement.app.activity.ApplyEdit;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.StrictMode;
@@ -25,22 +27,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.fv.judgement.R;
-import com.example.fv.judgement.app.activity.ExamineEdit.ExamineEdit;
 import com.example.fv.judgement.app.activity.Leave.LeaveEdit;
-import com.example.fv.judgement.app.adapter.ApplyEditAdapter;
-import com.example.fv.judgement.app.adapter.ExamineEditListAdapter;
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.adapter.ImageListAdapter;
-import com.example.fv.judgement.app.adapter.ProductListAdapter;
+import com.example.fv.judgement.app.adapter.applytasklook.ApplyTaskEditAdapter;
 import com.example.fv.judgement.app.application.FullyGridLayoutManager;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
-import com.example.fv.judgement.app.model.ExamineModel;
-import com.example.fv.judgement.app.model.LeaveModel;
+import com.example.fv.judgement.app.model.ApplyTaskLook.MdlApplyEditImagePath;
+import com.example.fv.judgement.app.model.ApplyTaskLook.MdlApplyTaskEdit;
+import com.example.fv.judgement.app.model.ApplyTaskLook.MdlApplyTaskEditList;
 import com.example.fv.judgement.app.model.LoginUserModel;
-import com.example.fv.judgement.app.model.MdlExamineEditDetail;
-import com.example.fv.judgement.app.model.MdlExamineEditHead;
-import com.example.fv.judgement.app.model.MdlExamineEditImagePath;
-import com.example.fv.judgement.app.model.Product;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.example.fv.judgement.app.util.MyLog;
 import com.google.gson.Gson;
@@ -52,23 +49,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import zuo.biao.library.base.BaseActivity;
-import zuo.biao.library.base.BaseModel;
-import zuo.biao.library.base.BaseView;
-import zuo.biao.library.interfaces.OnBottomDragListener;
-import zuo.biao.library.interfaces.OnHttpResponseListener;
-import zuo.biao.library.manager.CacheManager;
-import zuo.biao.library.ui.BottomMenuView;
-import zuo.biao.library.ui.BottomMenuWindow;
 import zuo.biao.library.ui.DatePickerWindow;
-import zuo.biao.library.ui.EditTextInfoActivity;
-import zuo.biao.library.ui.TextClearSuit;
 import zuo.biao.library.util.CommonUtil;
-import zuo.biao.library.util.JSON;
-import zuo.biao.library.util.Log;
-import zuo.biao.library.util.StringUtil;
-import static zuo.biao.library.util.CommonUtil.showShortToast;
 
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
@@ -78,39 +63,60 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.permissions.RxPermissions;
 import com.luck.picture.lib.tools.DebugUtil;
 import com.luck.picture.lib.tools.PictureFileUtils;
-import io.reactivex.Observer;
 
+public class ApplyEditActivity extends BaseActivity  implements View.OnClickListener {
+    public static final String TAG = "ApplyEditActivity";
+    private String userID, tasktype,iosid;
 
-public class ApplyEditActivity extends AppCompatActivity  implements View.OnClickListener {
-public static final String TAG = "ExamineEdit";
+    //头部
+    public ImageView ivUserViewHead; //创建画面所需控件
+    public TextView tvTitle;
+    public TextView tvEmpName;
+    public TextView tvGroupName;
+    public TextView tvExamineDate;
+    public TextView tvStatus;
 
-    private static final int REQUEST_TO_DATE_PICKER = 33;
-    private static final int REQUEST_TO_DATE_PICKEREND = 34;
-    private int[] selectedDate = new int[]{1971, 0, 1};
+    public TextView tvPlace;
+    public TextView tvDate;
+    public TextView tvRemark;
+    public TextView tvCount;
+    private  String strDateCounttxt="";
+    private  String strDatetxt = "";
+    private  String strRemarktxt = "";
+    private  String strStatus = "";
+    //头部end
 
-    private List<LocalMedia> selectList = new ArrayList<>();
+    //图片列表
     private RecyclerView recyclerView;
     private ImageListAdapter adapter;
+    private List<LocalMedia> selectList = new ArrayList<>();
     private int maxSelectNum =0;// GlobalVariableApplication.maxImageSelectNum;
     private int compressMode = PictureConfig.SYSTEM_COMPRESS_MODE;
     private int themeId;
     private int chooseMode = PictureMimeType.ofAll();
+    private static final int REQUEST_TO_DATE_PICKER = 33;
+    private static final int REQUEST_TO_DATE_PICKEREND = 34;
+    private int[] selectedDate = new int[]{1971, 0, 1};
+    //图片列表 end
 
-    public static Intent createIntent(Context context, long taskid) {
-        return new Intent(context, ExamineEdit.class).putExtra("strDataType", taskid);
-    }
+    //列表
+    private ListView lvProduct;
+    //列表 end
+
+    //页面传递参数
+    private String FID,awardID_FK,processInstanceID,title,ProcessApplyCode;
+    //页面传递参数 end
+
     private Button btnyes, btnno;
 
-    private List<MdlExamineEditDetail> products;
-    private ListView lvProduct;
-    private String taskid;
-    private String adId;
-    private String strDataType; // 1 请假 3 外出 13 出差
-    private String edittype; // 同意1 驳回2
-
-    private  String strDateCounttxt="";
-    private  String strDatetxt = "";
-    private  String strRemarktxt = "";
+    public static Intent createIntent(Context context,String FID,  String awardID_FK, String processInstanceID,  String ProcessApplyCode) {
+        Intent intent = new Intent(context, ApplyEditActivity.class);
+        intent.putExtra("awardID_FK", awardID_FK);
+        intent.putExtra("processInstanceID", processInstanceID);
+        intent.putExtra("ProcessApplyCode", ProcessApplyCode);
+        intent.putExtra("FID", FID);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,33 +127,31 @@ public static final String TAG = "ExamineEdit";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_edit);
 
-        //获取本机id
-        adId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
-
         //设置列表 布局样式
-        this.lvProduct = findViewById(R.id.ExamineList);
-
-        //判断来源    获取  数据    设置 数据
-        LoginUserModel userModel = GlobalInformationApplication.getInstance().getCurrentUser();
+        this.lvProduct = findViewById(R.id.ApplyEditList);
 
         //给本画面传递参数
         Intent intent = getIntent();
-        strDataType =intent.getStringExtra("DataType");
-        taskid = "2";
-        strDataType = "1";
+        awardID_FK =intent.getStringExtra("awardID_FK");
+        processInstanceID =intent.getStringExtra("processInstanceID");
+        title =intent.getStringExtra("title");
+        ProcessApplyCode =intent.getStringExtra("ProcessApplyCode");
+        FID =intent.getStringExtra("FID");
 
-        //获取服务器数据
-        //功能归类分区方法，必须调用<<<<<<<<<<
-        initView();
+        //初始化图片选择控件
         initViewImage();
-        initData();
 
+        //必须实现的方法
+        initView();
+        initData();
+//        initEvent();
         btnyes = findViewById(R.id.btnyes);
         btnno = findViewById(R.id.btnno);
         //注册监听器
         btnyes.setOnClickListener(this);
         btnno.setOnClickListener(this);
 
+//        //必须实现的方法end
         adapter.setOnItemClickListener(new ImageListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
@@ -173,19 +177,8 @@ public static final String TAG = "ExamineEdit";
                 }
             }
         });
-
     }
-    public ImageView ivUserViewHead; //创建画面所需控件
-    public TextView tvEmpName;
-    public TextView tvGroupName;
-    public TextView tvExamineDate;
-    public TextView tvStatus;
-
-    public TextView tvPlace;
-    public TextView tvDate;
-    public TextView tvRemark;
-    public TextView tvCount;
-
+    //图片赋值
     public void initViewImage()
     {
         themeId = R.style.picture_default_style;
@@ -208,8 +201,8 @@ public static final String TAG = "ExamineEdit";
                 if (aBoolean) {
                     PictureFileUtils.deleteCacheDirFile(ApplyEditActivity.this);
                 } else {
-                    Toast.makeText(ApplyEditActivity.this,
-                            getString(R.string.picture_jurisdiction), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ApplyTaskLookActivity.this,
+//                            getString(R.string.picture_jurisdiction), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -291,13 +284,7 @@ public static final String TAG = "ExamineEdit";
                 if (data != null) {
                     ArrayList<Integer> list = data.getIntegerArrayListExtra(DatePickerWindow.RESULT_DATE_DETAIL_LIST);
                     if (list != null && list.size() >= 3) {
-                        selectedDate = new int[list.size()];
-                        for (int i = 0; i < list.size(); i++) {
-                            selectedDate[i] = list.get(i);
-                        }
-//                        startdatetag.setText(selectedDate[0] + "-" + (selectedDate[1] + 1) + "-" + selectedDate[2]);
-//                        selectedDate[1]=selectedDate[1]+1;
-//                        selectedStaraDate= selectedDate;
+
                     }
                 }
                 break;
@@ -306,13 +293,7 @@ public static final String TAG = "ExamineEdit";
 
                     ArrayList<Integer> list = data.getIntegerArrayListExtra(DatePickerWindow.RESULT_DATE_DETAIL_LIST);
                     if (list != null && list.size() >= 3) {
-                        selectedDate = new int[list.size()];
-                        for (int i = 0; i < list.size(); i++) {
-                            selectedDate[i] = list.get(i);
-                        }
-//                        endDateTag.setText(selectedDate[0] + "-" + (selectedDate[1] + 1) + "-" + selectedDate[2]);
-//                        selectedDate[1]=selectedDate[1]+1;
-//                        selectedEndDate= selectedDate;
+                      ;
                     }
                 }
                 break;
@@ -322,11 +303,16 @@ public static final String TAG = "ExamineEdit";
     }
     public void initView()
     {
-        edittype = "";
+
     }
 
     //toubu
-    public void initViewHead(MdlExamineEditHead Item) {//必须调用
+    public void initViewHead(MdlApplyTaskEdit Item) {//必须调用
+
+        String strName = "";
+        String strGroupName = "";
+        String strApplyDate = "";
+        String strRemark = "";
 
         ivUserViewHead = findViewById(R.id.ivUserViewHead);// findView(R.id.ivUserViewHead, this);
         tvEmpName = findViewById(R.id.tvEmpName);//findView(R.id.tvCaseName);
@@ -338,6 +324,13 @@ public static final String TAG = "ExamineEdit";
         tvCount = findViewById(R.id.tvCount);
         tvRemark = findViewById(R.id.tvRemark);
         tvStatus = findViewById(R.id.tvStatus);
+
+         strName = Item.getEmpName();
+         strGroupName = Item.getG_CName();
+         strApplyDate = Item.getApplyDate();
+         strRemark = "";
+         strStatus = Item.getProcessStutasTxt();
+
         //格式化头像地址
         String strPhoto = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL,Item.getU_LoginName());
         Glide.with(ApplyEditActivity.this).asBitmap().load(strPhoto).into(new SimpleTarget<Bitmap>() {
@@ -346,112 +339,171 @@ public static final String TAG = "ExamineEdit";
                 ivUserViewHead.setImageBitmap(CommonUtil.toRoundCorner(bitmap, bitmap.getWidth()/2));
             }
         });
-        tvEmpName.setText(Item.getEmpCName());
-        tvGroupName.setText(Item.getGroupname());
-        tvExamineDate.setText("申请时间: " + Item.getExamineDate());
-        tvStatus.setText(Item.getStatusTxt());
+        tvEmpName.setText(strName);
+        tvGroupName.setText(strGroupName);
+        tvExamineDate.setText("申请时间: " + strApplyDate);
+        tvStatus.setText(strStatus);
 
-        if(strDataType.equals("1"))
+        if(tasktype.equals("请假"))
         {
             tvPlace.setVisibility(View.GONE);
             strDateCounttxt="请假时长: ";
             strDatetxt = "请假时间: ";
             strRemarktxt = "请假事由: ";
         }
-        else if(strDataType.equals("3"))
+        else if(tasktype.equals("外出"))
         {
             tvPlace.setVisibility(View.GONE);
             strDateCounttxt="外出时长: ";
             strDatetxt = "外出时间: ";
             strRemarktxt = "外出事由: ";
         }
-        else if(strDataType.equals("13"))
+        else if(tasktype.equals("出差"))
         {
             strDateCounttxt="出差天数: ";
             strDatetxt = "出差时间: ";
             strRemarktxt = "出差事由: ";
         }
-        tvDate.setText(strDatetxt+Item.getBeignDate() + "-" +Item.getEndDate() );
-        tvCount.setText(strDateCounttxt+Item.getNumcount());
-        tvRemark.setText(strRemarktxt + Item.getDescribe());
-        //添加用户名片，这些方式都可<<<<<<<<<<<<<<<<<<<<<<
-        //		//方式一
-        //		bvlUser = findView(R.id.bvlUser);
-        //		bvlUser.createView(new UserView(context, getResources()));
-        //
-        //		//方式二
-        //		uvlUser = findView(R.id.uvlUser);
-
+        tvDate.setText(strDatetxt+Item.getPlanStartTime() + "-" +Item.getPlanStartTime() );
+        tvCount.setText(strDateCounttxt+Item.getTimePlanNum());
+        tvRemark.setText(strRemarktxt + Item.getCaseName());
     }
 
-    public void initViewList(List<MdlExamineEditDetail> listTaskList)
+    //承认列表适配器
+    public void initViewList(List<MdlApplyTaskEditList> listTaskList)
     {
-        ApplyEditAdapter adapter = new ApplyEditAdapter(getApplicationContext(), listTaskList,strDataType);
-        this.lvProduct.setAdapter(adapter);
-
-//        ProductListAdapter adapter = new ProductListAdapter(getApplicationContext(), listTaskList,strDataType);
-//        this.lvProduct.setAdapter(adapter);
+          ApplyTaskEditAdapter adapter = new ApplyTaskEditAdapter(getApplicationContext(), listTaskList);
+          this.lvProduct.setAdapter(adapter);
     }
     //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+    //获取数据
     public void initData() {
-        LoginUserModel userModel = GlobalInformationApplication.getInstance().getCurrentUser();
 
-        //获取服务器数据
-        String methodName = "GetExamineEditData";
-        SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-        soapObject.addProperty("userID","75");
-        soapObject.addProperty("taskID","706");
-        soapObject.addProperty("TaskType","1");
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
-        HttpRequest httpres= new HttpRequest();
-        String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
+        //方法名
+        String methodName = "";
+        String methodpara = "";
+        String TableName = "";
+        String FIDName = "";
+        String FID = "";
 
-        //解析字符串
-        String strHead= getInsideString(jsonData,"{\"Table\":",",\"Table1\":");
-        String strImageList= getInsideString(jsonData,",\"Table1\":",",\"Table2\":");
-        String strTaskList= getInsideString(jsonData,",\"Table2\":",",\"Table3\":");
-
-        List<MdlExamineEditHead> listHead=new ArrayList<MdlExamineEditHead>();
-        List<MdlExamineEditImagePath> listImageList=new ArrayList<MdlExamineEditImagePath>();
-        List<MdlExamineEditDetail> listTaskList=new ArrayList<MdlExamineEditDetail>();
-
-        //头部数据
-        Type typeHead = new TypeToken<List<MdlExamineEditHead>>(){}.getType();
-        listHead = new Gson().fromJson(strHead,typeHead);
-
-        //图片地址
-        Type typeImage = new TypeToken<List<MdlExamineEditImagePath>>(){}.getType();
-        listImageList = new Gson().fromJson(strImageList,typeImage);
-        for (MdlExamineEditImagePath bean : listImageList) {
-            if (bean != null) {
-                LocalMedia localMedia = new LocalMedia();
-            //    String url = GlobalVariableApplication.IMAGE_FUJIAN_URL + bean.getAnnexPath();
-          //      localMedia.setPath(url);
-                selectList.add(localMedia);//添加图片
-            }
+        if(ProcessApplyCode.indexOf("QJ") != -1)
+        {
+            tasktype = "请假";
+            methodName = "GetLeaveDataByID";
+            methodpara = "LeaveID";
+            TableName = "AD_LeaveAnnex";
+            FIDName = "LeaveID_FK";
+        }
+        else if(ProcessApplyCode.indexOf("WC") != -1)
+        {
+            tasktype = "外出";
+            methodName = "GetGoOutDataByID";
+            methodpara = "EvectionID";
+            TableName = "AD_EvectionAnnex";
+            FIDName = "EvectionID_FK";
+        }
+        else
+        {
+            methodName = "GetBusinessTripDataByID";
+            tasktype = "出差";
+            methodpara = "BusinessTripID";
+            TableName = "AD_BusinessTripAnnex";
+            FIDName = "BusinessTripID_FK";
         }
 
-        //承认任务
-        Type typeTask = new TypeToken<List<MdlExamineEditDetail>>(){}.getType();
-        listTaskList = new Gson().fromJson(strTaskList,typeTask);
+        //登录用户数据
+        LoginUserModel model = GlobalInformationApplication.getInstance().getCurrentUser();
+        userID = model.getId();
+        iosid =model.getAdId();
 
-        initViewHead(listHead.get(0));
+        //获取服务器数据
+        SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
+        soapObject.addProperty("userID",userID);
+        soapObject.addProperty(methodpara,awardID_FK);
+        soapObject.addProperty("ProcessInstanceID",processInstanceID);
+        soapObject.addProperty("iosid",iosid);
+        HttpRequest httpres= new HttpRequest();
+        String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginFlag);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else if(jsonData.length()>0) {
+            //解析字符串
+            String strHead = getInsideString(jsonData, "{\"Table\":", ",\"Table1\":");
+            String strTaskList  = getInsideString(jsonData, ",\"Table1\":", ",\"Table2\":");
+      //      String strImageList = getInsideString(jsonData, ",\"Table2\":", "}");
 
-        initViewList(listTaskList);
+            List<MdlApplyTaskEdit> listHead = new ArrayList<MdlApplyTaskEdit>();
+            List<MdlApplyEditImagePath> listImageList = new ArrayList<MdlApplyEditImagePath>();
+            List<MdlApplyTaskEditList> listTaskList = new ArrayList<MdlApplyTaskEditList>();
+
+            //头部数据
+            Type typeHead = new TypeToken<List<MdlApplyTaskEdit>>() {
+            }.getType();
+            listHead = new Gson().fromJson(strHead, typeHead);
+
+            //承认任务
+            Type typeTask = new TypeToken<List<MdlApplyTaskEditList>>() {
+            }.getType();
+            listTaskList = new Gson().fromJson(strTaskList, typeTask);
+            if(listHead.size()>0)
+            {
+                initViewHead(listHead.get(0));
+
+                if( tasktype.equals("请假"))
+                {
+                    FID = listHead.get(0).getLeaveID();
+                }
+                //头部数据不为空获取列表数据
+                methodName = "GetImagePathByIDAndroid";
+                SoapObject soapObjectImage = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
+                soapObjectImage.addProperty("TableName",TableName);
+                soapObjectImage.addProperty("FIDName",FIDName);
+                soapObjectImage.addProperty("FID",48);
+
+                HttpRequest httpresImage= new HttpRequest();
+                String jsonDataImage = httpresImage.httpWebService_GetString(methodName,soapObjectImage);
+                //头部数据
+                Type typeHeadImage = new TypeToken<List<MdlApplyEditImagePath>>() {
+                }.getType();
+                listImageList = new Gson().fromJson(jsonDataImage, typeHeadImage);
+
+                for (MdlApplyEditImagePath bean : listImageList) {
+                    if (bean != null) {
+                        LocalMedia localMedia = new LocalMedia();
+                        String url = GlobalVariableApplication.IMAGE_FUJIAN_URL + bean.getAnnexPath();
+                        localMedia.setPath(url);
+                        selectList.add(localMedia);//添加图片
+                    }
+                }
+            }
+            if(listTaskList.size()>0)
+            {
+                initViewList(listTaskList);
+            }
+        }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.left_back:
+                finish();
+                break;
             case R.id.btnyes:
-                edittype = "1";
+                title = "1";
                 editservice(view);
                 break;
             case R.id.btnno:
-                edittype = "2";
+                title = "2";
                 editservice(view);
                 break;
             default:
@@ -460,23 +512,96 @@ public static final String TAG = "ExamineEdit";
     }
 
     private void editservice(View view) {
-        EditText editText1 = findViewById (R.id.etxtRemark);
-        String strRemark=editText1.getText().toString();
+        //已驳回不写理由。 直接跳到明细编辑画面，点保存生成下一版本
+        if(title.equals("1") && strStatus.equals("已驳回"))
+        {
+            //关闭当前活动 跳转其他活动
+            if(tasktype.equals("请假"))
+            {
+                toActivity(LeaveEdit.createIntent(context, awardID_FK,processInstanceID,ProcessApplyCode
+                        ,"3","getdata"));
+            }
+            else if(tasktype.equals("外出"))
+            {
+                toActivity(LeaveEdit.createIntent(context, awardID_FK,processInstanceID,ProcessApplyCode
+                        ,"3","getdata"));
+            }
+            else if(tasktype.equals("出差"))
+            {
+                toActivity(LeaveEdit.createIntent(context, awardID_FK,processInstanceID,ProcessApplyCode
+                        ,"3","getdata"));
+            }
+        }
+        else {
+//            Intent it = new Intent();
+//            it = LeaveEdit.createIntent(context, awardID_FK, processInstanceID, ProcessApplyCode
+//                    , "3", "getdata");
+//            it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            //     startActivity(it);
+//            toActivity(it);
 
-        //获取服务器数据
-        String methodName = "TaskInstanceEdit";
-        SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-        soapObject.addProperty("userID","96");
-        soapObject.addProperty("taskInstanceID","238");
-        soapObject.addProperty("Remark",strRemark);
-        soapObject.addProperty("operate",edittype);
-        soapObject.addProperty("operatr","96");
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
-        HttpRequest httpres= new HttpRequest();
-        String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
+            final EditText inputServer = new EditText(this);
+            final AlertDialog dialog = new AlertDialog.Builder(ApplyEditActivity.this)
+                    .setTitle("请输入理由")
+                    .setView(inputServer)
+                    .setPositiveButton("确定", null)
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create();
+             //这里必须要先调show()方法，后面的getButton才有效
+            dialog.show();
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (TextUtils.isEmpty(inputServer.getText())) {
+                        showShortToast("请输入理由");
+                        return;
+                    }
+                    dialog.dismiss();
+                    //关闭当前活动 跳转其他活动
+                    if(tasktype.equals("请假"))
+                    {
+                        Intent it = new Intent();
+                        it = LeaveEdit.createIntent(context, FID, processInstanceID, ProcessApplyCode
+                                , "3", "getdata");
+                        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //     startActivity(it);
+                        toActivity(it);
+                    }
+                    else if(tasktype.equals("外出"))
+                    {
+                        toActivity(LeaveEdit.createIntent(context, awardID_FK,processInstanceID,ProcessApplyCode
+                                ,"3","getdata"));
+                    }
+                    else if(tasktype.equals("出差"))
+                    {
+                        toActivity(LeaveEdit.createIntent(context, awardID_FK,processInstanceID,ProcessApplyCode
+                                ,"3","getdata"));
+                    }
+                }
+            });
+        }
+
+//        EditText editText1 = findViewById (R.id.etxtRemark);
+//        String strRemark=editText1.getText().toString();
+//
+//        //获取服务器数据
+//        String methodName = "TaskInstanceEdit";
+//        SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
+//        soapObject.addProperty("userID","96");
+//        soapObject.addProperty("taskInstanceID","238");
+//        soapObject.addProperty("Remark",strRemark);
+//        soapObject.addProperty("operate",title);
+//        soapObject.addProperty("operatr","96");
+//        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+//        HttpRequest httpres= new HttpRequest();
+//        String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
 
         //如果返回不为0 弹出错误提示
-        showShortToast(ApplyEditActivity.this,"123");
 
         //如果返回为0 则跳转画面
     }
@@ -516,11 +641,6 @@ public static final String TAG = "ExamineEdit";
 //
 //    }
 
-    @Override
-    public void finish() {
-        super.finish();
-
-    }
     //生命周期、onActivityResult>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //Event事件区(只要存在事件监听代码就是)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

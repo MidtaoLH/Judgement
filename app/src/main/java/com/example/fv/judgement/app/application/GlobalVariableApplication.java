@@ -25,6 +25,8 @@ public class GlobalVariableApplication {
 
     public static final int maxImageSelectNum=6;
 
+    public static final String UnLoginFlag="unlogin";
+
     public static final int pageSize=5;
 
     public static final String editLeave="请假申请";

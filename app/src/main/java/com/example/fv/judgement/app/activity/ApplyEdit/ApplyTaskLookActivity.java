@@ -9,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +21,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.Leave.LeaveEdit;
+import com.example.fv.judgement.app.activity.Login.MainLogin;
+import com.example.fv.judgement.app.adapter.GridImageAdapter;
 import com.example.fv.judgement.app.adapter.ImageListAdapter;
 import com.example.fv.judgement.app.adapter.applytasklook.ApplyTaskLookAdapter;
 import com.example.fv.judgement.app.application.FullyGridLayoutManager;
@@ -47,14 +53,17 @@ import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.ui.DatePickerWindow;
 import zuo.biao.library.util.CommonUtil;
 
-public class ApplyTaskLookActivity extends AppCompatActivity {
+public class ApplyTaskLookActivity extends BaseActivity implements View.OnClickListener{
     public static final String TAG = "ApplyTaskLookActivity";
+    private String userID, groupid,iosid;
 
     //头部
     public ImageView ivUserViewHead; //创建画面所需控件
+    public TextView tvTitle;
     public TextView tvEmpName;
     public TextView tvGroupName;
     public TextView tvExamineDate;
@@ -87,9 +96,8 @@ public class ApplyTaskLookActivity extends AppCompatActivity {
     //列表 end
 
     //页面传递参数
-    private String code;
     private String adId;
-    private String strpagetype;
+    private String strpagetype,code;
     //页面传递参数 end
 
     public static Intent createIntent(Context context, String pagetype, String code) {
@@ -98,7 +106,19 @@ public class ApplyTaskLookActivity extends AppCompatActivity {
         intent.putExtra("code", code);
         return intent;
     }
+    //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    public void initView() {
 
+    }
+    public void initData() {
+        LoginUserModel model = GlobalInformationApplication.getInstance().getCurrentUser();
+        userID = model.getId();
+        groupid = model.getGroupid();
+        iosid =model.getAdId();
+    }
+    public void initEvent() {
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //保证可以在主线程中执行调用ws
@@ -112,6 +132,12 @@ public class ApplyTaskLookActivity extends AppCompatActivity {
         Intent intent = getIntent();
         strpagetype =intent.getStringExtra("strpagetype");
         code =intent.getStringExtra("code");
+
+        //必须实现的方法
+        initView();
+        initData();
+        initEvent();
+        //必须实现的方法end
 
         //初始化图片选择控件
         initViewImage();
@@ -253,21 +279,30 @@ public class ApplyTaskLookActivity extends AppCompatActivity {
 
     //获取服务器数据
     public void initDataHead() {
-        LoginUserModel userModel = GlobalInformationApplication.getInstance().getCurrentUser();
-
         //获取服务器数据
         String methodName = "GetProcInfo";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-        soapObject.addProperty("userID","75");
+        soapObject.addProperty("userID",userID);
         soapObject.addProperty("processInstanceID",code);
         soapObject.addProperty("pageType",strpagetype);
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+        soapObject.addProperty("iosid",iosid);
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-        List<ApplyTaskLook> listData=new ArrayList<ApplyTaskLook>();
-        Type type = new TypeToken<List<ApplyTaskLook>>(){}.getType();
-        listData = new Gson().fromJson(jsonData,type);
-        initViewHead(listData.get(0));
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginFlag);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else if(jsonData.length()>0) {
+            List<ApplyTaskLook> listData = new ArrayList<ApplyTaskLook>();
+            Type type = new TypeToken<List<ApplyTaskLook>>() {
+            }.getType();
+            listData = new Gson().fromJson(jsonData, type);
+            initViewHead(listData.get(0));
+        }
         String end = "";
     }
     //获取服务器数据
@@ -277,22 +312,33 @@ public class ApplyTaskLookActivity extends AppCompatActivity {
         //获取服务器数据
         String methodName = "GetProcFile";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-        soapObject.addProperty("userID","75");
+        soapObject.addProperty("userID",userID);
         soapObject.addProperty("processInstanceID",code);
         soapObject.addProperty("pageType",strpagetype);
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+        soapObject.addProperty("iosid",iosid);
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-        List<ApplyTaskLookImage> listData=new ArrayList<ApplyTaskLookImage>();
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginFlag);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else if(jsonData.length()>0) {
+            List<ApplyTaskLookImage> listData = new ArrayList<ApplyTaskLookImage>();
 
-        Type typeImage = new TypeToken<List<ApplyTaskLookImage>>(){}.getType();
-        listData = new Gson().fromJson(jsonData,typeImage);
-        for (ApplyTaskLookImage bean : listData) {
-            if (bean != null) {
-                LocalMedia localMedia = new LocalMedia();
-                String url = GlobalVariableApplication.IMAGE_FUJIAN_URL + bean.getAttachFilePath();
-                localMedia.setPath(url);
-                selectList.add(localMedia);//添加图片
+            Type typeImage = new TypeToken<List<ApplyTaskLookImage>>() {
+            }.getType();
+            listData = new Gson().fromJson(jsonData, typeImage);
+            for (ApplyTaskLookImage bean : listData) {
+                if (bean != null) {
+                    LocalMedia localMedia = new LocalMedia();
+                    String url = GlobalVariableApplication.IMAGE_FUJIAN_URL + bean.getAttachFilePath();
+                    localMedia.setPath(url);
+                    selectList.add(localMedia);//添加图片
+                }
             }
         }
         String end = "";
@@ -304,23 +350,34 @@ public class ApplyTaskLookActivity extends AppCompatActivity {
         //获取服务器数据
         String methodName = "GetProcTaskInstance";
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
-        soapObject.addProperty("userID","75");
+        soapObject.addProperty("userID",userID);
         soapObject.addProperty("processInstanceID",code);
         soapObject.addProperty("pageType",strpagetype);
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+        soapObject.addProperty("iosid",iosid);
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-        List<ApplyTaskLookList> listData=new ArrayList<ApplyTaskLookList>();
-        Type type = new TypeToken<List<ApplyTaskLookList>>(){}.getType();
-        listData = new Gson().fromJson(jsonData,type);
-        initViewList(listData);
-
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginFlag);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else if(jsonData.length()>0) {
+            List<ApplyTaskLookList> listData = new ArrayList<ApplyTaskLookList>();
+            Type type = new TypeToken<List<ApplyTaskLookList>>() {
+            }.getType();
+            listData = new Gson().fromJson(jsonData, type);
+            initViewList(listData);
+        }
         String end = "";
     }
     //头部赋值
     public void initViewHead(ApplyTaskLook Item) {//必须调用
 
         ivUserViewHead = findViewById(R.id.ivUserViewHead);// findView(R.id.ivUserViewHead, this);
+        tvTitle = findViewById(R.id.tvTitle);
         tvEmpName = findViewById(R.id.tvEmpName);//findView(R.id.tvCaseName);
         tvGroupName = findViewById(R.id.tvGroupName);
         tvExamineDate = findViewById(R.id.tvApplyDate);
@@ -332,6 +389,7 @@ public class ApplyTaskLookActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.tvStatus);
 
         //格式化头像地址
+        tvTitle.setText(Item.getDocumentName());
         String strPhoto = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL,Item.getApplyMan());
         Glide.with(ApplyTaskLookActivity.this).asBitmap().load(strPhoto).into(new SimpleTarget<Bitmap>() {
             @Override
@@ -412,5 +470,16 @@ public class ApplyTaskLookActivity extends AppCompatActivity {
     {
         ApplyTaskLookAdapter adapter = new ApplyTaskLookAdapter(getApplicationContext(), listTaskList);
         this.lvProduct.setAdapter(adapter);
+    }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.left_back:
+                finish();
+                break;
+
+            default:
+                break;
+        }
     }
 }

@@ -16,8 +16,11 @@ import zuo.biao.library.base.BaseActivity;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.ApplyEdit.ApplyTaskLookActivity;
 import com.example.fv.judgement.app.activity.ExamineEdit.ExamineEdit;
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
+import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.model.ExamineModel;
 import com.example.fv.judgement.app.view.ExamineListView;
 
@@ -57,7 +60,7 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     public static final String ARGUMENT_RANGE = "ARGUMENT_RANGE";
-
+    private String userID, groupid,iosid,code;
     public static AlreadyExamineList createInstance(int range) {
         AlreadyExamineList fragment = new AlreadyExamineList();
         Bundle bundle = new Bundle();
@@ -115,10 +118,18 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
     //点击跳转
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(ExamineEdit.createIntent(context, adapter.getItem(position).getDocumentName(), adapter.getItem(position).getAidFK()));
+
+        String statusname =  adapter.getItem(position).getCaseName();
+
+        startActivity(ApplyTaskLookActivity.createIntent(context, "1", adapter.getItem(position).getPicID()));
     }
     @Override
     public void initData() {//必须调用
+        LoginUserModel model = GlobalInformationApplication.getInstance().getCurrentUser();
+        userID = model.getId();
+        groupid = model.getGroupid();
+        iosid =model.getAdId();
+        code=model.getEmpID();
         super.initData();
     }
 
@@ -131,29 +142,26 @@ public class AlreadyExamineList extends BaseHttpListFragment<ExamineModel, ListV
         SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
         soapObject.addProperty("pasgeIndex",pageindex);
         soapObject.addProperty("pageSize",GlobalVariableApplication.pageSize);
-        soapObject.addProperty("code","40");
-        soapObject.addProperty("userID","96");
+        soapObject.addProperty("code",code);
+        soapObject.addProperty("userID",userID);
         soapObject.addProperty("menuID","6");
-        soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+        soapObject.addProperty("iosid",iosid);
         HttpRequest httpres= new HttpRequest();
         String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-        List<ExamineModel> listExaData=new ArrayList<ExamineModel>();
-
-        Type type = new TypeToken<List<ExamineModel>>(){}.getType();
-        listExaData = new Gson().fromJson(jsonData,type);
-
-        onHttpResponse(-page, JSON.toJSONString(listExaData), null);
-        //实际使用时用这个，需要配置服务器地址		HttpRequest.getUserList(range, page, -page, this);
-
-        //仅测试用<<<<<<<<<<<
-//            new Handler().postDelayed(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    onHttpResponse(-page, page >= 5 ? null : JSON.toJSONString(TestUtil.getUserList(page, getCacheCount())), null);
-//                }
-//            }, 1000);
-        //仅测试用>>>>>>>>>>>>
+        if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+        {
+            showShortToast(GlobalVariableApplication.UnLoginFlag);
+            Intent intent = new Intent();
+            intent.setClass(this.context, MainLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else if(jsonData.length()>0)  {
+            List<ExamineModel> listExaData=new ArrayList<ExamineModel>();
+            Type type = new TypeToken<List<ExamineModel>>(){}.getType();
+            listExaData = new Gson().fromJson(jsonData,type);
+            onHttpResponse(-page, JSON.toJSONString(listExaData), null);
+        }
     }
 
     @Override
