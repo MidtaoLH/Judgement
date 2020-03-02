@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.fv.judgement.R;
 
@@ -17,9 +19,10 @@ import zuo.biao.library.interfaces.OnBottomDragListener;
  * @author Lemon
  * @use MainTabActivity.createIntent(...)
  */
-public class BusinessTripTabbar extends BaseBottomTabActivity implements OnBottomDragListener {
+public class BusinessTripTabbar extends BaseBottomTabActivity implements View.OnClickListener, OnBottomDragListener {
     //	private static final String TAG = "MainTabActivity";
-
+    private TextView tvAddBtn;
+    private ImageButton left_back;
     //启动方法<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /**启动这个Activity的Intent
@@ -53,6 +56,8 @@ public class BusinessTripTabbar extends BaseBottomTabActivity implements OnBotto
     public void initView() {// 必须调用
         super.initView();
         exitAnim = R.anim.bottom_push_out;
+        tvAddBtn = (TextView) findViewById(R.id.tvAddBtn);
+        tvAddBtn.setOnClickListener(this);
     }
 
     @Override
@@ -131,6 +136,19 @@ public class BusinessTripTabbar extends BaseBottomTabActivity implements OnBotto
                 return true;
         }
         return super.onKeyUp(keyCode, event);
+    }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.tvAddBtn:
+                toActivity(BusinessTripEdit.createIntent(context, "1"));
+                break;
+        }
+    }
+    @Override
+    public void onReturnClick(View v) {
+        finish();
     }
     //双击手机返回键退出>>>>>>>>>>>>>>>>>>>>>
 
