@@ -8,6 +8,8 @@
         import android.widget.AdapterView;
         import android.widget.ListView;
 
+        import com.example.fv.judgement.app.activity.ApplyEdit.ApplyEditActivity;
+        import com.example.fv.judgement.app.activity.ExamineEdit.ExamineEdit;
         import com.example.fv.judgement.app.adapter.LeaveListAdapter;
         import com.example.fv.judgement.app.application.GlobalInformationApplication;
         import com.example.fv.judgement.app.application.GlobalVariableApplication;
@@ -176,9 +178,11 @@ public class LeaveRecordingList extends BaseHttpListFragment<LeaveListModel, Lis
                 adapter.getItem(position).getProcessStutasName().equals("承认中") ||
                 adapter.getItem(position).getProcessStutasName().equals("已驳回"))
         {
-            toActivity(LeaveEdit.createIntent(context, adapter.getItem(position).getAwardID_FK(),
-                    adapter.getItem(position).getProcessInstanceID(),adapter.getItem(position).getProcessApplyCode()
-                    ,"","getdata"));
+
+            toActivity(ApplyEditActivity.createIntent(context,adapter.getItem(position).getLeaveID(), adapter.getItem(position).getAwardID_FK(), adapter.getItem(position).getProcessInstanceID(),adapter.getItem(position).getProcessApplyCode()));
+//            toActivity(LeaveEdit.createIntent(context, adapter.getItem(position).getAwardID_FK(),
+//                    adapter.getItem(position).getProcessInstanceID(),adapter.getItem(position).getProcessApplyCode()
+//                    ,"","getdata"));
         }
         else
         {

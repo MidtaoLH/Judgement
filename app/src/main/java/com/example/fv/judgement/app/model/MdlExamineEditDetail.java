@@ -14,7 +14,8 @@ public class MdlExamineEditDetail extends BaseModel
     private String TaskAuditeStatus;
     private String ProcessStutas;
     private String TaskInstanceID;
-    private String U_LoginName;;
+    private String U_LoginName;
+
     /**默认构造方法，JSON等解析时必须要有
      */
     public MdlExamineEditDetail() {

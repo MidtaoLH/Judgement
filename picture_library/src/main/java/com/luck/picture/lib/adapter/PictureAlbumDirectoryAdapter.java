@@ -124,10 +124,10 @@ public class PictureAlbumDirectoryAdapter extends RecyclerView.Adapter<PictureAl
 
         public ViewHolder(View itemView) {
             super(itemView);
-            first_image = (ImageView) itemView.findViewById(R.id.first_image);
-            tv_folder_name = (TextView) itemView.findViewById(R.id.tv_folder_name);
-            image_num = (TextView) itemView.findViewById(R.id.image_num);
-            tv_sign = (TextView) itemView.findViewById(R.id.tv_sign);
+            first_image = itemView.findViewById(R.id.first_image);
+            tv_folder_name = itemView.findViewById(R.id.tv_folder_name);
+            image_num = itemView.findViewById(R.id.image_num);
+            tv_sign = itemView.findViewById(R.id.tv_sign);
         }
     }
 

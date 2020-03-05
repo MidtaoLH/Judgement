@@ -1,9 +1,16 @@
 package com.example.fv.judgement.app.application;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.widget.EditText;
 
+import org.ksoap2.serialization.SoapObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,5 +61,74 @@ public class GlobalMethodApplication  {
             }
         });
     }
+    //把String转化为float
+    public static float convertToFloat(String number, float defaultValue) {
+        if (TextUtils.isEmpty(number)) {
+            return defaultValue;
+        }
+        try {
+            return Float.parseFloat(number);
+        } catch (Exception e) {
+            return defaultValue;
+        }
 
+    }
+
+    //把String转化为double
+    public static double convertToDouble(String number, double defaultValue) {
+        if (TextUtils.isEmpty(number)) {
+            return defaultValue;
+        }
+        try {
+            return Double.parseDouble(number);
+        } catch (Exception e) {
+            return defaultValue;
+        }
+
+    }
+
+    //把String转化为int
+    public static int convertToInt(String number, int defaultValue) {
+        if (TextUtils.isEmpty(number)) {
+            return defaultValue;
+        }
+        try {
+            return Integer.parseInt(number);
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
+
+    //字符串转指定格式时间
+    public static String getMyDate(String str) {
+        return StringToDate(str, "yyyy-M-d", "yyyy-M-d");
+    }
+
+
+    //把string转成int数组 日期用
+    public static int[] StringToInt(String dateStr) {
+        int[] selectedDate=null;
+        String[] temp = dateStr.split("-");
+        if (temp != null && temp.length >= 3) {
+            selectedDate = new int[temp.length];
+            for (int i = 0; i < temp.length; i++) {
+                selectedDate[i] = Integer.parseInt(temp[i]);
+            }
+        }
+        return selectedDate;
+    }
+
+    public static String StringToDate(String dateStr, String dateFormatStr, String formatStr) {
+        DateFormat sdf = new SimpleDateFormat(dateFormatStr);
+        Date date = null;
+        try{
+            date = sdf.parse(dateStr);
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+        SimpleDateFormat s = new SimpleDateFormat(formatStr);
+
+        return s.format(date);
+    }
 }

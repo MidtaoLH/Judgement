@@ -4,7 +4,7 @@ import zuo.biao.library.base.BaseModel;
 
 public class MdlExamineEditImagePath extends BaseModel
 {
-    private String ImagePath;
+    private String AnnexPath;
 
     /**默认构造方法，JSON等解析时必须要有
      */
@@ -30,12 +30,12 @@ public class MdlExamineEditImagePath extends BaseModel
         return id > 0;// && StringUtil.isNotEmpty(phone, true);
     }
 
-    public String getImagePath() {
-        return ImagePath;
+    public String getAnnexPath() {
+        return AnnexPath;
     }
 
-    public void setImagePath(String imagePath) {
-        ImagePath = imagePath;
+    public void setAnnexPath(String annexPath) {
+        AnnexPath = annexPath;
     }
 }
 

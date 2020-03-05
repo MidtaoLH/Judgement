@@ -1,48 +1,36 @@
 package com.example.fv.judgement.app.activity.MyExamineList;
 
-import android.os.StrictMode;
-import android.os.Bundle;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import zuo.biao.library.base.BaseActivity;
 
-import com.alibaba.fastjson.JSONObject;
-import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.ApplyEdit.ApplyTaskLookActivity;
+import com.example.fv.judgement.app.activity.ExamineEdit.ExamineEdit;
+import com.example.fv.judgement.app.activity.Leave.LeaveEdit;
+import com.example.fv.judgement.app.activity.Leave.LeaveType;
+import com.example.fv.judgement.app.activity.Login.MainLogin;
 import com.example.fv.judgement.app.adapter.ExamineListAdapter;
 import com.example.fv.judgement.app.application.GlobalInformationApplication;
 import com.example.fv.judgement.app.model.ExamineModel;
-import com.example.fv.judgement.app.view.ExamineListView;
 
-import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.base.BaseHttpListFragment;
-import zuo.biao.library.base.BaseModel;
-import zuo.biao.library.base.BaseView.OnDataChangedListener;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.interfaces.CacheCallBack;
-import zuo.biao.library.interfaces.OnBottomDragListener;
-import zuo.biao.library.interfaces.OnHttpResponseListener;
-import zuo.biao.library.manager.CacheManager;
-import zuo.biao.library.ui.BottomMenuView;
-import zuo.biao.library.ui.BottomMenuView.OnBottomMenuItemClickListener;
-import zuo.biao.library.ui.BottomMenuWindow;
-import zuo.biao.library.ui.EditTextInfoActivity;
-import zuo.biao.library.ui.TextClearSuit;
-import zuo.biao.library.util.CommonUtil;
+import zuo.biao.library.ui.DatePickerWindow;
 import zuo.biao.library.util.JSON;
-import zuo.biao.library.util.Log;
-import zuo.biao.library.util.StringUtil;
+
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.LoginUserModel;
 import com.example.fv.judgement.app.util.HttpRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.tools.DebugUtil;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -54,9 +42,8 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
 {
 //	private static final String TAG = "UserListFragment";
         //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
         public static final String ARGUMENT_RANGE = "ARGUMENT_RANGE";
-
+        private String userID, groupid,iosid,code;
         public static WaitExamineList createInstance(int range) {
             WaitExamineList fragment = new WaitExamineList();
             Bundle bundle = new Bundle();
@@ -64,26 +51,15 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
             fragment.setArguments(bundle);
             return fragment;
         }
-        //与Activity通信>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
         public static final int RANGE_ALL = 0;//HttpRequest.USER_LIST_RANGE_ALL;
         public static final int RANGE_RECOMMEND = 1;//HttpRequest.USER_LIST_RANGE_RECOMMEND;
         private int range = RANGE_ALL;
-        private int CurentPageCount = 5;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
             super.onCreateView(inflater, container, savedInstanceState);
             argument = getArguments();
 
-            GetGroupWebService();
-
-
-            if (argument != null) {
-     //           range = argument.getInt(ARGUMENT_RANGE, range);
-            }
-  //          initCache(this);
             //功能归类分区方法，必须调用<<<<<<<<<<
             initView();
             initData();
@@ -103,7 +79,6 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
       //  public void setList(final List<ExamineModel> list) {
         public void setList(final List<ExamineModel> list) {
             setList(new AdapterCallBack<ExamineListAdapter>() {
-
                 @Override
                 public ExamineListAdapter createAdapter() {
                     return new ExamineListAdapter(context);
@@ -116,41 +91,35 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         }
         //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-        //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        public String GetGroupWebService()
-        {
-            String datastring = "";
-            try{
-                String methodName = "GetExamineEditData";
-
-                SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
-                        methodName);
-
-                soapObject.addProperty("userID", "96");
-                soapObject.addProperty("taskID", "438");
-                soapObject.addProperty("TaskType", "13");
-                soapObject.addProperty("iosid", "00000000-0000-0000-0000-000000000000");
-
-                //String methodName = "GetGroup";
-
-                //SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,
-                //methodName);
-
-                HttpRequest http=new HttpRequest();
-
-                datastring =http.httpWebService_GetString(methodName,soapObject);
-
-                return datastring;
-
-            } catch (Exception e) {
-
+        //点击跳转
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //如果是预览 跳到 ApplyTaskList
+            if(adapter.getItem(position).getTaskNodeOperateType().equals("1"))
+            {
+                startActivity(ApplyTaskLookActivity.createIntent(context, "1", adapter.getItem(position).getPicID()));
             }
-
-            return datastring;
+            else
+            {
+                startActivityForResult(ExamineEdit.createIntent(context, adapter.getItem(position).getDocumentName(), adapter.getItem(position).getTaskInstanceID()),0x002);
+            }
+          }
+    //下级页面销毁时返回
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==0x002){
+            showShortToast(GlobalVariableApplication.SaveMessage);
+            srlBaseHttpList.autoRefresh();
         }
-
+    }
+        //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         @Override
         public void initData() {//必须调用
+            LoginUserModel model = GlobalInformationApplication.getInstance().getCurrentUser();
+            userID = model.getId();
+            groupid = model.getGroupid();
+            iosid =model.getAdId();
+            code=model.getEmpID();
             super.initData();
         }
 
@@ -161,45 +130,34 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
 
             int pageindex = page;
             pageindex++;
-            CurentPageCount = 5;
-
-//            if(pageindex == 0)
-//            {
-//
-////                CurentPageCount = CurentPageCount*pageindex;pageindex
-//            }
-//            else
-//            {
-//                CurentPageCount = CurentPageCount*pageindex;
-//            }
-//            String strPageIndex = String.valueOf(pageindex);
 
             String methodName = "GetPendingInfoAndroid";
             SoapObject soapObject = new SoapObject(GlobalVariableApplication.SERVICE_NAMESPACE,methodName);
             soapObject.addProperty("pasgeIndex",pageindex);
-            soapObject.addProperty("pageSize",CurentPageCount);
-            soapObject.addProperty("code",45);
-            soapObject.addProperty("userID",96);
+            soapObject.addProperty("pageSize" ,GlobalVariableApplication.pageSize);
+            soapObject.addProperty("code",code);
+            soapObject.addProperty("userID",userID);
             soapObject.addProperty("menuID","4");
-            soapObject.addProperty("iosid","00000000-0000-0000-0000-000000000000");
+            soapObject.addProperty("iosid",iosid);
             HttpRequest httpres= new HttpRequest();
             String jsonData = httpres.httpWebService_GetString(methodName,soapObject);
-            List<ExamineModel> listExaData=new ArrayList<ExamineModel>();
 
-            Type type = new TypeToken<List<ExamineModel>>(){}.getType();
-            listExaData = new Gson().fromJson(jsonData,type);
-
-            //框架是 每次取增量数据
-            onHttpResponse(-page, JSON.toJSONString(listExaData), null);
-            //仅测试用<<<<<<<<<<<
-//            new Handler().postDelayed(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    onHttpResponse(-page, page >= 5 ? null : JSON.toJSONString(TestUtil.getUserList(page, getCacheCount())), null);
-//                }
-//            }, 1000);
-            //仅测试用>>>>>>>>>>>>
+            if (jsonData.equals(GlobalVariableApplication.UnLoginFlag))
+            {
+                showShortToast(GlobalVariableApplication.UnLoginFlag);
+                Intent intent = new Intent();
+                intent.setClass(this.context, MainLogin.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+            else if(jsonData.length()>0) {
+                List<ExamineModel> listExaData = new ArrayList<ExamineModel>();
+                Type type = new TypeToken<List<ExamineModel>>() {
+                }.getType();
+                listExaData = new Gson().fromJson(jsonData, type);
+                //框架是 每次取增量数据
+                onHttpResponse(-page, JSON.toJSONString(listExaData), null);
+            }
         }
 
         @Override
@@ -236,12 +194,7 @@ public class WaitExamineList extends BaseHttpListFragment<ExamineModel, ListView
         public void initEvent() {//必须调用
             super.initEvent();
         }
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            if (id > 0) {
-//                toActivity(UserActivity.createIntent(context, id));
-//            }
-//        }
+
         //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
         //生命周期、onActivityResult>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

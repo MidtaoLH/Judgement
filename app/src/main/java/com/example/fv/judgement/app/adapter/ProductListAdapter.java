@@ -1,7 +1,7 @@
 package com.example.fv.judgement.app.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +11,14 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.fv.judgement.R;
 import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.example.fv.judgement.app.model.MdlExamineEditDetail;
-import com.example.fv.judgement.app.model.Product;
 
 import java.util.List;
-
-import zuo.biao.library.util.CommonUtil;
 
 /**
  * Created by Arvin on 2017/1/13.
@@ -33,6 +31,9 @@ public class ProductListAdapter extends BaseAdapter {
     private String dataType;
 
     public ProductListAdapter(Context context, List<MdlExamineEditDetail> products,String DataType) {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
+
         this.context = context;
         this.products = products;
         this.dataType = DataType;
@@ -53,33 +54,59 @@ public class ProductListAdapter extends BaseAdapter {
         return position;
     }
 
-    public ImageView ivUserViewHead;
+    public ImageView ivUserViewHeadList;
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // 获取小布局
+        View view;
         if(convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.examine_edit_list, null);
+            view = LayoutInflater.from(context).inflate(R.layout.examine_edit_list, null);
         }
-
+        else
+        {
+            view = convertView;
+        }
         // 获取小布局中的组件
-        ivUserViewHead = convertView.findViewById(R.id.ivUserViewHead);
-        TextView tvEmpName = convertView.findViewById(R.id.tvEmpName);
-        TextView tvLeave = convertView.findViewById(R.id.tvLeave);
-        TextView tvCaseDate = convertView.findViewById(R.id.tvCaseDate);
-        TextView tvGroupName = convertView.findViewById(R.id.tvGroupName);
-        TextView tvRemark = convertView.findViewById(R.id.tvRemark);
+        ivUserViewHeadList = view.findViewById(R.id.ivUserViewHeadList);
+        ImageView ivSelectImage = view.findViewById(R.id.iv_select);
+        TextView tvEmpName = view.findViewById(R.id.tvEmpName);
+        TextView tvLeave = view.findViewById(R.id.tvLeave);
+        TextView tvCaseDate = view.findViewById(R.id.tvCaseDate);
+        TextView tvGroupName = view.findViewById(R.id.tvGroupName);
+        TextView tvRemark = view.findViewById(R.id.tvRemark);
 
         // 给组件设置数据
         MdlExamineEditDetail product = products.get(position);
-        //格式化头像地址
+
         String strPhoto = String.format(GlobalVariableApplication.SERVICE_PHOTO_URL,product.getU_LoginName());
-        Glide.with(context).asBitmap().load(strPhoto).into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
-                ivUserViewHead.setImageBitmap(CommonUtil.toRoundCorner(bitmap, bitmap.getWidth()/2));
-            }
-        });
+      //  initLoadImage(Glide.with(context), context, strPhoto, ivUserViewHeadList);
+
+        Glide.with(context).load(strPhoto)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .into(ivUserViewHeadList);
+        //是否选择
+       if(product.getTaskAuditeStatus().equals("1") || product.getTaskAuditeStatus().equals("2"))
+       {
+           ivSelectImage.setImageResource(R.drawable.unselect);
+       }
+       else if(product.getTaskAuditeStatus().equals("4"))
+       {
+           ivSelectImage.setImageResource(R.drawable.orderselect);
+       }
+       else
+       {
+           ivSelectImage.setImageResource(R.drawable.finish2);
+       }
+
+//        Glide.with(context).asBitmap().load(strPhoto).into(new SimpleTarget<Bitmap>() {
+//            @Override
+//            public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+//                ivUserViewHeadList.setImageBitmap(CommonUtil.toRoundCorner(bitmap, bitmap.getWidth()/2));
+//            }
+//        });
+
+        //   ivUserViewHeadList.setImageResource(R.drawable.pro04);
         tvEmpName.setText(product.getName());
         tvLeave.setText(product.getLevelname());
         tvCaseDate.setText(product.getTaskDate());
@@ -87,6 +114,12 @@ public class ProductListAdapter extends BaseAdapter {
         tvRemark.setText(product.getRemark());
 
         // 返回小布局视图
-        return convertView;
+        return view;
     }
+    private void initLoadImage(RequestManager glide, Context context, String url, ImageView imageView) {
+                 glide.load(url)
+                .thumbnail(0.1f)
+                .into(imageView);
+    }
+
 }

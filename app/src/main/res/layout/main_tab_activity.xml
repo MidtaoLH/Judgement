@@ -5,7 +5,7 @@
     <RelativeLayout
         android:id="@+id/rlBottomTabTopbar"
         style="@style/topbar_bg" >
-
+        <ImageButton  style="@style/topbar_return_img" />
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"

@@ -7,15 +7,23 @@ import com.example.fv.judgement.app.application.GlobalVariableApplication;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -44,7 +52,7 @@ public class HttpRequest {
             if (envelope.getResponse() != null) {
                 // 获取服务器响应返回的SOAP消息
                 // SoapObject result = (SoapObject) envelope.bodyIn;
-                Object object = (Object)envelope.getResponse();
+                Object object = envelope.getResponse();
                 String jsonString=object.toString();
                 // String jsonString=new Gson().toJson(object);
                 Log.e("test", jsonString);
@@ -78,7 +86,7 @@ public class HttpRequest {
             if (envelope.getResponse() != null) {
                 // 获取服务器响应返回的SOAP消息
                 // SoapObject result = (SoapObject) envelope.bodyIn;
-                Object object = (Object)envelope.getResponse();
+                Object object = envelope.getResponse();
                 String jsonString=object.toString();
                 // String jsonString=new Gson().toJson(object);
                 Log.e("test", jsonString);

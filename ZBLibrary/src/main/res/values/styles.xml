@@ -527,7 +527,16 @@
     <item name="android:paddingLeft">@dimen/padding_micro</item>
     <item name="android:src">@drawable/forward2_light</item>
 </style>
-
+    <style name="content_item_rt_img_add" parent="text_middle">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:paddingLeft">@dimen/padding_micro</item>
+    <item name="android:src">@drawable/add</item>
+</style>
+    <style name="content_item_rt_img_delete" parent="text_middle">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">@dimen/padding_micro</item>
+        <item name="android:src">@drawable/add</item>
+    </style>
     <!-- content item >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <style name="content_item_gray" parent="content_item">
 

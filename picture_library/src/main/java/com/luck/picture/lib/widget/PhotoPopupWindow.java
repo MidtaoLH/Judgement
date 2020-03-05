@@ -44,11 +44,11 @@ public class PhotoPopupWindow extends PopupWindow implements View.OnClickListene
         this.setContentView(inflate);
         animationIn = AnimationUtils.loadAnimation(context, R.anim.up_in);
         animationOut = AnimationUtils.loadAnimation(context, R.anim.down_out);
-        ll_root = (LinearLayout) inflate.findViewById(R.id.ll_root);
-        fl_content = (FrameLayout) inflate.findViewById(R.id.fl_content);
-        picture_tv_photo = (TextView) inflate.findViewById(R.id.picture_tv_photo);
-        picture_tv_cancel = (TextView) inflate.findViewById(R.id.picture_tv_cancel);
-        picture_tv_video = (TextView) inflate.findViewById(R.id.picture_tv_video);
+        ll_root = inflate.findViewById(R.id.ll_root);
+        fl_content = inflate.findViewById(R.id.fl_content);
+        picture_tv_photo = inflate.findViewById(R.id.picture_tv_photo);
+        picture_tv_cancel = inflate.findViewById(R.id.picture_tv_cancel);
+        picture_tv_video = inflate.findViewById(R.id.picture_tv_video);
         picture_tv_video.setOnClickListener(this);
         picture_tv_cancel.setOnClickListener(this);
         picture_tv_photo.setOnClickListener(this);

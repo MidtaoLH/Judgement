@@ -19,16 +19,23 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.view.View;
+
 import com.example.fv.judgement.R;
+import com.example.fv.judgement.app.activity.Leave.LeaveEdit;
+import com.example.fv.judgement.app.activity.Leave.LeaveType;
+import com.example.fv.judgement.app.application.GlobalVariableApplication;
 
 import zuo.biao.library.base.BaseBottomTabActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
+import zuo.biao.library.ui.DatePickerWindow;
+import zuo.biao.library.util.TimeUtil;
 
 /**应用主页
  * @author Lemon
  * @use MainTabActivity.createIntent(...)
  */
-public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDragListener {
+public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDragListener,View.OnClickListener  {
 	//	private static final String TAG = "MainTabActivity";
 
 	//启动方法<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -50,16 +57,12 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_tab_activity, this);
-
 		//功能归类分区方法，必须调用<<<<<<<<<<
 		initView();
 		initData();
 		initEvent();
 		//功能归类分区方法，必须调用>>>>>>>>>>
 	}
-
-	// UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
 		@Override
 		public void initView() {// 必须调用
 			super.initView();
@@ -84,6 +87,7 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
 		return R.id.flMainTabFragmentContainer;
 	}
 
+	//TABBAR 切换
 	@Override
 	protected Fragment getFragment(int position) {
 		switch (position) {
@@ -93,9 +97,8 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
 			default:
 				return WaitExamineList.createInstance(WaitExamineList.RANGE_ALL);
 		}
-	};
-
-//	private static final String[] TAB_NAMES = {"主页", "消息", "发现", "设置"};
+	}
+    //	private static final String[] TAB_NAMES = {"主页", "消息", "发现", "设置"};
     private static final String[] TAB_NAMES = {"待审批", "已审批"};
 	@Override
 	protected void selectTab(int position) {
@@ -144,6 +147,20 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
 		}
 		return super.onKeyUp(keyCode, event);
 	}
+	@Override
+	public void onReturnClick(View v) {
+		finish();
+	}
+	@Override
+	public void onClick(View v) {
+		String message="";
+		switch (v.getId()) {
+			case R.id.left_back:
+				finish();
+				break;
+		}
+	}
+
 	//双击手机返回键退出>>>>>>>>>>>>>>>>>>>>>
 
 	//生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

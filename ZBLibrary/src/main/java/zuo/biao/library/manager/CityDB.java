@@ -155,10 +155,10 @@ public class CityDB {
      */
     private String parseName(String city) {
         if (city.contains("市")) {// 如果为空就去掉市字再试试
-            String subStr[] = city.split("市");
+            String[] subStr = city.split("市");
             city = subStr[0];
         } else if (city.contains("县")) {// 或者去掉县字再试试
-            String subStr[] = city.split("县");
+            String[] subStr = city.split("县");
             city = subStr[0];
         }
         return city;

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.activity.Leave.LeaveEdit">
+    <LinearLayout style="@style/activity_page"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            style="@style/topbar_bg"
+            android:background="@color/btn_gray_normal">
+
+            <ImageButton style="@style/topbar_return_img" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/topbar_title"
+                android:layout_centerHorizontal="true"
+                android:text="考勤日历" />
+        </RelativeLayout>
+
+        <ScrollView
+            style="@style/match_match"
+            android:layout_weight="1">
+
+            <LinearLayout style="@style/ll_vertical_match_match">
+
+                <LinearLayout
+                    android:id="@+id/llUserBusinessCardContainer"
+                    style="@style/ll_vertical_match_wrap"
+                    android:layout_marginTop="@dimen/padding_huge"
+                    android:layout_marginBottom="@dimen/padding_huge"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/imagely"
+                    style="@style/content_item_white"
+                    android:layout_height="100dp"
+                    android:background="@drawable/white_border">
+
+                    <ImageView
+                        android:id="@+id/ivUserViewHead"
+                        style="@style/img_fitXY"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/oval_alpha" />
+
+                    <LinearLayout
+                        android:id="@+id/userly"
+                        style="@style/content_item_white"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/white_bordernoleft"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tvEmpName"
+                            style="@style/text_middle_black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="Name"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvDept"
+                            style="@style/text_middle_black"
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="Name" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

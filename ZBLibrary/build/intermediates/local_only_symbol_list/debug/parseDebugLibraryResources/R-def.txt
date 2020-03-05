@@ -450,6 +450,8 @@ style content_item_remind_tv_rt
 style content_item_rt
 style content_item_rt_et
 style content_item_rt_img
+style content_item_rt_img_add
+style content_item_rt_img_delete
 style content_item_rt_tv
 style content_item_rt_tv_blue
 style content_item_white

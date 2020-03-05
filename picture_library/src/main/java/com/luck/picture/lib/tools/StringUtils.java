@@ -20,14 +20,10 @@ import com.luck.picture.lib.config.PictureMimeType;
 
 public class StringUtils {
     public static boolean isCamera(String title) {
-        if (!TextUtils.isEmpty(title) && title.startsWith("相机胶卷")
+        return !TextUtils.isEmpty(title) && title.startsWith("相机胶卷")
                 || title.startsWith("CameraRoll")
                 || title.startsWith("所有音频")
-                || title.startsWith("All audio")) {
-            return true;
-        }
-
-        return false;
+                || title.startsWith("All audio");
     }
 
     public static void tempTextFont(TextView tv, int mimeType) {

@@ -131,7 +131,7 @@ public class BottomMenuView extends BaseView<List<Menu>> {
 						"|| StringUtil.isNotEmpty(fsb.getName(), true) == false " +
 						"|| fsb.getImageRes() <= 0 >> return;");
 				return;
-			};
+			}
 		}
 
 		LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.icon_name_item, null);

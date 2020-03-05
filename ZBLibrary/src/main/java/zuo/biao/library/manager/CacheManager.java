@@ -288,9 +288,7 @@ public class CacheManager {
 				if (id == null || id.isEmpty()) {
 					continue;
 				}
-				if (idList.contains(id)) {
-					idList.remove(id);//位置发生变化
-				}
+                idList.remove(id);//位置发生变化
 				if (i < idList.size()) {
 					idList.set(i, id);
 				} else { 

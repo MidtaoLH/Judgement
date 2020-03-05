@@ -21,7 +21,7 @@ public class ProductShowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_examine_edit1);
 
-        this.lvProduct = (ListView) findViewById(R.id.ExamineList);
+        this.lvProduct = findViewById(R.id.ExamineList);
 
         // 初始化产品数据
         this.products = new ArrayList<Product>();

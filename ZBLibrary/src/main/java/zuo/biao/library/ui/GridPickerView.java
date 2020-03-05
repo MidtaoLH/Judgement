@@ -100,10 +100,10 @@ public class GridPickerView extends BaseView<List<Entry<Integer, String>>> {
 	}
 
 	public boolean isOnFirstTab() {
-		return getTabCount() <= 0 ? false : getCurrentTabPosition() <= 0;
+		return getTabCount() > 0 && getCurrentTabPosition() <= 0;
 	}
 	public boolean isOnLastTab() {
-		return getTabCount() <= 0 ? false : getCurrentTabPosition() >= getTabCount() - 1;
+		return getTabCount() > 0 && getCurrentTabPosition() >= getTabCount() - 1;
 	}
 
 	private int currentTabPosition;
